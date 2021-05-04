@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_native"
+        android:title="Player Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+    <item
+        android:id="@+id/profile_name_dialog"
+        android:title="Change Profile" />
+
+    <item
+        android:id="@+id/icon_credits"
+        android:title="Icon Credits" />
+
+    <item
+        android:id="@+id/library_credits"
+        android:title="Library Credits" />
+
+</menu>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.cyb3rko.cavedroid.HomeFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.cyb3rko.cavedroid.SearchFragment"
+        android:label="Item Search"
+        tools:layout="@layout/fragment_item_search" />
+
+    <fragment
+        android:id="@+id/navigation_rankings"
+        android:name="com.cyb3rko.cavedroid.RankingsFragment"
+        android:label="Rankings"
+        tools:layout="@layout/fragment_rankings">
+        <action
+            android:id="@+id/open_ranking"
+            app:destination="@id/navigation_ranking" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_ranking"
+        android:name="com.cyb3rko.cavedroid.RankingFragment"
+        tools:layout="@layout/fragment_ranking"
+        android:label="Ranking: {title}">
+        <argument
+            android:name="rankingType"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/close_ranking"
+            app:destination="@id/navigation_rankings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_about_icons"
+        android:name="com.cyb3rko.cavedroid.AboutIconsFragment"
+        android:label="Credits">
+    </fragment>
+</navigation>

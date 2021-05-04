@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ic_balance">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/wallet_1198291</item>
+    </string-array>
+
+    <string-array name="ic_bought">
+        <item>Darius Dan</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/shopping-bag_743007</item>
+    </string-array>
+
+    <string-array name="ic_earnings">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/de/kostenloses-icon/ausgaben_2273267</item>
+    </string-array>
+
+    <string-array name="ic_offers">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/price-tag_3176302</item>
+    </string-array>
+
+    <string-array name="ic_profile">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/user_1077114</item>
+    </string-array>
+
+    <string-array name="ic_ranking">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/ranking_3487157</item>
+    </string-array>
+
+    <string-array name="ic_richlist">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/rich_3142069</item>
+    </string-array>
+
+    <string-array name="ic_search">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/magnifier_64673</item>
+    </string-array>
+
+    <string-array name="ic_sold">
+        <item>Kiranshastry</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/sold_1454236</item>
+        <item>true</item>
+    </string-array>
+
+    <string-array name="ic_spending">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/de/kostenloses-icon/ausgaben_2273255</item>
+    </string-array>
+
+    <string-array name="ic_topitems">
+        <item>Payungkead</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/cart_2479796</item>
+    </string-array>
+
+    <string-array name="ic_topseller">
+        <item>Flat Icons</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/agent_2534183</item>
+    </string-array>
+
+    <string-array name="item_andesite">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Andesite_JE3_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_arrow">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Arrow?file=Arrow.png</item>
+        <item>false</item>
+        <item>cc_by_sa_4_0</item>
+    </string-array>
+
+    <string-array name="item_bamboo">
+        <item>Occasional minecraft bamboo posting</item>
+        <item>facebook.com</item>
+        <item>https://www.facebook.com/Bambooposting/photos/a.105541730808614/105548014141319</item>
+        <item>true</item>
+    </string-array>
+
+    <string-array name="item_beetroot">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Beetroot_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_birch_log">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Birch_Log_(UD)_JE5_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_blackstone">
+        <item>DeniseKLI</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Blackstone_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_black_wool">
+        <item>ItsPlantseed</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Black_Wool_JE3_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_bone_block">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Bone_Block_(UD)_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_diamond_block">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Block_of_Diamond_JE6_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_bone">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Bone_JE3_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_bricks">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Bricks_JE5_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_cactus">
+        <item>Deshman-gpuser</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Cactus_JE4.png</item>
+    </string-array>
+
+    <string-array name="item_carrot">
+        <item>Kingcat 100</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Karotte.png</item>
+    </string-array>
+
+    <string-array name="item_coal">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Coal_JE4_BE3.png</item>
+    </string-array>
+
+    <string-array name="item_cooked_beef">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Steak_JE4_BE3.png</item>
+    </string-array>
+
+    <string-array name="item_cobblestone">
+        <item>Deshman-gpuser</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Cobblestone_JE6_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_dirt">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Dirt_JE2_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_dark_oak_log">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Dark_Oak_Log_(UD)_JE5_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_emerald">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Emerald_JE3_BE3.png</item>
+    </string-array>
+
+    <string-array name="item_ender_pearl">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Ender_Pearl_JE3_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_firework_rocket">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Firework_Rocket_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_glass">
+        <item>Deshman-gpuser</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Glass_JE4_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_gold_ingot">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Gold_Ingot_JE4_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_grass_block">
+        <item>Deshman-gpuser</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Grass_Block_JE7_BE6.png</item>
+    </string-array>
+
+    <string-array name="item_gravel">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Gravel_JE5_BE4.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_gunpowder">
+        <item>Pneuma01</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Gunpowder_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_iron_ingot">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Iron_Ingot_JE3_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_jungle_log">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Jungle_Log_(UD)_JE6_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_lapis_lazuli">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Lapis_Lazuli_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_leather">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Leather_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_nether_wart">
+        <item>DeletedUser40504713</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Netherwarze.png</item>
+    </string-array>
+
+    <string-array name="item_oak_log">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Oak_Log_(UD)_JE5_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_obsidian">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Obsidian_JE3_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_paper">
+        <item>Thgabs</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Paper_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_potato">
+        <item>Kingcat 100</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Kartoffel.png</item>
+    </string-array>
+
+    <string-array name="item_prismarine_shard">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Prismarine_Shard_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_pumpkin">
+        <item>Deshman-gpuser</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Pumpkin_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_quartz">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Nether_Quartz_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_quartz_block">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Block_of_Quartz_JE3.png</item>
+    </string-array>
+
+    <string-array name="item_redstone">
+        <item>DeletedUser666948@legacy41520203</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Redstone-Staub.png</item>
+    </string-array>
+
+    <string-array name="item_rotten_flesh">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Rotten_Flesh_JE3_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_sand">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Sand.png</item>
+    </string-array>
+
+    <string-array name="item_sandstone">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Sandstone_JE6_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_spruce_log">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Spruce_Log_(UD)_JE5_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_stone">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Stein.png</item>
+    </string-array>
+
+    <string-array name="item_stone_bricks">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Stone_Bricks_JE3_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+    <string-array name="item_sugar_cane">
+        <item>Covs 2k20</item>
+        <item>pngitem.com/</item>
+        <item>https://www.pngitem.com/middle/mwxxRw_minecraft-sugar-cane-item-hd-png-download/</item>
+        <item>true</item>
+    </string-array>
+
+    <string-array name="item_wheat">
+        <item>PancakeIdentity</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Wheat_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_wheat_seeds">
+        <item>Kingcat 100</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Weizenk%C3%B6rner.png</item>
+    </string-array>
+
+    <string-array name="item_white_wool">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:White_Wool_JE2_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3_0</item>
+    </string-array>
+
+</resources>
