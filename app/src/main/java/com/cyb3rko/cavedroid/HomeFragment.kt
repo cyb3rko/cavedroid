@@ -1,8 +1,10 @@
 package com.cyb3rko.cavedroid
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -178,6 +180,17 @@ class HomeFragment : Fragment() {
                 .withCheckCachedDetection(true)
                 .withSortEnabled(true)
                 .start(requireContext())
+            true
+        }
+
+        menu.findItem(R.id.feedback).setOnMenuItemClickListener {
+            MaterialDialog(requireActivity())
+                .title(text = "Have some feedback?")
+                .message(text = "If you have some feedback or you found a bug, feel free to report it on the GitHub repository.")
+                .positiveButton(text = "Open Repo") { it2 ->
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cyb3rko/cavedroid/issues")))
+                }
+                .show()
             true
         }
 

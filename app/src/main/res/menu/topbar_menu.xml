@@ -21,4 +21,8 @@
         android:id="@+id/library_credits"
         android:title="Library Credits" />
 
+    <item
+        android:id="@+id/feedback"
+        android:title="Feedback / Bug Report" />
+
 </menu>
