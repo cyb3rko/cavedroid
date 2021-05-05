@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cyb3rko.cavedroid.databinding.FragmentRankingBinding
 import com.cyb3rko.cavedroid.rankings.ItemEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.ItemViewState
@@ -64,9 +65,15 @@ class RankingFragment : Fragment() {
                             vh.nameView.text = player.name
                             vh.dataView.text = player.data
                             if (player.name != "The Bank") {
-                                Glide.with(myContext).load(api.getAvatarLink(player.name, 100)).into(vh.avatarView)
+                                Glide.with(myContext)
+                                    .load(api.getAvatarLink(player.name, 100))
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(vh.avatarView)
                             } else {
-                                Glide.with(myContext).load(api.getAvatarLink("God", 100)).into(vh.avatarView)
+                                Glide.with(myContext)
+                                    .load(api.getAvatarLink("God", 100))
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(vh.avatarView)
                             }
                         }
                     )
