@@ -25,3 +25,4 @@
 }
 
 -keep class com.cyb3rko.cavedroid.** { *; }
+-keep class com.mikepenz.aboutlibraries.** { *; }
