@@ -115,27 +115,29 @@ class RankingFragment : Fragment() {
                 3 -> api.getTopItems(limit)
                 else -> listOf()
             }
-            when (args.rankingType) {
-                1, 2 -> {
-                    val tempList = MutableList(limit) {
-                        val pair = list[it] as Pair<String, String>
-                        PlayerViewState.PlayerEntry(pair.first, "${pair.second}\n$dataSuffix")
+            if (list.isNotEmpty()) {
+                when (args.rankingType) {
+                    1, 2 -> {
+                        val tempList = MutableList(limit) {
+                            val pair = list[it] as Pair<String, String>
+                            PlayerViewState.PlayerEntry(pair.first, "${pair.second}\n$dataSuffix")
+                        }
+                        adapter.submitList(tempList as List<Nothing>?)
                     }
-                    adapter.submitList(tempList as List<Nothing>?)
-                }
-                3 -> {
-                    val tempList = MutableList(limit) {
-                        val triple = list[it] as Triple<String, String, String>
-                        ItemViewState.ItemEntry(triple.first, "${triple.second}\nSold Units", "${triple.third}\nCoins")
+                    3 -> {
+                        val tempList = MutableList(limit) {
+                            val triple = list[it] as Triple<String, String, String>
+                            ItemViewState.ItemEntry(triple.first, "${triple.second}\nSold Units", "${triple.third}\nCoins")
+                        }
+                        adapter.submitList(tempList as List<Nothing>?)
                     }
-                    adapter.submitList(tempList as List<Nothing>?)
                 }
-            }
-            activity?.runOnUiThread {
-                binding.animationView.visibility = View.INVISIBLE
-                binding.animationView.pauseAnimation()
-                binding.recycler.layoutManager = LinearLayoutManager(myContext)
-                binding.recycler.adapter = adapter
+                activity?.runOnUiThread {
+                    binding.animationView.visibility = View.INVISIBLE
+                    binding.animationView.pauseAnimation()
+                    binding.recycler.layoutManager = LinearLayoutManager(myContext)
+                    binding.recycler.adapter = adapter
+                }
             }
         }
     }
