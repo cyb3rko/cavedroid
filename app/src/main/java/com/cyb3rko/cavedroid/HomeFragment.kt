@@ -65,6 +65,18 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.refreshLayout.apply {
+            setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
+            setColorSchemeResources(R.color.refreshLayoutArrow)
+            setOnRefreshListener {
+                loadProfile(myPrefs.getString("name", "")!!)
+            }
+        }
+    }
+
     private fun loadProfile(name: String) {
         GlobalScope.launch {
             try {
@@ -97,6 +109,7 @@ class HomeFragment : Fragment() {
                                     soldView.text = Html.fromHtml("<b>Items sold:</b><br/>${user.itemsSold}")
                                     boughtView.text = Html.fromHtml("<b>Items bought:</b><br/>${user.itemsBought}")
                                     offersView.text = Html.fromHtml("<b>Current offers:</b><br/>${user.currentOffers}")
+                                    refreshLayout.isRefreshing = false
                                 }
                                 showInformation(true)
                                 return false

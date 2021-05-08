@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="cardBackground">@color/cardview_dark_background</color>
+    <color name="refreshLayoutBackground">@color/cardview_dark_background</color>
+    <color name="refreshLayoutArrow">#FFFFFF</color>
 </resources>
