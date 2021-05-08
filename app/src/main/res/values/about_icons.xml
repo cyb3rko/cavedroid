@@ -79,7 +79,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Andesite_JE3_BE2.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_arrow">
@@ -87,7 +87,7 @@
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Arrow?file=Arrow.png</item>
         <item>false</item>
-        <item>cc_by_sa_4_0</item>
+        <item>cc_by_sa_4.0</item>
     </string-array>
 
     <string-array name="item_bamboo">
@@ -108,7 +108,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Birch_Log_(UD)_JE5_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_blackstone">
@@ -122,7 +122,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Black_Wool_JE3_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_bone_block">
@@ -136,7 +136,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Block_of_Diamond_JE6_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_bone">
@@ -150,7 +150,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Bricks_JE5_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_cactus">
@@ -182,7 +182,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Cobblestone_JE6_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_dirt">
@@ -190,7 +190,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Dirt_JE2_BE2.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_dark_oak_log">
@@ -198,7 +198,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Dark_Oak_Log_(UD)_JE5_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_emerald">
@@ -224,7 +224,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Glass_JE4_BE2.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_gold_ingot">
@@ -244,7 +244,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Gravel_JE5_BE4.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_gunpowder">
@@ -264,7 +264,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Jungle_Log_(UD)_JE6_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_lapis_lazuli">
@@ -290,7 +290,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Oak_Log_(UD)_JE5_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_obsidian">
@@ -298,7 +298,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Obsidian_JE3_BE2.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_paper">
@@ -360,7 +360,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Sandstone_JE6_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_spruce_log">
@@ -368,7 +368,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Spruce_Log_(UD)_JE5_BE3.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_stone">
@@ -382,7 +382,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Stone_Bricks_JE3_BE2.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_sugar_cane">
@@ -409,7 +409,7 @@
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:White_Wool_JE2_BE2.png</item>
         <item>false</item>
-        <item>cc_by_nc_3_0</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
 </resources>
