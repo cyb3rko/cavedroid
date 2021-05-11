@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
@@ -157,10 +158,18 @@ class HomeFragment : Fragment() {
         })
 
         menuSearchItem.setOnActionExpandListener(object: MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean { return true }
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                menu.forEach {
+                    it.isVisible = false
+                }
+                return true
+            }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 hideKeyboard()
+                menu.forEach {
+                    it.isVisible = true
+                }
                 binding.animationView.playAnimation()
                 binding.animationView.visibility = View.VISIBLE
                 showInformation(false)
@@ -206,8 +215,6 @@ class HomeFragment : Fragment() {
                 .show()
             true
         }
-
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun showNameDialog() {
