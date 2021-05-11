@@ -3,14 +3,11 @@ package com.cyb3rko.cavedroid
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.text.Html
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,7 +66,7 @@ class SearchFragment : Fragment() {
 
         webView = WebView(myContext)
         webView.settings.javaScriptEnabled = true
-        val webInterface = JavaScriptInterface()
+        val webInterface = JavascriptInterface()
         webView.addJavascriptInterface(webInterface, "HtmlViewer")
         webView.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
@@ -111,10 +108,10 @@ class SearchFragment : Fragment() {
     }
 
     private fun loadHtmlIntoRecycler(
-            webInterface: JavaScriptInterface,
-            adapter: RecyclerViewAdapter<MarketViewState.MarketEntry, RecyclerViewHolder<MarketViewState.MarketEntry>>
+        webInterface: JavascriptInterface,
+        adapter: RecyclerViewAdapter<MarketViewState.MarketEntry, RecyclerViewHolder<MarketViewState.MarketEntry>>
     ) {
-        val list = api.getMarketResults(webInterface.html)
+        val list = api.getMarketResults(webInterface.html!!)
         val finalList = MutableList(list.size) {
             val tempList = list[it]
             MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
