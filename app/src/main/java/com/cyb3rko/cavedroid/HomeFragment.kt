@@ -244,6 +244,11 @@ class HomeFragment : Fragment() {
             true
         }
 
+        menu.findItem(R.id.animation_credits).setOnMenuItemClickListener {
+            findNavController().navigate(R.id.navigation_about_animations)
+            true
+        }
+
         menu.findItem(R.id.feedback).setOnMenuItemClickListener {
             MaterialDialog(requireActivity())
                 .title(text = "Have some feedback?")

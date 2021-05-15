@@ -22,6 +22,10 @@
         android:title="Library Credits" />
 
     <item
+        android:id="@+id/animation_credits"
+        android:title="Animation Credits" />
+
+    <item
         android:id="@+id/feedback"
         android:title="Feedback / Bug Report" />
 

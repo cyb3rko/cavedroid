@@ -78,4 +78,10 @@
         android:name="com.cyb3rko.cavedroid.AboutIconsFragment"
         android:label="Credits">
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_about_animations"
+        android:name="com.cyb3rko.cavedroid.AnimationCreditsFragment"
+        android:label="Credits">
+    </fragment>
 </navigation>
