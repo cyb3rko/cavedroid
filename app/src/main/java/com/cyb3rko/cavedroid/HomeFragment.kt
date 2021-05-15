@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onPreShow
 import com.afollestad.materialdialogs.customview.customView
@@ -40,6 +41,9 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val api = CavetaleAPI()
+    private val args: HomeFragmentArgs by navArgs()
+    private var currentName = ""
+    private lateinit var topMenu: Menu
     private lateinit var myPrefs: SharedPreferences
     private lateinit var myPrefsEditor: SharedPreferences.Editor
 
@@ -56,9 +60,25 @@ class HomeFragment : Fragment() {
         myPrefs = requireActivity().getSharedPreferences("Safe", Context.MODE_PRIVATE)
         myPrefsEditor = myPrefs.edit()
 
-        val name = myPrefs.getString("name", "")!!
-        if (name != "") {
-            loadProfile(name)
+        currentName = myPrefs.getString("name", "")!!
+        if (currentName != "" && args.name == "") {
+            loadProfile(currentName)
+        } else if (currentName != "" && args.name != "") {
+            if (args.name != currentName) {
+                GlobalScope.launch {
+                    while (!this@HomeFragment::topMenu.isInitialized) {}
+                    activity?.runOnUiThread {
+                        topMenu.forEach {
+                            it.isVisible = false
+                        }
+                        val searchView = topMenu.findItem(R.id.search)
+                        searchView.expandActionView()
+                        (searchView.actionView as SearchView).setQuery(args.name, true)
+                    }
+                }
+            } else {
+                loadProfile(currentName)
+            }
         } else {
             showNameDialog()
         }
@@ -75,6 +95,21 @@ class HomeFragment : Fragment() {
             setOnRefreshListener {
                 loadProfile(myPrefs.getString("name", "")!!)
             }
+        }
+
+        binding.soldContainer.setOnClickListener {
+            val action = HomeFragmentDirections.openProfileCategory(1, currentName, "Items sold (highest amount)")
+            findNavController().navigate(action)
+        }
+
+        binding.boughtContainer.setOnClickListener {
+            val action = HomeFragmentDirections.openProfileCategory(2, currentName, "Items bought (highest amount)")
+            findNavController().navigate(action)
+        }
+
+        binding.offersContainer.setOnClickListener {
+            val action = HomeFragmentDirections.openProfileCategory(3, currentName, "Current offers")
+            findNavController().navigate(action)
         }
     }
 
@@ -139,6 +174,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.topbar_menu, menu)
+        topMenu = menu
         val menuSearchItem = menu.findItem(R.id.search)
         val searchView = menuSearchItem.actionView as SearchView
         searchView.queryHint = "Player Name"
@@ -151,6 +187,7 @@ class HomeFragment : Fragment() {
                 showInformation(false)
                 if (query != null) {
                     loadProfile(query)
+                    currentName = query
                 }
                 return true
             }
@@ -173,7 +210,9 @@ class HomeFragment : Fragment() {
                 binding.animationView.playAnimation()
                 binding.animationView.visibility = View.VISIBLE
                 showInformation(false)
-                loadProfile(myPrefs.getString("name", "").toString())
+                val oldName = myPrefs.getString("name", "")!!
+                loadProfile(oldName)
+                currentName = oldName
                 return true
             }
         })

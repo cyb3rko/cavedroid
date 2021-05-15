@@ -13,6 +13,13 @@
         <item>https://www.flaticon.com/free-icon/shopping-bag_743007</item>
     </string-array>
 
+    <string-array name="ic_click">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/one-finger-click_84590</item>
+        <item>true</item>
+    </string-array>
+
     <string-array name="ic_earnings">
         <item>Freepik</item>
         <item>flaticon.com</item>

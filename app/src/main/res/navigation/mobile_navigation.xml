@@ -9,13 +9,42 @@
         android:id="@+id/navigation_home"
         android:name="com.cyb3rko.cavedroid.HomeFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/open_profile_category"
+            app:destination="@id/navigation_profile_category"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.cyb3rko.cavedroid.SearchFragment"
         android:label="Item Search"
         tools:layout="@layout/fragment_item_search" />
+
+    <fragment
+        android:id="@+id/navigation_profile_category"
+        android:name="com.cyb3rko.cavedroid.ProfileCategoryFragment"
+        tools:layout="@layout/fragment_profile_category"
+        android:label="{title}">
+        <argument
+            android:name="category"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/close_profile_category"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_rankings"

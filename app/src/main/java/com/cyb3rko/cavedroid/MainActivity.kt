@@ -39,4 +39,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    override fun onBackPressed() {
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+        val fragment = hostFragment?.childFragmentManager?.fragments?.get(0)
+        if (fragment is ProfileCategoryFragment) {
+            fragment.returnToHome()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
