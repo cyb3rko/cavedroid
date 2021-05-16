@@ -65,6 +65,7 @@ class HomeFragment : Fragment() {
             loadProfile(currentName)
         } else if (currentName != "" && args.name != "") {
             if (args.name != currentName) {
+                currentName = args.name
                 GlobalScope.launch {
                     while (!this@HomeFragment::topMenu.isInitialized) {}
                     activity?.runOnUiThread {
@@ -77,6 +78,7 @@ class HomeFragment : Fragment() {
                     }
                 }
             } else {
+                currentName = args.name
                 loadProfile(currentName)
             }
         } else {
