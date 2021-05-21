@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_card"
     app:cardElevation="4dp"
     app:cardCornerRadius="10dp"
     android:layout_marginStart="20dp"

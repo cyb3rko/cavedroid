@@ -1,16 +1,25 @@
 package com.cyb3rko.cavedroid
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.text.Html
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
@@ -29,6 +38,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val api = CavetaleAPI()
+    private val args: SearchFragmentArgs by navArgs()
     private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +65,53 @@ class SearchFragment : Fragment() {
                     vh.amountView.text = "${marketEntry.amount}x ${marketEntry.item}"
                     vh.priceView.text = "${marketEntry.price}\nCoins"
                     vh.sellerView.text = "${marketEntry.seller}"
+                    vh.cardView.setOnClickListener {
+                        MaterialDialog(myContext).show {
+                            icon(drawable = vh.avatarView.drawable)
+                            title(text = marketEntry.seller)
+                            message(text = Html.fromHtml("<b>Item</b>: ${marketEntry.item}<br/>" +
+                                    "<b>Stack Size</b>: ${marketEntry.amount}<br/>" +
+                                    "<b>Total price</b>: ${marketEntry.price} Coins<br/>" +
+                                    "<b>Per Item Price</b>: ${marketEntry.perItem} Coins")) {
+                                lineSpacing(1.4f)
+                            }
+                            listItems(items = listOf(
+                                "View Seller Profile",
+                                "Copy Seller Name",
+                                "Copy Item Name",
+                                "Copy Price",
+                                "Copy Per Item Price")
+                            ) { _, index, _ ->
+                                when (index) {
+                                    0 -> {
+                                        findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.seller))
+                                    }
+                                    1 -> {
+                                        val clip = ClipData.newPlainText(marketEntry.seller, marketEntry.seller)
+                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                                        showClipboardToast()
+                                    }
+                                    2 -> {
+                                        val clip = ClipData.newPlainText(marketEntry.item, marketEntry.item)
+                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                                        showClipboardToast()
+                                    }
+                                    3 -> {
+                                        val text = "${marketEntry.price} Coins"
+                                        val clip = ClipData.newPlainText(text, text)
+                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                                        showClipboardToast()
+                                    }
+                                    4 -> {
+                                        val text = "${marketEntry.perItem} Coins"
+                                        val clip = ClipData.newPlainText(text, text)
+                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                                        showClipboardToast()
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if (marketEntry.seller != "The Bank") {
                         Glide.with(myContext).load(api.getAvatarLink(marketEntry.seller, 100)).into(vh.avatarView)
                     } else {
@@ -105,6 +162,17 @@ class SearchFragment : Fragment() {
             }
             true
         }
+
+        if (args.item != "") {
+            binding.searchInput.apply {
+                setText(args.item)
+                onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+            }
+        }
+    }
+
+    private fun showClipboardToast() {
+        Toast.makeText(myContext, "Copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadHtmlIntoRecycler(

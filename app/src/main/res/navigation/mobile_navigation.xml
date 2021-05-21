@@ -24,7 +24,12 @@
         android:id="@+id/navigation_notifications"
         android:name="com.cyb3rko.cavedroid.SearchFragment"
         android:label="Item Search"
-        tools:layout="@layout/fragment_item_search" />
+        tools:layout="@layout/fragment_item_search">
+        <argument
+            android:name="item"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile_category"
@@ -84,4 +89,12 @@
         android:name="com.cyb3rko.cavedroid.AnimationCreditsFragment"
         android:label="Credits">
     </fragment>
+
+    <action
+        android:id="@+id/go_to_home"
+        app:destination="@id/navigation_home" />
+
+    <action
+        android:id="@+id/go_to_item_search"
+        app:destination="@id/navigation_notifications" />
 </navigation>

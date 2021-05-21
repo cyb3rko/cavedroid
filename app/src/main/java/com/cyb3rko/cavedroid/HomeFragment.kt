@@ -116,12 +116,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadProfile(name: String) {
+        val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")
+        val avatarName = if (name != "The Bank") name else "God"
         GlobalScope.launch {
             try {
-                val user = api.getUser(name)
+                val user = api.getUser(formattedName)
                 requireActivity().runOnUiThread {
                     Glide.with(this@HomeFragment)
-                        .load(api.getAvatarLink(name, 500))
+                        .load(api.getAvatarLink(avatarName, 500))
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .listener(object: RequestListener<Drawable> {
                             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
