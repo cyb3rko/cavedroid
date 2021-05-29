@@ -286,6 +286,9 @@ class HomeFragment : Fragment() {
                     showInformation(false)
                     loadProfile(newName)
                     it3.cancel()
+                    if (activity != null) {
+                        (activity as MainActivity).receiveLatestAnnouncement()
+                    }
                 } else {
                     input.error = "Input missing"
                 }
