@@ -12,4 +12,5 @@
     <color name="refreshLayoutBackground">@color/cardview_dark_background</color>
     <color name="refreshLayoutArrow">#FFFFFF</color>
     <color name="click_hint">#FFFFFF</color>
+    <color name="foreground_color">@android:color/primary_text_dark</color>
 </resources>

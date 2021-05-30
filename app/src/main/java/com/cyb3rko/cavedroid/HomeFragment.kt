@@ -1,8 +1,7 @@
 package com.cyb3rko.cavedroid
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.app.ProgressDialog
+import android.content.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -10,8 +9,11 @@ import android.text.Html
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
@@ -21,6 +23,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onPreShow
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -113,7 +116,69 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.openProfileCategory(3, currentName, "Current offers")
             findNavController().navigate(action)
         }
+
+        binding.header.setOnClickListener {
+            loadNameHistory()
+        }
     }
+
+    private fun loadNameHistory() {
+        val progressDialog = ProgressDialog(myContext)
+        progressDialog.setMessage("Fetching Data...")
+        progressDialog.show()
+        var viewType = 0
+        val webView = WebView(myContext)
+        webView.settings.javaScriptEnabled = true
+        val webInterface = JavascriptInterface()
+        webView.addJavascriptInterface(webInterface, "HtmlViewer")
+        webView.webViewClient = object: WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                webView.loadUrl("javascript:window.HtmlViewer.showHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');")
+
+                if (viewType == 0) {
+                    GlobalScope.launch {
+                        while (webInterface.html == null) {
+                            Thread.sleep(50)
+                        }
+
+                        val uuid = webInterface.html!!.split("\"id\":\"")[1].removeSuffix("\"}</pre></body></head>")
+                        webInterface.html = null
+                        activity?.runOnUiThread {
+                            webView.loadUrl("https://api.mojang.com/user/profiles/$uuid/names")
+                        }
+                        viewType = 1
+                    }
+                } else {
+                    GlobalScope.launch {
+                        while (webInterface.html == null) {
+                            Thread.sleep(50)
+                        }
+
+                        val nameParts = webInterface.html!!.split("name\":\"").drop(1).toMutableList()
+                        nameParts.forEachIndexed { index, s ->
+                            nameParts[index] = s.split("\"")[0]
+                        }
+                        nameParts.reverse()
+                        activity?.runOnUiThread {
+                            progressDialog.dismiss()
+                            MaterialDialog(myContext).show {
+                                noAutoDismiss()
+                                title(text = "Name History")
+                                listItems(items = nameParts) { _, _, name ->
+                                    val clip = ClipData.newPlainText(name, name)
+                                    (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                                    showClipboardToast()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        webView.loadUrl("https://api.mojang.com/users/profiles/minecraft/$currentName")
+    }
+
+    private fun showClipboardToast() = Toast.makeText(myContext, "Copied name to clipboard", Toast.LENGTH_SHORT).show()
 
     private fun loadProfile(name: String) {
         val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")

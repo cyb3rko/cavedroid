@@ -26,6 +26,12 @@
         <item>https://www.flaticon.com/de/kostenloses-icon/ausgaben_2273267</item>
     </string-array>
 
+    <string-array name="ic_history">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/history_2277956?term=history</item>
+    </string-array>
+
     <string-array name="ic_offers">
         <item>Freepik</item>
         <item>flaticon.com</item>
