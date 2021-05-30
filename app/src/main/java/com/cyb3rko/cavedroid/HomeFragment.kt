@@ -137,39 +137,47 @@ class HomeFragment : Fragment() {
 
                 if (viewType == 0) {
                     GlobalScope.launch {
-                        while (webInterface.html == null) {
-                            Thread.sleep(50)
-                        }
+                        try {
+                            while (webInterface.html == null) {
+                                Thread.sleep(50)
+                            }
 
-                        val uuid = webInterface.html!!.split("\"id\":\"")[1].removeSuffix("\"}</pre></body></head>")
-                        webInterface.html = null
-                        activity?.runOnUiThread {
-                            webView.loadUrl("https://api.mojang.com/user/profiles/$uuid/names")
+                            val uuid = webInterface.html!!.split("\"id\":\"")[1].removeSuffix("\"}</pre></body></head>")
+                            webInterface.html = null
+                            activity?.runOnUiThread {
+                                webView.loadUrl("https://api.mojang.com/user/profiles/$uuid/names")
+                            }
+                            viewType = 1
+                        } catch (e: Exception) {
+                            Log.d("Cavedroid.NameHistory", e.message!!)
                         }
-                        viewType = 1
                     }
                 } else {
                     GlobalScope.launch {
-                        while (webInterface.html == null) {
-                            Thread.sleep(50)
-                        }
+                        try {
+                            while (webInterface.html == null) {
+                                Thread.sleep(50)
+                            }
 
-                        val nameParts = webInterface.html!!.split("name\":\"").drop(1).toMutableList()
-                        nameParts.forEachIndexed { index, s ->
-                            nameParts[index] = s.split("\"")[0]
-                        }
-                        nameParts.reverse()
-                        activity?.runOnUiThread {
-                            progressDialog.dismiss()
-                            MaterialDialog(myContext).show {
-                                noAutoDismiss()
-                                title(text = "Name History")
-                                listItems(items = nameParts) { _, _, name ->
-                                    val clip = ClipData.newPlainText(name, name)
-                                    (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                    showClipboardToast()
+                            val nameParts = webInterface.html!!.split("name\":\"").drop(1).toMutableList()
+                            nameParts.forEachIndexed { index, s ->
+                                nameParts[index] = s.split("\"")[0]
+                            }
+                            nameParts.reverse()
+                            activity?.runOnUiThread {
+                                progressDialog.dismiss()
+                                MaterialDialog(myContext).show {
+                                    noAutoDismiss()
+                                    title(text = "Name History")
+                                    listItems(items = nameParts) { _, _, name ->
+                                        val clip = ClipData.newPlainText(name, name)
+                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+                                        showClipboardToast()
+                                    }
                                 }
                             }
+                        } catch (e: Exception) {
+                            Log.d("Cavedroid.NameHistory", e.message!!)
                         }
                     }
                 }
