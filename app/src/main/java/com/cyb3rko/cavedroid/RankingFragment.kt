@@ -172,7 +172,8 @@ class RankingFragment : Fragment() {
                                 }
                             }
                             val itemName = item.name.replace(" ", "_").toLowerCase()
-                            val avatarResId = myContext.resources.getIdentifier("_item_$itemName", "drawable", myContext.packageName)
+                            val formattedName = itemName.split(",")[0]
+                            val avatarResId = myContext.resources.getIdentifier("_item_$formattedName", "drawable", myContext.packageName)
                             if (avatarResId != 0) {
                                 vh.avatarView.setImageResource(avatarResId)
                             } else {
