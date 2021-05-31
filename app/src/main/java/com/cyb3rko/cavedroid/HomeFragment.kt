@@ -70,8 +70,8 @@ class HomeFragment : Fragment() {
             if (args.name != currentName) {
                 currentName = args.name
                 GlobalScope.launch {
-                    while (!this@HomeFragment::topMenu.isInitialized) {}
                     activity?.runOnUiThread {
+                        while (!this@HomeFragment::topMenu.isInitialized);
                         topMenu.forEach {
                             it.isVisible = false
                         }
