@@ -87,7 +87,7 @@ class ProfileCategoryFragment : Fragment() {
                                     }
                                     listItems(items = listOf(
                                         "Search for Item",
-                                        "View Buyer",
+                                        if (args.category == 1) "View Buyer" else "View Seller",
                                         "Copy Player Name",
                                         "Copy Item Name",
                                         "Copy Price",
