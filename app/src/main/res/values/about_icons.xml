@@ -62,6 +62,12 @@
         <item>https://www.flaticon.com/free-icon/magnifier_64673</item>
     </string-array>
 
+    <string-array name="ic_settings">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/premium-icon/gear_484613?term=settings</item>
+    </string-array>
+
     <string-array name="ic_sold">
         <item>Kiranshastry</item>
         <item>flaticon.com</item>

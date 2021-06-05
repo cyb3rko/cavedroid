@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="User Experience"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:title="Night Mode"
+            android:summary="Toggle the dark appearance of the app"
+            app:iconSpaceReserved="false"
+            android:defaultValue=""
+            android:entries="@array/night_modes"
+            android:entryValues="@array/night_modes_values"
+            android:key="nightmode"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Announcements"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:title="Show Announcements"
+            android:summary="En-/Disable the anouncement dialog to view the latest Cavetale announcement"
+            android:key="show_announcements"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            android:title="Include image of announcements (if available)"
+            android:summary="Download and show images of anouncements if any available"
+            android:key="announcement_image"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory-->
+<!--        android:title="Data Collection"-->
+<!--        app:iconSpaceReserved="false">-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            android:title="Analytics Data Collection"-->
+<!--            android:summary="En-/Disable data collection via Firebase Analytics"-->
+<!--            android:key="analytics_collection"-->
+<!--            app:iconSpaceReserved="false" />-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            android:title="Crashlytics Data Collection"-->
+<!--            android:summary="En-/Disable data collection via Firebase Crashlytics"-->
+<!--            android:key="crashlytics_collection"-->
+<!--            app:iconSpaceReserved="false" />-->
+
+<!--        <Preference-->
+<!--            android:title="Reset Data Collection"-->
+<!--            android:summary="Reset your collected data for Analytics and Crashlytics"-->
+<!--            android:key="data_deletion"-->
+<!--            app:iconSpaceReserved="false" />-->
+
+<!--    </PreferenceCategory>-->
+
+</PreferenceScreen>

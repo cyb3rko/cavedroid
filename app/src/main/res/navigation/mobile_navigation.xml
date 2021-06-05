@@ -79,6 +79,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_preferences"
+        android:name="com.cyb3rko.cavedroid.PreferenceFragment"
+        android:label="Preferences">
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_about_icons"
         android:name="com.cyb3rko.cavedroid.AboutIconsFragment"
         android:label="Credits">

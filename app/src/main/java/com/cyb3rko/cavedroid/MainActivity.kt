@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     fun receiveLatestAnnouncement() {
         val sharedPreferences = getSharedPreferences("Safe", MODE_PRIVATE)
+        if (!sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
         if (sharedPreferences.getString("name", "") == "") return
 
         GlobalScope.launch {
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     val view = it.getCustomView()
                     if (messageObject.attachments.isNotEmpty()) {
                         val drawable = messageObject.attachments.toList()[0]
-                        if (drawable.isImage) {
+                        if (sharedPreferences.getBoolean(ANNOUNCEMENT_IMAGE, true) && drawable.isImage) {
                             Glide.with(applicationContext)
                                 .load(drawable.url)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)

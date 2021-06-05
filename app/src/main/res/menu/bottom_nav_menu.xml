@@ -16,4 +16,9 @@
         android:icon="@drawable/_ic_ranking"
         android:title="Rankings" />
 
+    <item
+        android:id="@+id/navigation_preferences"
+        android:icon="@drawable/_ic_settings"
+        android:title="Preferences" />
+
 </menu>
