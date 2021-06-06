@@ -70,12 +70,15 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             try {
-                val kord = Kord(getAPIToken())
-                val channel = kord.getGuild(Snowflake(195206438623248384))!!.getChannel(Snowflake(265060069194858496))
-                val messageObject = (channel as MessageChannel).getLastMessage()!!
+                val token = getAPIToken()
+                if (token != "0") {
+                    val kord = Kord(token)
+                    val channel = kord.getGuild(Snowflake(195206438623248384))!!.getChannel(Snowflake(265060069194858496))
+                    val messageObject = (channel as MessageChannel).getLastMessage()!!
 
-                if (messageObject.id.value != sharedPreferences.getLong("latest_message", 0)) {
-                    showAnnouncementDialog(messageObject, sharedPreferences)
+                    if (messageObject.id.value != sharedPreferences.getLong("latest_message", 0)) {
+                        showAnnouncementDialog(messageObject, sharedPreferences)
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
