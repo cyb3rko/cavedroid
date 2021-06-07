@@ -20,9 +20,11 @@ import com.afollestad.materialdialogs.customview.getCustomView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cyb3rko.cavedroid.databinding.ActivityMainBinding
+import com.github.rjeschke.txtmark.Processor
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
+import dev.kord.core.entity.Guild
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
 import kotlinx.coroutines.GlobalScope
@@ -73,11 +75,11 @@ class MainActivity : AppCompatActivity() {
                 val token = getAPIToken()
                 if (token != "0") {
                     val kord = Kord(token)
-                    val channel = kord.getGuild(Snowflake(195206438623248384))!!.getChannel(Snowflake(265060069194858496))
-                    val messageObject = (channel as MessageChannel).getLastMessage()!!
+                    val guild = kord.getGuild(Snowflake(195206438623248384))!!
+                    val messageObject = (guild.getChannel(Snowflake(265060069194858496)) as MessageChannel).getLastMessage()!!
 
                     if (messageObject.id.value != sharedPreferences.getLong("latest_message", 0)) {
-                        showAnnouncementDialog(messageObject, sharedPreferences)
+                        showAnnouncementDialog(guild, messageObject, sharedPreferences)
                     }
                 }
             } catch (e: Exception) {
@@ -87,18 +89,35 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showAnnouncementDialog(messageObject: Message, sharedPreferences: SharedPreferences) {
+    private suspend fun showAnnouncementDialog(guild: Guild, messageObject: Message, sharedPreferences: SharedPreferences) {
         var message = messageObject.content
-        message = message.removePrefix("@everyone ")
-        message = message.replace("<", "")
-        message = message.replace(">", "")
-        message = message.replace("\n", "<br/>")
-        message = message.replace("`", "")
-        message = message.replace("**When**", "<br/><strong>When</strong>:<br/>")
-        message = message.replace("**Where**", "<br/><strong>Where</strong>:<br/>")
-        message = message.replace("**Duration**", "<br/><strong>Duration</strong>:<br/>")
-        message = message.replace("**Stream**", "<br/><strong>Stream</strong>:<br/>")
-        message = message.replace("**Prize**", "<br/><strong>Prize</strong>:<br/>")
+            .replace("<", "")
+            .replace(">", "")
+            .replace("\n", "<br/>")
+
+        while (message.contains("@!")) {
+            val substrings = message.split("@!", limit = 2)
+            val id = substrings[1].substring(0..17)
+            val substring2 = substrings[1].substring(startIndex = 18)
+            val name = guild.getMember(Snowflake(id)).displayName
+            message = "${substrings[0]}$name $substring2"
+        }
+
+        while (message.contains(" #")) {
+            try {
+                val substrings = message.split("#", limit = 2)
+                val id = substrings[1].substring(0..17)
+                val channel = guild.getChannelOrNull(Snowflake(id))
+                val name = channel?.name ?: "deleted-channel"
+                message = "${substrings[0]}&%$name${substrings[1].drop(18)}"
+            } catch (e: Exception) {
+                message = message.replaceFirst("#", "&%")
+                Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
+            }
+        }
+
+        message = message.replace("&%", "#")
+
         runOnUiThread {
             MaterialDialog(this@MainActivity, BottomSheet(LayoutMode.MATCH_PARENT)).show {
                 customView(R.layout.announcement_dialog)
@@ -113,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                                 .into(view.findViewById(R.id.image))
                         }
                     }
-                    view.findViewById<TextView>(R.id.message).text = Html.fromHtml(message)
+                    view.findViewById<TextView>(R.id.message).text = Html.fromHtml(Processor.process(message))
                 }
             }
         }
