@@ -26,6 +26,12 @@
         <item>https://www.flaticon.com/de/kostenloses-icon/ausgaben_2273267</item>
     </string-array>
 
+    <string-array name="ic_github">
+        <item>Pixel perfect</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/github_2111292</item>
+    </string-array>
+
     <string-array name="ic_history">
         <item>Freepik</item>
         <item>flaticon.com</item>
@@ -79,6 +85,12 @@
         <item>Freepik</item>
         <item>flaticon.com</item>
         <item>https://www.flaticon.com/de/kostenloses-icon/ausgaben_2273255</item>
+    </string-array>
+
+    <string-array name="ic_start">
+        <item>Vectors Market</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/startup_610290</item>
     </string-array>
 
     <string-array name="ic_topitems">

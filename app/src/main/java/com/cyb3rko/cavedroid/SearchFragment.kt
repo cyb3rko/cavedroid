@@ -25,6 +25,8 @@ import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.ibrahimyilmaz.kiel.adapter.RecyclerViewAdapter
@@ -150,6 +152,10 @@ class SearchFragment : Fragment() {
 
         binding.searchInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val text = v.text.toString()
+                FirebaseAnalytics.getInstance(myContext).logEvent("shop_search") {
+                    param("item", text)
+                }
                 hideKeyboard()
                 webInterface.html = null
                 adapter.submitList(emptyList())
@@ -158,7 +164,7 @@ class SearchFragment : Fragment() {
                     animationView.playAnimation()
                     animationView.visibility = View.VISIBLE
                 }
-                webView.loadUrl(api.getSearchPhrase(v.text.toString()))
+                webView.loadUrl(api.getSearchPhrase(text))
             }
             true
         }

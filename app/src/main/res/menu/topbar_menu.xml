@@ -29,4 +29,8 @@
         android:id="@+id/feedback"
         android:title="Feedback / Bug Report" />
 
+    <item
+        android:id="@+id/end_user_consent"
+        android:title="End User Consent" />
+
 </menu>

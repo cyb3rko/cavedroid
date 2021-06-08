@@ -35,28 +35,28 @@
 
     </PreferenceCategory>
 
-<!--    <PreferenceCategory-->
-<!--        android:title="Data Collection"-->
-<!--        app:iconSpaceReserved="false">-->
+    <PreferenceCategory
+        android:title="Data Collection"
+        app:iconSpaceReserved="false">
 
-<!--        <SwitchPreferenceCompat-->
-<!--            android:title="Analytics Data Collection"-->
-<!--            android:summary="En-/Disable data collection via Firebase Analytics"-->
-<!--            android:key="analytics_collection"-->
-<!--            app:iconSpaceReserved="false" />-->
+        <SwitchPreference
+            android:title="Analytics Data Collection"
+            android:summary="En-/Disable data collection via Firebase Analytics"
+            android:key="analytics_collection"
+            app:iconSpaceReserved="false" />
 
-<!--        <SwitchPreferenceCompat-->
-<!--            android:title="Crashlytics Data Collection"-->
-<!--            android:summary="En-/Disable data collection via Firebase Crashlytics"-->
-<!--            android:key="crashlytics_collection"-->
-<!--            app:iconSpaceReserved="false" />-->
+        <SwitchPreference
+            android:title="Crashlytics Data Collection"
+            android:summary="En-/Disable data collection via Firebase Crashlytics"
+            android:key="crashlytics_collection"
+            app:iconSpaceReserved="false" />
 
-<!--        <Preference-->
-<!--            android:title="Reset Data Collection"-->
-<!--            android:summary="Reset your collected data for Analytics and Crashlytics"-->
-<!--            android:key="data_deletion"-->
-<!--            app:iconSpaceReserved="false" />-->
+        <Preference
+            android:title="Reset Data Collection"
+            android:summary="Reset your collected data for Analytics and Crashlytics"
+            android:key="data_deletion"
+            app:iconSpaceReserved="false" />
 
-<!--    </PreferenceCategory>-->
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -3,4 +3,20 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="end_user_consent_title">End User Consent</string>
+    <string name="end_user_consent_message">By using this app you agree to the Privacy Policy and the Terms of Use.</string>
+    <string name="end_user_consent_button_1">Got it</string>
+    <string name="end_user_consent_button_2">Cancel</string>
+
+    <string name="end_user_consent_2_title">Your End User Consent</string>
+    <string name="end_user_consent_2_message_1">By using this app you have agreed to the Terms of Use and the Privacy Policy.\n\nDate:&#160;</string>
+    <string name="end_user_consent_2_message_2">\n<u>Time:</u> </string>
+    <string name="end_user_consent_2_privacy_policy">Privacy Policy</string>
+    <string name="end_user_consent_2_terms_of_use">Terms of Use</string>
+    <string name="end_user_consent_2_date">Date</string>
+    <string name="end_user_consent_2_time">Time</string>
+    <string name="end_user_consent_2_date_not_found">Date not found</string>
+    <string name="end_user_consent_2_time_not_found">Time not found</string>
+    <string name="end_user_consent_2_button_2">Revoke</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Html
@@ -19,6 +20,7 @@ import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.cyb3rko.cavedroid.appintro.MyAppIntro
 import com.cyb3rko.cavedroid.databinding.ActivityMainBinding
 import com.github.rjeschke.txtmark.Processor
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,6 +41,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val mySPR = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
+        if (mySPR.getBoolean(FIRST_START, true) || mySPR.getString(CONSENT_DATE, "") == "") {
+            finish()
+            startActivity(Intent(applicationContext, MyAppIntro::class.java))
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -6,6 +6,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -30,8 +35,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.cyb3rko.cavedroid.appintro.MyAppIntro
 import com.cyb3rko.cavedroid.databinding.FragmentHomeBinding
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.mikepenz.aboutlibraries.LibsBuilder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,8 +56,8 @@ class HomeFragment : Fragment() {
     private val args: HomeFragmentArgs by navArgs()
     private var currentName = ""
     private lateinit var topMenu: Menu
-    private lateinit var myPrefs: SharedPreferences
-    private lateinit var myPrefsEditor: SharedPreferences.Editor
+    private lateinit var mySPR: SharedPreferences
+    private lateinit var mySPREditor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +69,10 @@ class HomeFragment : Fragment() {
         val root = binding.root
         myContext = requireContext()
 
-        myPrefs = requireActivity().getSharedPreferences("Safe", Context.MODE_PRIVATE)
-        myPrefsEditor = myPrefs.edit()
+        mySPR = requireActivity().getSharedPreferences("Safe", Context.MODE_PRIVATE)
+        mySPREditor = mySPR.edit()
 
-        currentName = myPrefs.getString("name", "")!!
+        currentName = mySPR.getString("name", "")!!
         if (currentName != "" && args.name == "") {
             loadProfile(currentName)
         } else if (currentName != "" && args.name != "") {
@@ -98,7 +107,7 @@ class HomeFragment : Fragment() {
             setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
             setColorSchemeResources(R.color.refreshLayoutArrow)
             setOnRefreshListener {
-                loadProfile(myPrefs.getString("name", "")!!)
+                loadProfile(mySPR.getString("name", "")!!)
             }
         }
 
@@ -266,6 +275,12 @@ class HomeFragment : Fragment() {
                     loadProfile(query)
                     currentName = query
                 }
+                if (query?.isNotBlank() == true) {
+                    FirebaseAnalytics.getInstance(myContext).logEvent("player_search") {
+                        param("player", query)
+                    }
+                }
+
                 return true
             }
             override fun onQueryTextChange(newText: String?): Boolean { return false }
@@ -287,7 +302,7 @@ class HomeFragment : Fragment() {
                 binding.animationView.playAnimation()
                 binding.animationView.visibility = View.VISIBLE
                 showInformation(false)
-                val oldName = myPrefs.getString("name", "")!!
+                val oldName = mySPR.getString("name", "")!!
                 loadProfile(oldName)
                 currentName = oldName
                 return true
@@ -336,6 +351,61 @@ class HomeFragment : Fragment() {
                 .show()
             true
         }
+
+        menu.findItem(R.id.end_user_consent).setOnMenuItemClickListener {
+            var dialogMessage = getString(R.string.end_user_consent_2_message_1)
+            dialogMessage += mySPR.getString(CONSENT_DATE, getString(R.string.end_user_consent_2_date_not_found)) +
+                    getString(R.string.end_user_consent_2_message_2) +
+                    mySPR.getString(CONSENT_TIME, getString(R.string.end_user_consent_2_time_not_found))
+            val spannableString = SpannableString(dialogMessage)
+            val clickableSpan1 = object : ClickableSpan() {
+                override fun onClick(view: View) {
+                    Utils.showLicenseDialog(myContext, PRIVACY_POLICY)
+                }
+            }
+            val clickableSpan2 = object : ClickableSpan() {
+                override fun onClick(view: View) {
+                    Utils.showLicenseDialog(myContext, TERMS_OF_USE)
+                }
+            }
+            var currentText = getString(R.string.end_user_consent_2_privacy_policy)
+            var index = dialogMessage.indexOf(currentText)
+            spannableString.setSpan(
+                clickableSpan1, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            currentText = getString(R.string.end_user_consent_2_terms_of_use)
+            index = dialogMessage.indexOf(currentText)
+            spannableString.setSpan(
+                clickableSpan2, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            currentText = getString(R.string.end_user_consent_2_date)
+            index = dialogMessage.indexOf(currentText)
+            repeat(2) {
+                spannableString.setSpan(UnderlineSpan(), index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                currentText = getString(R.string.end_user_consent_2_time)
+                index = dialogMessage.indexOf(currentText)
+            }
+
+            MaterialDialog(myContext).show {
+                title(R.string.end_user_consent_2_title)
+                message(0, spannableString) {
+                    messageTextView.movementMethod = LinkMovementMethod.getInstance()
+                }
+                positiveButton(android.R.string.ok)
+                negativeButton(R.string.end_user_consent_2_button_2) {
+                    val analytics = FirebaseAnalytics.getInstance(myContext)
+                    analytics.resetAnalyticsData()
+                    analytics.setAnalyticsCollectionEnabled(false)
+                    val crashlytics = FirebaseCrashlytics.getInstance()
+                    crashlytics.deleteUnsentReports()
+                    crashlytics.setCrashlyticsCollectionEnabled(false)
+                    mySPREditor.clear().commit()
+                    requireActivity().finish()
+                    startActivity(Intent(myContext, MyAppIntro::class.java))
+                }
+            }
+            true
+        }
     }
 
     private fun showNameDialog() {
@@ -353,7 +423,7 @@ class HomeFragment : Fragment() {
                 val input = it3.getCustomView().findViewById<EditText>(R.id.md_input)
                 val newName = input.text.toString()
                 if (newName != "") {
-                    myPrefsEditor.putString("name", newName).apply()
+                    mySPREditor.putString("name", newName).apply()
                     binding.animationView.playAnimation()
                     binding.animationView.visibility = View.VISIBLE
                     showInformation(false)

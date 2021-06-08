@@ -3,11 +3,14 @@ package com.cyb3rko.cavedroid
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class PreferenceFragment : PreferenceFragmentCompat() {
 
@@ -29,14 +32,14 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         nightModeList = findPreference(NIGHTMODE)!!
         showAnnouncementSwitch = findPreference(SHOW_ANNOUNCEMENTS)!!
         announcementImageSwitch = findPreference(ANNOUNCEMENT_IMAGE)!!
-//        analyticsCollectionSwitch = findPreference(ANALYTICS_COLLECTION)!!
-//        crashlyticsCollectionSwitch = findPreference(CRASHLYTICS_COLLECTION)!!
+        analyticsCollectionSwitch = findPreference(ANALYTICS_COLLECTION)!!
+        crashlyticsCollectionSwitch = findPreference(CRASHLYTICS_COLLECTION)!!
 
         nightModeList.value = mySPR.getString(NIGHTMODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
         showAnnouncementSwitch.isChecked = mySPR.getBoolean(SHOW_ANNOUNCEMENTS, true)
         announcementImageSwitch.isChecked = mySPR.getBoolean(ANNOUNCEMENT_IMAGE, true)
-//        analyticsCollectionSwitch.isChecked = mySPR.getBoolean(ANALYTICS_COLLECTION, true)
-//        crashlyticsCollectionSwitch.isChecked = mySPR.getBoolean(CRASHLYTICS_COLLECTION, true)
+        analyticsCollectionSwitch.isChecked = mySPR.getBoolean(ANALYTICS_COLLECTION, true)
+        crashlyticsCollectionSwitch.isChecked = mySPR.getBoolean(CRASHLYTICS_COLLECTION, true)
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
@@ -48,20 +51,20 @@ class PreferenceFragment : PreferenceFragmentCompat() {
                 }
                 true
             }
-//            ANALYTICS_COLLECTION -> {
-//                FirebaseAnalytics.getInstance(requireContext()).setAnalyticsCollectionEnabled(analyticsCollectionSwitch.isChecked)
-//                true
-//            }
-//            CRASHLYTICS_COLLECTION -> {
-//                FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsCollectionSwitch.isChecked)
-//                true
-//            }
-//            DATA_DELETION -> {
-//                FirebaseAnalytics.getInstance(requireActivity()).resetAnalyticsData()
-//                FirebaseCrashlytics.getInstance().deleteUnsentReports()
-//                Toasty.success(requireContext(), getString("Deletion done"), Toasty.LENGTH_SHORT).show()
-//                true
-//            }
+            ANALYTICS_COLLECTION -> {
+                FirebaseAnalytics.getInstance(requireContext()).setAnalyticsCollectionEnabled(analyticsCollectionSwitch.isChecked)
+                true
+            }
+            CRASHLYTICS_COLLECTION -> {
+                FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsCollectionSwitch.isChecked)
+                true
+            }
+            DATA_DELETION -> {
+                FirebaseAnalytics.getInstance(requireActivity()).resetAnalyticsData()
+                FirebaseCrashlytics.getInstance().deleteUnsentReports()
+                Toast.makeText(requireContext(), "Deletion done", Toast.LENGTH_SHORT).show()
+                true
+            }
             else -> false
         }
     }
