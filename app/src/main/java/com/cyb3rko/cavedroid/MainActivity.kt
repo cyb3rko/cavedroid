@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cyb3rko.cavedroid.appintro.MyAppIntro
 import com.cyb3rko.cavedroid.databinding.ActivityMainBinding
+import com.cyb3rko.cavedroid.fragments.ProfileCategoryFragment
 import com.github.rjeschke.txtmark.Processor
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.kord.common.entity.Snowflake
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val mySPR = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
-        if (mySPR.getBoolean(FIRST_START, true) || mySPR.getString(CONSENT_DATE, "") == "") {
+        if (mySPR.getBoolean(FIRST_START, true) || mySPR.getString(CONSENT_DATE, "")!!.isEmpty()) {
             finish()
             startActivity(Intent(applicationContext, MyAppIntro::class.java))
         }
@@ -74,9 +75,9 @@ class MainActivity : AppCompatActivity() {
     private fun getAPIToken() = Secrets().getAPIToken(packageName)
 
     fun receiveLatestAnnouncement() {
-        val sharedPreferences = getSharedPreferences("Safe", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
         if (!sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
-        if (sharedPreferences.getString("name", "") == "") return
+        if (sharedPreferences.getString(NAME, "")!!.isBlank()) return
 
         GlobalScope.launch {
             try {
@@ -86,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     val guild = kord.getGuild(Snowflake(195206438623248384))!!
                     val messageObject = (guild.getChannel(Snowflake(265060069194858496)) as MessageChannel).getLastMessage()!!
 
-                    if (messageObject.id.value != sharedPreferences.getLong("latest_message", 0)) {
+                    if (messageObject.id.value != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
                         showAnnouncementDialog(guild, messageObject, sharedPreferences)
                     }
                 }
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        sharedPreferences.edit().putLong("latest_message", messageObject.id.value).apply()
+        sharedPreferences.edit().putLong(LATEST_MESSAGE, messageObject.id.value).apply()
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,4 +1,4 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.cyb3rko.cavedroid.R
 import com.cyb3rko.cavedroid.databinding.FragmentRankingsBinding
 
 class RankingsFragment : Fragment() {
@@ -36,9 +37,9 @@ class RankingsFragment : Fragment() {
     }
 
     private fun setRankingButtons() {
-        val action1 = RankingsFragmentDirections.openRanking(1, "Richlist")
-        val action2 = RankingsFragmentDirections.openRanking(2, "Top Sellers")
-        val action3 = RankingsFragmentDirections.openRanking(3, "Top Items")
+        val action1 = RankingsFragmentDirections.openRanking(1, getString(R.string.topbar_title_richlist))
+        val action2 = RankingsFragmentDirections.openRanking(2, getString(R.string.topbar_title_top_sellers))
+        val action3 = RankingsFragmentDirections.openRanking(3, getString(R.string.topbar_title_top_items))
         binding.richlistCard.setOnClickListener { findNavController().navigate(action1) }
         binding.topSellersCard.setOnClickListener { findNavController().navigate(action2) }
         binding.topItemsCard.setOnClickListener { findNavController().navigate(action3) }

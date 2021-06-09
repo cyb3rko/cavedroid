@@ -32,13 +32,12 @@
                     android:layout_height="90dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/_ic_richlist"
-                    android:layout_marginTop="10dp"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Richlist"
+                    android:text="@string/ranking_button1"
                     android:textColor="@color/md_list_item_textcolor"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
@@ -67,13 +66,12 @@
                     android:layout_height="90dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/_ic_topseller"
-                    android:layout_marginTop="10dp"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Top Sellers"
+                    android:text="@string/ranking_button2"
                     android:textColor="@color/md_list_item_textcolor"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
@@ -102,13 +100,12 @@
                     android:layout_height="90dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/_ic_topitems"
-                    android:layout_marginTop="10dp"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Top Items"
+                    android:text="@string/ranking_button3"
                     android:textColor="@color/md_list_item_textcolor"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 

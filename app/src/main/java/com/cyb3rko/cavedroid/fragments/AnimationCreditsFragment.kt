@@ -1,4 +1,4 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -14,21 +14,23 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.cyb3rko.cavedroid.R
 
 class AnimationCreditsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val myContext = requireContext()
         val information = listOf(
             Triple("Fake 3d coin", "Saim Hayyat", "https://lottiefiles.com/36928-fake-3d-coin")
         )
-        val view = ScrollView(requireContext())
-        val linearLayout = LinearLayout(requireContext())
+        val view = ScrollView(myContext)
+        val linearLayout = LinearLayout(myContext)
         linearLayout.orientation = LinearLayout.VERTICAL
         information.forEach {
-            val textView = TextView(requireContext())
+            val textView = TextView(myContext)
             textView.textSize = 18f
             textView.setPaddingRelative(40, 50, 40, 0)
-            val text = "\'${it.first}\' animation by ${it.second}"
+            val text = getString(R.string.about_animations_description, it.first, it.second)
             val spannableString = SpannableString(text)
             val clickableSpan = object: ClickableSpan() {
                 override fun onClick(widget: View) {

@@ -39,7 +39,7 @@ class AppIntro3rdFragment : Fragment(), SlidePolicy {
         get() = (checkBox1.isChecked && checkBox2.isChecked)
 
     override fun onUserIllegallyRequestedNextPage() {
-        Toast.makeText(requireContext(), "To continue you have to agree to both", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), getString(R.string.intro_fragment3_toast), Toast.LENGTH_LONG).show()
     }
 
     companion object {

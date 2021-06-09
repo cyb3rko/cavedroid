@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/appintro_statusbar_height"
@@ -22,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/content"
         app:layout_constraintVertical_chainStyle="spread"
-        android:text="End User Consent" />
+        android:text="@string/intro_fragment3_title" />
 
     <ScrollView
         android:id="@+id/content"
@@ -46,14 +45,14 @@
                 style="@style/AppIntroDefaultText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="For using this app you may agree to the Terms of Use and the Privacy Policy." />
+                android:text="@string/intro_fragment3_description" />
 
             <Button
                 android:id="@+id/terms_of_use_button"
                 style="@style/Button.AppIntro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Terms of Use"
+                android:text="@string/intro_fragment3_button1"
                 android:layout_marginTop="48dp" />
 
             <CheckBox
@@ -61,14 +60,14 @@
                 style="@style/Checkbox.AppIntro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I agree to the Terms of Use." />
+                android:text="@string/intro_fragment3_check1" />
 
             <Button
                 android:id="@+id/privacy_policy_button"
                 style="@style/Button.AppIntro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Privacy Policy"
+                android:text="@string/intro_fragment3_button2"
                 android:layout_marginTop="24dp" />
 
             <CheckBox
@@ -76,7 +75,7 @@
                 style="@style/Checkbox.AppIntro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I agree to the Privacy Policy" />
+                android:text="@string/intro_fragment3_check2" />
 
         </LinearLayout>
 

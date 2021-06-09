@@ -1,18 +1,16 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.fragments
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -21,6 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
+import com.cyb3rko.cavedroid.HtmlWebView
+import com.cyb3rko.cavedroid.JavascriptInterface
+import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
@@ -41,7 +43,7 @@ class SearchFragment : Fragment() {
 
     private val api = CavetaleAPI()
     private val args: SearchFragmentArgs by navArgs()
-    private lateinit var webView: WebView
+    private lateinit var webView: HtmlWebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,51 +66,51 @@ class SearchFragment : Fragment() {
                 layoutResource = R.layout.item_recycler_market,
                 viewHolder = ::MarketEntryViewHolder,
                 onBindBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
-                    vh.amountView.text = "${marketEntry.amount}x ${marketEntry.item}"
-                    vh.priceView.text = "${marketEntry.price}\nCoins"
-                    vh.sellerView.text = "${marketEntry.seller}"
+                    vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
+                    vh.priceView.text = getString(R.string.item_search_price, marketEntry.price)
+                    vh.sellerView.text = marketEntry.seller
                     vh.cardView.setOnClickListener {
                         MaterialDialog(myContext).show {
                             icon(drawable = vh.avatarView.drawable)
                             title(text = marketEntry.seller)
-                            message(text = Html.fromHtml("<b>Item</b>: ${marketEntry.item}<br/>" +
-                                    "<b>Stack Size</b>: ${marketEntry.amount}<br/>" +
-                                    "<b>Total price</b>: ${marketEntry.price} Coins<br/>" +
-                                    "<b>Per Item Price</b>: ${marketEntry.perItem} Coins")) {
+                            message(text = Html.fromHtml(
+                                Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information1), marketEntry.item) +
+                                        Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information2), marketEntry.amount) +
+                                        Utils.getFormattedDialogPriceInformation(getString(R.string.item_search_dialog_information3),
+                                            marketEntry.price) +
+                                        Utils.getFormattedDialogPriceInformation(getString(R.string.item_search_dialog_information4),
+                                            marketEntry.perItem))
+                            ) {
                                 lineSpacing(1.4f)
                             }
                             listItems(items = listOf(
-                                "View Seller Profile",
-                                "Copy Seller Name",
-                                "Copy Item Name",
-                                "Copy Price",
-                                "Copy Per Item Price")
-                            ) { _, index, _ ->
+                                getString(R.string.item_search_dialog_button1),
+                                getString(R.string.item_search_dialog_button2),
+                                getString(R.string.item_search_dialog_button3),
+                                getString(R.string.item_search_dialog_button4),
+                                getString(R.string.item_search_dialog_button5)
+                            )) { _, index, _ ->
                                 when (index) {
                                     0 -> {
                                         findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.seller))
                                     }
                                     1 -> {
-                                        val clip = ClipData.newPlainText(marketEntry.seller, marketEntry.seller)
-                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                        showClipboardToast()
+                                        Utils.storeToClipboard(myContext, marketEntry.seller)
+                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                     }
                                     2 -> {
-                                        val clip = ClipData.newPlainText(marketEntry.item, marketEntry.item)
-                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                        showClipboardToast()
+                                        Utils.storeToClipboard(myContext, marketEntry.item)
+                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
                                     }
                                     3 -> {
                                         val text = "${marketEntry.price} Coins"
-                                        val clip = ClipData.newPlainText(text, text)
-                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                        showClipboardToast()
+                                        Utils.storeToClipboard(myContext, text)
+                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_price))
                                     }
                                     4 -> {
                                         val text = "${marketEntry.perItem} Coins"
-                                        val clip = ClipData.newPlainText(text, text)
-                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                        showClipboardToast()
+                                        Utils.storeToClipboard(myContext, text)
+                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
                                     }
                                 }
                             }
@@ -123,26 +125,19 @@ class SearchFragment : Fragment() {
             )
         }
 
-        webView = WebView(myContext)
-        webView.settings.javaScriptEnabled = true
-        val webInterface = JavascriptInterface()
-        webView.addJavascriptInterface(webInterface, "HtmlViewer")
+        webView = HtmlWebView(myContext)
         webView.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                val handler = Handler()
-                handler.postDelayed({
-                    kotlin.run { webView.loadUrl(
-                        "javascript:window.HtmlViewer.showHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');"
-                    )
-                    }
+                Handler().postDelayed({
+                    kotlin.run { webView.fetchHmtl() }
                 }, 600)
 
                 GlobalScope.launch {
-                    while (webInterface.html == null) {
-                        Thread.sleep(100)
+                    while (webView.javascriptInterface.html == null) {
+                        Thread.sleep(50)
                     }
 
-                    loadHtmlIntoRecycler(webInterface, adapter)
+                    loadHtmlIntoRecycler(webView.javascriptInterface, adapter)
                 }
             }
         }
@@ -156,8 +151,8 @@ class SearchFragment : Fragment() {
                 FirebaseAnalytics.getInstance(myContext).logEvent("shop_search") {
                     param("item", text)
                 }
-                hideKeyboard()
-                webInterface.html = null
+                Utils.hideKeyboard(requireActivity())
+                webView.javascriptInterface.clearHTML()
                 adapter.submitList(emptyList())
                 adapter.notifyDataSetChanged()
                 binding.apply {
@@ -169,16 +164,12 @@ class SearchFragment : Fragment() {
             true
         }
 
-        if (args.item != "") {
+        if (args.item.isNotBlank()) {
             binding.searchInput.apply {
                 setText(args.item)
                 onEditorAction(EditorInfo.IME_ACTION_SEARCH)
             }
         }
-    }
-
-    private fun showClipboardToast() {
-        Toast.makeText(myContext, "Copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadHtmlIntoRecycler(
@@ -196,15 +187,6 @@ class SearchFragment : Fragment() {
             adapter.submitList(finalList)
             adapter.notifyDataSetChanged()
         }
-    }
-
-    private fun hideKeyboard() {
-        val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-        var view = requireActivity().currentFocus
-        if (view == null) {
-            view = View(requireActivity())
-        }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

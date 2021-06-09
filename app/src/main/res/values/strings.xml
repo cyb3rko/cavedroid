@@ -4,6 +4,119 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="home_balance_caption">Coins in account:</string>
+    <string name="home_earnings_caption">Total earnings in market:</string>
+    <string name="home_spendings_caption">Total spending in market:</string>
+    <string name="home_sold_caption">Items sold:</string>
+    <string name="home_bought_caption">Items bought:</string>
+    <string name="home_offers_caption">Current offers:</string>
+
+    <string name="search_view_hint">Player Name</string>
+    <string name="name_dialog_title">Put in your ingame name</string>
+    <string name="name_dialog_button">@android:string/ok</string>
+    <string name="name_dialog_hint">Player Name</string>
+    <string name="name_dialog_error">Input missing</string>
+    <string name="name_history_fetching">Fetching Data…</string>
+    <string name="name_history_title">Name History</string>
+
+    <string name="topbar_title_items_sold">Items sold (highest amount)</string>
+    <string name="topbar_title_items_bought">Items bought (highest amount)</string>
+    <string name="topbar_title_offers">Current offers</string>
+    <string name="topbar_title_richlist">Richlist</string>
+    <string name="topbar_title_top_sellers">Top Sellers</string>
+    <string name="topbar_title_top_items">Top Items</string>
+
+    <string name="item_amount">%1$sx %2$s</string>
+    <string name="item_search_price">%1$sx\nCoins</string>
+    <string name="ranking_entry">#%1$d</string>
+
+    <string name="item_dialog_information1">Item</string>
+    <string name="item_dialog_information2">Amount</string>
+    <string name="item_dialog_information3">Price</string>
+    <string name="item_dialog_information4">Per Item Price</string>
+
+    <string name="item_dialog_button1">Search for Item</string>
+    <string name="item_dialog_button2.1">View Buyer</string>
+    <string name="item_dialog_button2.2">View Seller</string>
+    <string name="item_dialog_button3">Copy Player Name</string>
+    <string name="item_dialog_button4">Copy Item Name</string>
+    <string name="item_dialog_button5">Copy Price</string>
+    <string name="item_dialog_button6">Copy Per Item Price</string>
+
+    <string name="item_search_hint">Search</string>
+
+    <string name="item_search_dialog_information1">@string/item_dialog_information1</string>
+    <string name="item_search_dialog_information2">Stack Size</string>
+    <string name="item_search_dialog_information3">Total Price</string>
+    <string name="item_search_dialog_information4">@string/item_dialog_information4</string>
+
+    <string name="item_search_dialog_button1">View Seller Profile</string>
+    <string name="item_search_dialog_button2">Copy Seller Name</string>
+    <string name="item_search_dialog_button3">@string/item_dialog_button4</string>
+    <string name="item_search_dialog_button4">@string/item_dialog_button5</string>
+    <string name="item_search_dialog_button5">@string/item_dialog_button6</string>
+
+    <string name="ranking_button1">Richlist</string>
+    <string name="ranking_button2">Top Sellers</string>
+    <string name="ranking_button3">Top Items</string>
+
+    <string name="ranking_player_suffix1">Coins</string>
+    <string name="ranking_player_suffix2">Coins Turnover</string>
+
+    <string name="ranking_item_units">%1$s\nSold Units</string>
+    <string name="ranking_item_turnover">%1$s\nCoins</string>
+
+    <string name="ranking_player_dialog_button1">View Profile</string>
+    <string name="ranking_player_dialog_button2">Copy Name</string>
+    <string name="ranking_player_dialog_button3">Copy Balance</string>
+
+    <string name="ranking_item_dialog_information1">Sold Units</string>
+    <string name="ranking_item_dialog_information2">Total Turnover</string>
+    <string name="ranking_item_dialog_information3">Per Item Average</string>
+
+    <string name="ranking_item_dialog_button1">Search for Item</string>
+    <string name="ranking_item_dialog_button2">Copy Item Name</string>
+    <string name="ranking_item_dialog_button3">Copy Sold Units</string>
+    <string name="ranking_item_dialog_button4">Copy Total Turnover</string>
+    <string name="ranking_item_dialog_button5">Copy Per Item Price</string>
+
+    <string name="clipboard_category_name">name</string>
+    <string name="clipboard_category_item">item</string>
+    <string name="clipboard_category_price">price</string>
+    <string name="clipboard_category_per_item_price">per item price</string>
+    <string name="clipboard_category_amount">amount</string>
+    <string name="clipboard_category_turnover">turnover</string>
+
+    <string name="about_icons_title">Used Icons</string>
+    <string name="about_animations_description">%1$s animation by %2$s</string>
+
+    <string name="feedback_dialog_title">Have some feedback?</string>
+    <string name="feedback_dialog_message">If you have some feedback or you found a bug, feel free to report it on the GitHub repository.</string>
+    <string name="feedback_dialog_button">Open Repo</string>
+
+    <string name="intro_fragment1_title">Welcome…</string>
+    <string name="intro_fragment1_description">This is the unofficial Cavedroid app made by Cyb3rKo</string>
+    <string name="intro_fragment2_title">Feel free to contribute</string>
+    <string name="intro_fragment2_description">If you experience any problems or if you have a idea for a new feature, feel free to visit the GitHub
+        repository and open an issue or a pull request.\nThanks!</string>
+    <string name="intro_fragment3_title">End User Consent</string>
+    <string name="intro_fragment3_description">For using this app you may agree to the Terms of Use and the Privacy Policy.</string>
+    <string name="intro_fragment3_button1">Terms of Use</string>
+    <string name="intro_fragment3_check1">I agree to the Terms of Use.</string>
+    <string name="intro_fragment3_button2">Privacy Policy</string>
+    <string name="intro_fragment3_check2">I agree to the Privacy Policy.</string>
+    <string name="intro_fragment3_toast">To continue you have to agree to both</string>
+    <string name="intro_fragment4_title">Data Collection</string>
+    <string name="intro_fragment4_description1">You can help me to (quickly) fix bugs and improve the app performance by allowing data collection
+        (you can change them later in the settings):\n\n<u>Firebase Analytics</u>:\nProviding me with simple usage data mentioned in the Privacy
+        Policy.</string>
+    <string name="intro_fragment4_check1">I agree to data collection via Analytics.</string>
+    <string name="intro_fragment4_description2"><u>Firebase Crashlytics</u>:\nProviding me with logs after this app crashes to fix the relating
+        bugs.</string>
+    <string name="intro_fragment4_check2">I agree to data collection via Crashlytics.</string>
+    <string name="intro_fragment5_title">Ready…</string>
+    <string name="intro_fragment5_description">OK, everything is set up.\nEnjoy!</string>
+
     <string name="end_user_consent_title">End User Consent</string>
     <string name="end_user_consent_message">By using this app you agree to the Privacy Policy and the Terms of Use.</string>
     <string name="end_user_consent_button_1">Got it</string>
@@ -19,4 +132,6 @@
     <string name="end_user_consent_2_date_not_found">Date not found</string>
     <string name="end_user_consent_2_time_not_found">Time not found</string>
     <string name="end_user_consent_2_button_2">Revoke</string>
+
+    <string name="preferences_deletion_done">Deletion done</string>
 </resources>

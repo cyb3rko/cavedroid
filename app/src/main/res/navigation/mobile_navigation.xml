@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.cyb3rko.cavedroid.HomeFragment"
+        android:name="com.cyb3rko.cavedroid.fragments.HomeFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_home" >
         <argument
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.cyb3rko.cavedroid.SearchFragment"
+        android:name="com.cyb3rko.cavedroid.fragments.SearchFragment"
         android:label="Item Search"
         tools:layout="@layout/fragment_item_search">
         <argument
@@ -33,8 +33,8 @@
 
     <fragment
         android:id="@+id/navigation_profile_category"
-        android:name="com.cyb3rko.cavedroid.ProfileCategoryFragment"
-        tools:layout="@layout/fragment_profile_category"
+        android:name="com.cyb3rko.cavedroid.fragments.ProfileCategoryFragment"
+        tools:layout="@layout/fragment_listing"
         android:label="{title}">
         <argument
             android:name="category"
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/navigation_rankings"
-        android:name="com.cyb3rko.cavedroid.RankingsFragment"
+        android:name="com.cyb3rko.cavedroid.fragments.RankingsFragment"
         android:label="Rankings"
         tools:layout="@layout/fragment_rankings">
         <action
@@ -63,8 +63,8 @@
 
     <fragment
         android:id="@+id/navigation_ranking"
-        android:name="com.cyb3rko.cavedroid.RankingFragment"
-        tools:layout="@layout/fragment_ranking"
+        android:name="com.cyb3rko.cavedroid.fragments.RankingFragment"
+        tools:layout="@layout/fragment_listing"
         android:label="Ranking: {title}">
         <argument
             android:name="rankingType"
@@ -80,19 +80,19 @@
 
     <fragment
         android:id="@+id/navigation_preferences"
-        android:name="com.cyb3rko.cavedroid.PreferenceFragment"
+        android:name="com.cyb3rko.cavedroid.fragments.PreferenceFragment"
         android:label="Preferences">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_about_icons"
-        android:name="com.cyb3rko.cavedroid.AboutIconsFragment"
+        android:name="com.cyb3rko.cavedroid.fragments.AboutIconsFragment"
         android:label="Credits">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_about_animations"
-        android:name="com.cyb3rko.cavedroid.AnimationCreditsFragment"
+        android:name="com.cyb3rko.cavedroid.fragments.AnimationCreditsFragment"
         android:label="Credits">
     </fragment>
 

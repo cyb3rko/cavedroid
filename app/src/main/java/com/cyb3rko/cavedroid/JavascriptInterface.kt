@@ -9,4 +9,8 @@ class JavascriptInterface {
     fun showHTML(_html: String) {
         html = _html
     }
+
+    fun clearHTML() {
+        html = null
+    }
 }

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:singleLine="true"
-        android:hint="Player Name" />
+        android:hint="@string/name_dialog_hint"
+        android:autofillHints="username" />
 
 </FrameLayout>

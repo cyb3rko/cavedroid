@@ -1,4 +1,4 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.fragments
 
 import android.app.ProgressDialog
 import android.content.*
@@ -13,13 +13,10 @@ import android.text.style.ClickableSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.SearchView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -35,6 +32,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.appintro.MyAppIntro
 import com.cyb3rko.cavedroid.databinding.FragmentHomeBinding
 import com.cyb3rko.cavetaleapi.CavetaleAPI
@@ -69,13 +67,13 @@ class HomeFragment : Fragment() {
         val root = binding.root
         myContext = requireContext()
 
-        mySPR = requireActivity().getSharedPreferences("Safe", Context.MODE_PRIVATE)
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
         mySPREditor = mySPR.edit()
 
-        currentName = mySPR.getString("name", "")!!
-        if (currentName != "" && args.name == "") {
+        currentName = mySPR.getString(NAME, "")!!
+        if (currentName.isNotBlank() && args.name.isBlank()) {
             loadProfile(currentName)
-        } else if (currentName != "" && args.name != "") {
+        } else if (currentName.isNotBlank() && args.name.isNotBlank()) {
             if (args.name != currentName) {
                 currentName = args.name
                 GlobalScope.launch {
@@ -107,22 +105,22 @@ class HomeFragment : Fragment() {
             setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
             setColorSchemeResources(R.color.refreshLayoutArrow)
             setOnRefreshListener {
-                loadProfile(mySPR.getString("name", "")!!)
+                loadProfile(mySPR.getString(NAME, "")!!)
             }
         }
 
         binding.soldContainer.setOnClickListener {
-            val action = HomeFragmentDirections.openProfileCategory(1, currentName, "Items sold (highest amount)")
+            val action = HomeFragmentDirections.openProfileCategory(1, currentName, getString(R.string.topbar_title_items_sold))
             findNavController().navigate(action)
         }
 
         binding.boughtContainer.setOnClickListener {
-            val action = HomeFragmentDirections.openProfileCategory(2, currentName, "Items bought (highest amount)")
+            val action = HomeFragmentDirections.openProfileCategory(2, currentName, getString(R.string.topbar_title_items_bought))
             findNavController().navigate(action)
         }
 
         binding.offersContainer.setOnClickListener {
-            val action = HomeFragmentDirections.openProfileCategory(3, currentName, "Current offers")
+            val action = HomeFragmentDirections.openProfileCategory(3, currentName, getString(R.string.topbar_title_offers))
             findNavController().navigate(action)
         }
 
@@ -133,69 +131,59 @@ class HomeFragment : Fragment() {
 
     private fun loadNameHistory() {
         val progressDialog = ProgressDialog(myContext)
-        progressDialog.setMessage("Fetching Data...")
+        progressDialog.setMessage(getString(R.string.name_history_fetching))
         progressDialog.show()
+
         var viewType = 0
-        val webView = WebView(myContext)
-        webView.settings.javaScriptEnabled = true
-        val webInterface = JavascriptInterface()
-        webView.addJavascriptInterface(webInterface, "HtmlViewer")
+        val webView = HtmlWebView(myContext)
         webView.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                webView.loadUrl("javascript:window.HtmlViewer.showHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');")
+                webView.fetchHmtl()
 
                 if (viewType == 0) {
                     GlobalScope.launch {
                         try {
-                            while (webInterface.html == null) {
+                            while (webView.javascriptInterface.html == null) {
                                 Thread.sleep(50)
                             }
 
-                            val uuid = webInterface.html!!.split("\"id\":\"")[1].removeSuffix("\"}</pre></body></head>")
-                            webInterface.html = null
+                            val uuid = api.getNameUuid(webView.javascriptInterface.html!!)
+                            webView.javascriptInterface.clearHTML()
                             activity?.runOnUiThread {
-                                webView.loadUrl("https://api.mojang.com/user/profiles/$uuid/names")
+                                webView.loadUrl(api.getNameHistoryLink(uuid))
                             }
                             viewType = 1
                         } catch (e: Exception) {
-                            Log.d("Cavedroid.NameHistory", e.message!!)
+                            Log.e("Cavedroid.NameHistory", e.message!!)
                         }
                     }
                 } else {
                     GlobalScope.launch {
                         try {
-                            while (webInterface.html == null) {
+                            while (webView.javascriptInterface.html == null) {
                                 Thread.sleep(50)
                             }
 
-                            val nameParts = webInterface.html!!.split("name\":\"").drop(1).toMutableList()
-                            nameParts.forEachIndexed { index, s ->
-                                nameParts[index] = s.split("\"")[0]
-                            }
-                            nameParts.reverse()
                             activity?.runOnUiThread {
                                 progressDialog.dismiss()
                                 MaterialDialog(myContext).show {
                                     noAutoDismiss()
-                                    title(text = "Name History")
-                                    listItems(items = nameParts) { _, _, name ->
-                                        val clip = ClipData.newPlainText(name, name)
-                                        (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                        showClipboardToast()
+                                    title(R.string.name_history_title)
+                                    listItems(items = api.getNameHistory(webView.javascriptInterface.html!!)) { _, _, name ->
+                                        Utils.storeToClipboard(myContext, name.toString())
+                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                     }
                                 }
                             }
                         } catch (e: Exception) {
-                            Log.d("Cavedroid.NameHistory", e.message!!)
+                            Log.e("Cavedroid.NameHistory", e.message!!)
                         }
                     }
                 }
             }
         }
-        webView.loadUrl("https://api.mojang.com/users/profiles/minecraft/$currentName")
+        webView.loadUrl(api.getNameUuidLink(currentName))
     }
-
-    private fun showClipboardToast() = Toast.makeText(myContext, "Copied name to clipboard", Toast.LENGTH_SHORT).show()
 
     private fun loadProfile(name: String) {
         val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")
@@ -225,12 +213,12 @@ class HomeFragment : Fragment() {
                                 binding.nameView.visibility = View.VISIBLE
                                 binding.apply {
                                     nameView.text = name
-                                    balanceView.text = Html.fromHtml("<b>Coins in account:</b><br/>${user.balance}")
-                                    earningsView.text = Html.fromHtml("<b>Total earnings in market:</b><br/>${user.marketEarnings}")
-                                    spendingView.text = Html.fromHtml("<b>Total spending in market:</b><br/>${user.marketSpendings}")
-                                    soldView.text = Html.fromHtml("<b>Items sold:</b><br/>${user.itemsSold}")
-                                    boughtView.text = Html.fromHtml("<b>Items bought:</b><br/>${user.itemsBought}")
-                                    offersView.text = Html.fromHtml("<b>Current offers:</b><br/>${user.currentOffers}")
+                                    balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
+                                    earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
+                                    spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
+                                    soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
+                                    boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
+                                    offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
                                     refreshLayout.isRefreshing = false
                                 }
                                 showInformation(true)
@@ -244,6 +232,8 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun getFormattedInformation(category: String, value: String) = Html.fromHtml("<b>$category</b><br/>$value")
 
     private fun showInformation(show: Boolean) {
         val visibility = if (show) View.VISIBLE else View.INVISIBLE
@@ -263,11 +253,11 @@ class HomeFragment : Fragment() {
         topMenu = menu
         val menuSearchItem = menu.findItem(R.id.search)
         val searchView = menuSearchItem.actionView as SearchView
-        searchView.queryHint = "Player Name"
+        searchView.queryHint = getString(R.string.search_view_hint)
         searchView.isIconifiedByDefault = false
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                hideKeyboard()
+                Utils.hideKeyboard(requireActivity())
                 binding.animationView.playAnimation()
                 binding.animationView.visibility = View.VISIBLE
                 showInformation(false)
@@ -295,14 +285,14 @@ class HomeFragment : Fragment() {
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                hideKeyboard()
+                Utils.hideKeyboard(requireActivity())
                 menu.forEach {
                     it.isVisible = true
                 }
                 binding.animationView.playAnimation()
                 binding.animationView.visibility = View.VISIBLE
                 showInformation(false)
-                val oldName = mySPR.getString("name", "")!!
+                val oldName = mySPR.getString(NAME, "")!!
                 loadProfile(oldName)
                 currentName = oldName
                 return true
@@ -343,9 +333,9 @@ class HomeFragment : Fragment() {
 
         menu.findItem(R.id.feedback).setOnMenuItemClickListener {
             MaterialDialog(requireActivity())
-                .title(text = "Have some feedback?")
-                .message(text = "If you have some feedback or you found a bug, feel free to report it on the GitHub repository.")
-                .positiveButton(text = "Open Repo") { it2 ->
+                .title(R.string.feedback_dialog_title)
+                .message(R.string.feedback_dialog_message)
+                .positiveButton(R.string.feedback_dialog_button) {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cyb3rko/cavedroid/issues")))
                 }
                 .show()
@@ -353,98 +343,90 @@ class HomeFragment : Fragment() {
         }
 
         menu.findItem(R.id.end_user_consent).setOnMenuItemClickListener {
-            var dialogMessage = getString(R.string.end_user_consent_2_message_1)
-            dialogMessage += mySPR.getString(CONSENT_DATE, getString(R.string.end_user_consent_2_date_not_found)) +
-                    getString(R.string.end_user_consent_2_message_2) +
-                    mySPR.getString(CONSENT_TIME, getString(R.string.end_user_consent_2_time_not_found))
-            val spannableString = SpannableString(dialogMessage)
-            val clickableSpan1 = object : ClickableSpan() {
-                override fun onClick(view: View) {
-                    Utils.showLicenseDialog(myContext, PRIVACY_POLICY)
-                }
-            }
-            val clickableSpan2 = object : ClickableSpan() {
-                override fun onClick(view: View) {
-                    Utils.showLicenseDialog(myContext, TERMS_OF_USE)
-                }
-            }
-            var currentText = getString(R.string.end_user_consent_2_privacy_policy)
-            var index = dialogMessage.indexOf(currentText)
-            spannableString.setSpan(
-                clickableSpan1, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            currentText = getString(R.string.end_user_consent_2_terms_of_use)
-            index = dialogMessage.indexOf(currentText)
-            spannableString.setSpan(
-                clickableSpan2, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            currentText = getString(R.string.end_user_consent_2_date)
-            index = dialogMessage.indexOf(currentText)
-            repeat(2) {
-                spannableString.setSpan(UnderlineSpan(), index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                currentText = getString(R.string.end_user_consent_2_time)
-                index = dialogMessage.indexOf(currentText)
-            }
-
-            MaterialDialog(myContext).show {
-                title(R.string.end_user_consent_2_title)
-                message(0, spannableString) {
-                    messageTextView.movementMethod = LinkMovementMethod.getInstance()
-                }
-                positiveButton(android.R.string.ok)
-                negativeButton(R.string.end_user_consent_2_button_2) {
-                    val analytics = FirebaseAnalytics.getInstance(myContext)
-                    analytics.resetAnalyticsData()
-                    analytics.setAnalyticsCollectionEnabled(false)
-                    val crashlytics = FirebaseCrashlytics.getInstance()
-                    crashlytics.deleteUnsentReports()
-                    crashlytics.setCrashlyticsCollectionEnabled(false)
-                    mySPREditor.clear().commit()
-                    requireActivity().finish()
-                    startActivity(Intent(myContext, MyAppIntro::class.java))
-                }
-            }
+            showUserConsentDialog()
             true
         }
     }
 
     private fun showNameDialog() {
-        val myPrefs = requireActivity().getSharedPreferences("Safe", Context.MODE_PRIVATE)
         MaterialDialog(requireActivity())
             .noAutoDismiss()
-            .onPreShow { it2 ->
-                val input = it2.getCustomView().findViewById<EditText>(R.id.md_input)
-                input.setText(myPrefs.getString("name", ""))
+            .onPreShow {
+                val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
+                input.setText(mySPR.getString(NAME, ""))
             }
             .customView(R.layout.dialog_view)
             .cancelable(true)
-            .title(text = "Put in your ingame name")
-            .positiveButton(text = "Ok") { it3 ->
-                val input = it3.getCustomView().findViewById<EditText>(R.id.md_input)
+            .title(R.string.name_dialog_title)
+            .positiveButton(R.string.name_dialog_button) {
+                val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
                 val newName = input.text.toString()
-                if (newName != "") {
-                    mySPREditor.putString("name", newName).apply()
+                if (newName.isNotBlank()) {
+                    mySPREditor.putString(NAME, newName).apply()
                     binding.animationView.playAnimation()
                     binding.animationView.visibility = View.VISIBLE
                     showInformation(false)
                     loadProfile(newName)
-                    it3.cancel()
-                    if (activity != null) {
-                        (activity as MainActivity).receiveLatestAnnouncement()
-                    }
+                    it.cancel()
+                    (requireActivity() as MainActivity).receiveLatestAnnouncement()
                 } else {
-                    input.error = "Input missing"
+                    input.error = getString(R.string.name_dialog_error)
                 }
             }
             .show()
     }
 
-    private fun hideKeyboard() {
-        val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-        var view = requireActivity().currentFocus
-        if (view == null) {
-            view = View(requireActivity())
+    private fun showUserConsentDialog() {
+        var dialogMessage = getString(R.string.end_user_consent_2_message_1)
+        dialogMessage += mySPR.getString(CONSENT_DATE, getString(R.string.end_user_consent_2_date_not_found)) +
+                getString(R.string.end_user_consent_2_message_2) +
+                mySPR.getString(CONSENT_TIME, getString(R.string.end_user_consent_2_time_not_found))
+        val spannableString = SpannableString(dialogMessage)
+        val clickableSpan1 = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                Utils.showLicenseDialog(myContext, PRIVACY_POLICY)
+            }
         }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        val clickableSpan2 = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                Utils.showLicenseDialog(myContext, TERMS_OF_USE)
+            }
+        }
+        var currentText = getString(R.string.end_user_consent_2_privacy_policy)
+        var index = dialogMessage.indexOf(currentText)
+        spannableString.setSpan(
+            clickableSpan1, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        currentText = getString(R.string.end_user_consent_2_terms_of_use)
+        index = dialogMessage.indexOf(currentText)
+        spannableString.setSpan(
+            clickableSpan2, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        currentText = getString(R.string.end_user_consent_2_date)
+        index = dialogMessage.indexOf(currentText)
+        repeat(2) {
+            spannableString.setSpan(UnderlineSpan(), index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            currentText = getString(R.string.end_user_consent_2_time)
+            index = dialogMessage.indexOf(currentText)
+        }
+
+        MaterialDialog(myContext).show {
+            title(R.string.end_user_consent_2_title)
+            message(text = spannableString) {
+                messageTextView.movementMethod = LinkMovementMethod.getInstance()
+            }
+            positiveButton(android.R.string.ok)
+            negativeButton(R.string.end_user_consent_2_button_2) {
+                val analytics = FirebaseAnalytics.getInstance(myContext)
+                analytics.resetAnalyticsData()
+                analytics.setAnalyticsCollectionEnabled(false)
+                val crashlytics = FirebaseCrashlytics.getInstance()
+                crashlytics.deleteUnsentReports()
+                crashlytics.setCrashlyticsCollectionEnabled(false)
+                mySPREditor.clear().commit()
+                requireActivity().finish()
+                startActivity(Intent(myContext, MyAppIntro::class.java))
+            }
+        }
     }
 }

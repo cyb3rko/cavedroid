@@ -24,25 +24,24 @@ class MyAppIntro : AppIntro() {
 
         val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorPrimaryVariant, theme)
         addSlide(AppIntroFragment.newInstance(
-            title = "Welcome...",
-            description = "This is the unofficial Cavetale Android client made by Cyb3rKo",
+            title = getString(R.string.intro_fragment1_title),
+            description = getString(R.string.intro_fragment1_description),
             imageDrawable = R.drawable.ic_launcher_playstore,
             backgroundColor = backgroundColor
         ))
         addSlide(AppIntroFragment.newInstance(
-            title = "Feel free to contribute",
+            title = getString(R.string.intro_fragment2_title),
             imageDrawable = R.drawable._ic_github,
-            description = "If you experience any problems or if you have a idea for a new feature, feel free to visit the GitHub repository and " +
-                    "open an issue or a pull request.\nThanks!",
+            description = getString(R.string.intro_fragment2_description),
             backgroundColor = backgroundColor
         ))
 
         addSlide(AppIntro3rdFragment.newInstance())
         addSlide(AppIntro4thFragment.newInstance())
         addSlide(AppIntroFragment.newInstance(
-            title = "Ready…",
+            title = getString(R.string.intro_fragment5_title),
             imageDrawable = R.drawable._ic_start,
-            description = "OK, everything is set up. Enjoy!",
+            description = getString(R.string.intro_fragment5_description),
             backgroundColor = backgroundColor
         ))
 
@@ -53,7 +52,7 @@ class MyAppIntro : AppIntro() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        val mySPR = applicationContext.getSharedPreferences(SHARED_PREFERENCE, 0)
+        val mySPR = applicationContext.getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
         val editor = mySPR.edit()
 
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(mySPR.getBoolean(ANALYTICS_COLLECTION, true))

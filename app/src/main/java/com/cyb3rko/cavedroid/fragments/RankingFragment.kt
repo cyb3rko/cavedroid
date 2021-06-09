@@ -1,7 +1,5 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.fragments
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.text.Html
@@ -9,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,7 +16,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.cyb3rko.cavedroid.databinding.FragmentRankingBinding
+import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.Utils
+import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.ItemEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.ItemViewState
 import com.cyb3rko.cavedroid.rankings.PlayerEntryViewHolder
@@ -32,7 +31,7 @@ import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 import kotlin.math.round
 
 class RankingFragment : Fragment() {
-    private var _binding: FragmentRankingBinding? = null
+    private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
 
     private val args: RankingFragmentArgs by navArgs()
@@ -47,7 +46,7 @@ class RankingFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentRankingBinding.inflate(inflater, container, false)
+        _binding = FragmentListingBinding.inflate(inflater, container, false)
         val root = binding.root
         myContext = requireContext()
 
@@ -69,27 +68,29 @@ class RankingFragment : Fragment() {
                         layoutResource = R.layout.item_recycler_player,
                         viewHolder = ::PlayerEntryViewHolder,
                         onBindBindViewHolder = { vh, index, player ->
-                            vh.rankView.text = "#${index + 1}"
+                            vh.rankView.text = getString(R.string.ranking_entry, index + 1)
                             vh.nameView.text = player.name
                             vh.dataView.text = player.data
                             vh.cardView.setOnClickListener {
                                 MaterialDialog(myContext).show {
                                     icon(drawable = vh.avatarView.drawable)
                                     title(text = player.name)
-                                    listItems(items = listOf("View Profile", "Copy Name", "Copy Balance")) { _, index, _ ->
+                                    listItems(items = listOf(
+                                        getString(R.string.ranking_player_dialog_button1),
+                                        getString(R.string.ranking_player_dialog_button2),
+                                        getString(R.string.ranking_player_dialog_button3))
+                                    ) { _, index, _ ->
                                         when (index) {
                                             0 -> {
                                                 findNavController().navigate(R.id.go_to_home, bundleOf("name" to player.name))
                                             }
                                             1 -> {
-                                                val clip = ClipData.newPlainText(player.name, player.name)
-                                                (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                                showClipboardToast()
+                                                Utils.storeToClipboard(myContext, player.name)
+                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                             }
                                             2 -> {
-                                                val clip = ClipData.newPlainText(player.data, player.data)
-                                                (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                                showClipboardToast()
+                                                Utils.storeToClipboard(myContext, player.data)
+                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                             }
                                         }
                                     }
@@ -111,7 +112,7 @@ class RankingFragment : Fragment() {
                 }
 
                 limit = if (args.rankingType == 1) 100 else 50
-                dataSuffix = if (args.rankingType == 1) "Coins" else "Coins Turnover"
+                dataSuffix = getString(if (args.rankingType == 1) R.string.ranking_player_suffix1 else R.string.ranking_player_suffix2)
             }
             3 -> {
                 adapter = RecyclerViewAdapter.adapterOf {
@@ -119,7 +120,7 @@ class RankingFragment : Fragment() {
                         layoutResource = R.layout.item_recycler_item,
                         viewHolder = ::ItemEntryViewHolder,
                         onBindBindViewHolder = { vh, index, item ->
-                            vh.rankView.text = "#${index + 1}"
+                            vh.rankView.text = getString(R.string.ranking_entry, index + 1)
                             vh.nameView.text = item.name
                             vh.amountView.text = item.amount
                             vh.turnoverView.text = item.turnover
@@ -130,55 +131,48 @@ class RankingFragment : Fragment() {
                                 MaterialDialog(myContext).show {
                                     if (vh.avatarView.drawable != null) icon(drawable = vh.avatarView.drawable)
                                     title(text = item.name)
-                                    message(text = Html.fromHtml("<b>Sold units</b>: ${item.amount}<br/>" +
-                                            "<b>Total Turnover</b>: ${item.turnover}<br/>" +
-                                            "<b>Per Item Average</b>: $perItem Coins")) {
+                                    message(text = Html.fromHtml(
+                                        Utils.getFormattedDialogInformation(getString(R.string.ranking_item_dialog_information1), item.amount) +
+                                                Utils.getFormattedDialogPriceInformation(getString(R.string.ranking_item_dialog_information2),
+                                                    item.turnover) +
+                                                Utils.getFormattedDialogPriceInformation(getString(R.string.ranking_item_dialog_information3),
+                                                    perItem.toString(), false)
+                                    )) {
                                         lineSpacing(1.4f)
                                     }
                                     listItems(items = listOf(
-                                        "Search for Item",
-                                        "Copy Item Name",
-                                        "Copy Sold Units",
-                                        "Copy Total Turnover",
-                                        "Copy Per Item Price"))
-                                    { _, index, _ ->
+                                        getString(R.string.ranking_item_dialog_button1),
+                                        getString(R.string.ranking_item_dialog_button2),
+                                        getString(R.string.ranking_item_dialog_button3),
+                                        getString(R.string.ranking_item_dialog_button4),
+                                        getString(R.string.ranking_item_dialog_button5)
+                                    )) { _, index, _ ->
                                         when (index) {
                                             0 -> {
                                                 findNavController().navigate(R.id.go_to_item_search, bundleOf("item" to item.name))
                                             }
                                             1 -> {
-                                                val clip = ClipData.newPlainText(item.name, item.name)
-                                                (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                                showClipboardToast()
+                                                Utils.storeToClipboard(myContext, item.name)
+                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
                                             }
                                             2 -> {
-                                                val clip = ClipData.newPlainText(item.amount, item.amount)
-                                                (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                                showClipboardToast()
+                                                Utils.storeToClipboard(myContext, item.amount)
+                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_amount))
                                             }
                                             3 -> {
-                                                val clip = ClipData.newPlainText(item.turnover, item.turnover)
-                                                (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                                showClipboardToast()
+                                                Utils.storeToClipboard(myContext, item.turnover)
+                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_turnover))
                                             }
                                             4 -> {
-                                                val string = "$perItem Coins"
-                                                val clip = ClipData.newPlainText(string, string)
-                                                (myContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-                                                showClipboardToast()
+                                                val text = "$perItem Coins"
+                                                Utils.storeToClipboard(myContext, text)
+                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
                                             }
                                         }
                                     }
                                 }
                             }
-                            val itemName = item.name.replace(" ", "_").toLowerCase()
-                            val formattedName = itemName.split(",")[0]
-                            val avatarResId = myContext.resources.getIdentifier("_item_$formattedName", "drawable", myContext.packageName)
-                            if (avatarResId != 0) {
-                                vh.avatarView.setImageResource(avatarResId)
-                            } else {
-                                vh.avatarView.setImageResource(0)
-                            }
+                            Utils.loadItemIcon(myContext, vh.avatarView, item.name)
                         }
                     )
                 }
@@ -206,7 +200,11 @@ class RankingFragment : Fragment() {
                     3 -> {
                         val tempList = MutableList(limit) {
                             val triple = list[it] as Triple<String, String, String>
-                            ItemViewState.ItemEntry(triple.first, "${triple.second}\nSold Units", "${triple.third}\nCoins")
+                            ItemViewState.ItemEntry(
+                                triple.first,
+                                getString(R.string.ranking_item_units, triple.second),
+                                getString(R.string.ranking_item_turnover, triple.third)
+                            )
                         }
                         adapter.submitList(tempList as List<Nothing>?)
                     }
@@ -219,10 +217,6 @@ class RankingFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun showClipboardToast() {
-        Toast.makeText(myContext, "Copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

@@ -21,10 +21,9 @@
             android:maxLines="1"
             android:lines="1"
             android:singleLine="true"
-            android:hint="Search"
+            android:hint="@string/item_search_hint"
             android:inputType="text"
-            android:imeOptions="actionSearch"
-            tools:ignore="HardcodedText" />
+            android:imeOptions="actionSearch" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

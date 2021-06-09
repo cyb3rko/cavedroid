@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid.appintro
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,7 @@ class AppIntro4thFragment : Fragment() {
         checkBox1 = view.findViewById(R.id.analytics_check)
         checkBox2 = view.findViewById(R.id.crashlytics_check)
 
-        val mySPR = requireContext().getSharedPreferences(SHARED_PREFERENCE, 0)
+        val mySPR = requireContext().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
         val editor = mySPR.edit()
 
         checkBox1.setOnCheckedChangeListener { _, b ->

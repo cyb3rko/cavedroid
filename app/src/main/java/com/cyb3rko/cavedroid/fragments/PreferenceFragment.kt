@@ -1,4 +1,4 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.fragments
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,6 +9,14 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import com.cyb3rko.cavedroid.*
+import com.cyb3rko.cavedroid.ANALYTICS_COLLECTION
+import com.cyb3rko.cavedroid.ANNOUNCEMENT_IMAGE
+import com.cyb3rko.cavedroid.CRASHLYTICS_COLLECTION
+import com.cyb3rko.cavedroid.DATA_DELETION
+import com.cyb3rko.cavedroid.NIGHTMODE
+import com.cyb3rko.cavedroid.SHARED_PREFERENCE
+import com.cyb3rko.cavedroid.SHOW_ANNOUNCEMENTS
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
@@ -62,7 +70,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             DATA_DELETION -> {
                 FirebaseAnalytics.getInstance(requireActivity()).resetAnalyticsData()
                 FirebaseCrashlytics.getInstance().deleteUnsentReports()
-                Toast.makeText(requireContext(), "Deletion done", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.preferences_deletion_done), Toast.LENGTH_SHORT).show()
                 true
             }
             else -> false

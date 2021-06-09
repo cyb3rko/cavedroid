@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".HomeFragment">
+            tools:context=".fragments.HomeFragment">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/header"
@@ -49,7 +49,6 @@
                         android:layout_height="0dp"
                         android:textStyle="bold"
                         android:visibility="invisible"
-                        android:text="Cyb3rKo"
                         android:gravity="center"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -75,7 +74,6 @@
                         app:tint="@color/foreground_color"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -264,7 +262,6 @@
                         android:layout_height="30dp"
                         android:padding="6dp"
                         android:clickable="false"
-                        android:contentDescription="Items sold"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:scaleType="fitXY"
                         app:tint="@color/click_hint"
@@ -331,7 +328,6 @@
                         android:layout_height="30dp"
                         android:padding="6dp"
                         android:clickable="false"
-                        android:contentDescription="Items bought"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:scaleType="fitXY"
                         app:tint="@color/click_hint"
@@ -398,7 +394,6 @@
                         android:layout_height="30dp"
                         android:padding="6dp"
                         android:clickable="false"
-                        android:contentDescription="Current offers"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:scaleType="fitXY"
                         app:tint="@color/click_hint"
