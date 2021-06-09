@@ -304,30 +304,8 @@ class HomeFragment : Fragment() {
             true
         }
 
-        menu.findItem(R.id.icon_credits).setOnMenuItemClickListener {
-            findNavController().navigate(R.id.navigation_about_icons)
-            true
-        }
-
-        menu.findItem(R.id.library_credits).setOnMenuItemClickListener {
-            LibsBuilder()
-                .withShowLoadingProgress(true)
-                .withAboutVersionShownCode(false)
-                .withAboutVersionShownName(false)
-                .withAutoDetect(true)
-                .withAboutIconShown(false)
-                .withAboutVersionShown(false)
-                .withVersionShown(true)
-                .withLicenseDialog(true)
-                .withLicenseShown(true)
-                .withCheckCachedDetection(true)
-                .withSortEnabled(true)
-                .start(requireContext())
-            true
-        }
-
-        menu.findItem(R.id.animation_credits).setOnMenuItemClickListener {
-            findNavController().navigate(R.id.navigation_about_animations)
+        menu.findItem(R.id.about).setOnMenuItemClickListener {
+            findNavController().navigate(R.id.navigation_about)
             true
         }
 

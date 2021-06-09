@@ -37,7 +37,7 @@ class AnimationCreditsFragment : Fragment() {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.third)))
                 }
             }
-            spannableString.setSpan(clickableSpan, 1, 1 + it.first.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            spannableString.setSpan(clickableSpan, 0, it.first.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
             textView.text = spannableString
             textView.movementMethod = LinkMovementMethod.getInstance()
             linearLayout.addView(textView)

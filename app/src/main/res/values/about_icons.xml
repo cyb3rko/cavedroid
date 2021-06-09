@@ -38,6 +38,12 @@
         <item>https://www.flaticon.com/free-icon/history_2277956?term=history</item>
     </string-array>
 
+    <string-array name="ic_libraries">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/books-stack-of-three_29302</item>
+    </string-array>
+
     <string-array name="ic_offers">
         <item>Freepik</item>
         <item>flaticon.com</item>
@@ -48,6 +54,12 @@
         <item>Freepik</item>
         <item>flaticon.com</item>
         <item>https://www.flaticon.com/free-icon/user_1077114</item>
+    </string-array>
+
+    <string-array name="ic_question">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/information_906794</item>
     </string-array>
 
     <string-array name="ic_ranking">

@@ -85,6 +85,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_about"
+        android:name="com.cyb3rko.cavedroid.fragments.AboutFragment"
+        android:label="About">
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_about_icons"
         android:name="com.cyb3rko.cavedroid.fragments.AboutIconsFragment"
         android:label="Credits">

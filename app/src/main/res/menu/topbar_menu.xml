@@ -14,23 +14,15 @@
         android:title="Change Profile" />
 
     <item
-        android:id="@+id/icon_credits"
-        android:title="Icon Credits" />
-
-    <item
-        android:id="@+id/library_credits"
-        android:title="Library Credits" />
-
-    <item
-        android:id="@+id/animation_credits"
-        android:title="Animation Credits" />
-
-    <item
         android:id="@+id/feedback"
         android:title="Feedback / Bug Report" />
 
     <item
         android:id="@+id/end_user_consent"
         android:title="End User Consent" />
+
+    <item
+        android:id="@+id/about"
+        android:title="About" />
 
 </menu>

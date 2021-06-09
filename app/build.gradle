@@ -100,6 +100,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation "dev.kord:kord-core:0.7.0-RC2"
+    implementation 'io.github.medyo:android-about-page:2.0.0'
     implementation 'me.ibrahimyilmaz:kiel:1.1.0'
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
