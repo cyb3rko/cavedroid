@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toStartOf="@+id/item_avatar"
             app:layout_constraintStart_toEndOf="@+id/item_amount"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="89.00\ncoins" />
+            tools:text="89.00\nCoins" />
 
         <TextView
             android:id="@+id/item_seller"

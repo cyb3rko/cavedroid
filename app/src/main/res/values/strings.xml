@@ -27,7 +27,7 @@
     <string name="topbar_title_top_items">Top Items</string>
 
     <string name="item_amount">%1$sx %2$s</string>
-    <string name="item_search_price">%1$sx\nCoins</string>
+    <string name="item_price">%1$s\nCoins</string>
     <string name="ranking_entry">#%1$d</string>
 
     <string name="item_dialog_information1">Item</string>

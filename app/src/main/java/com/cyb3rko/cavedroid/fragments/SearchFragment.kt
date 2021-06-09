@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
                 viewHolder = ::MarketEntryViewHolder,
                 onBindBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
                     vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
-                    vh.priceView.text = getString(R.string.item_search_price, marketEntry.price)
+                    vh.priceView.text = getString(R.string.item_price, marketEntry.price)
                     vh.sellerView.text = marketEntry.seller
                     vh.cardView.setOnClickListener {
                         MaterialDialog(myContext).show {

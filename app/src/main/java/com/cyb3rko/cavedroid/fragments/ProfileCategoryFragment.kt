@@ -69,7 +69,7 @@ class ProfileCategoryFragment : Fragment() {
                         viewHolder = ::MarketEntryViewHolder,
                         onBindBindViewHolder = { vh, _, entry ->
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
-                            vh.priceView.text = entry.price
+                            vh.priceView.text = getString(R.string.item_price, entry.price)
                             vh.sellerView.text = entry.seller
                             vh.cardView.setOnClickListener {
                                 val amount = entry.amount.toInt()
@@ -148,8 +148,8 @@ class ProfileCategoryFragment : Fragment() {
                         viewHolder = ::MarketEntryViewHolder,
                         onBindBindViewHolder = { vh, _, entry ->
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
-                            vh.priceView.text = entry.price
-                            vh.sellerView.text = entry.seller
+                            vh.priceView.text = getString(R.string.item_price, entry.price)
+                            vh.sellerView.visibility = View.GONE
                             vh.cardView.setOnClickListener {
                                 val amount = entry.amount.toInt()
                                 val price = entry.price.replace(",", "").toFloat()
