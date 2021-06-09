@@ -25,6 +25,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
     private lateinit var mySPR: SharedPreferences
 
     private lateinit var nightModeList: ListPreference
+    private lateinit var avatarTypeList: ListPreference
     private lateinit var showAnnouncementSwitch: SwitchPreference
     private lateinit var announcementImageSwitch: SwitchPreference
     private lateinit var analyticsCollectionSwitch: SwitchPreference
@@ -38,12 +39,14 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         preferenceManager.sharedPreferencesName = SHARED_PREFERENCE
         mySPR = preferenceManager.sharedPreferences
         nightModeList = findPreference(NIGHTMODE)!!
+        avatarTypeList = findPreference(AVATAR_TYPE)!!
         showAnnouncementSwitch = findPreference(SHOW_ANNOUNCEMENTS)!!
         announcementImageSwitch = findPreference(ANNOUNCEMENT_IMAGE)!!
         analyticsCollectionSwitch = findPreference(ANALYTICS_COLLECTION)!!
         crashlyticsCollectionSwitch = findPreference(CRASHLYTICS_COLLECTION)!!
 
         nightModeList.value = mySPR.getString(NIGHTMODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+        avatarTypeList.value = mySPR.getString(AVATAR_TYPE, "avatar")
         showAnnouncementSwitch.isChecked = mySPR.getBoolean(SHOW_ANNOUNCEMENTS, true)
         announcementImageSwitch.isChecked = mySPR.getBoolean(ANNOUNCEMENT_IMAGE, true)
         analyticsCollectionSwitch.isChecked = mySPR.getBoolean(ANALYTICS_COLLECTION, true)

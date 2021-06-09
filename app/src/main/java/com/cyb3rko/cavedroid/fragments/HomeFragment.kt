@@ -193,7 +193,7 @@ class HomeFragment : Fragment() {
                 val user = api.getUser(formattedName)
                 requireActivity().runOnUiThread {
                     Glide.with(this@HomeFragment)
-                        .load(api.getAvatarLink(avatarName, 500))
+                        .load(Utils.getAvatarLink(mySPR, api, avatarName, 500))
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .listener(object: RequestListener<Drawable> {
                             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {

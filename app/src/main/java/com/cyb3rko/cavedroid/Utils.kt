@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -13,12 +14,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.cyb3rko.cavetaleapi.CavetaleAPI
 
 internal const val PRIVACY_POLICY = "privacy_policy"
 internal const val TERMS_OF_USE = "terms_of_use"
 
 internal const val ANALYTICS_COLLECTION = "analytics_collection"
 internal const val ANNOUNCEMENT_IMAGE = "announcement_image"
+internal const val AVATAR_TYPE = "avatar_type"
 internal const val CONSENT_DATE = "consent_date"
 internal const val CONSENT_TIME = "consent_time"
 internal const val CRASHLYTICS_COLLECTION = "crashlytics_collection"
@@ -81,5 +86,20 @@ object Utils {
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    internal fun loadAvatar(context: Context, api: CavetaleAPI, mySPR: SharedPreferences, imageView: ImageView, name: String, size: Int) {
+        Glide.with(context)
+            .load(getAvatarLink(mySPR, api, name, size))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imageView)
+    }
+
+    internal fun getAvatarLink(mySPR: SharedPreferences, api: CavetaleAPI, avatarName: String, size: Int): String {
+        return when (mySPR.getString(AVATAR_TYPE, "avatar")) {
+            "avatar" -> api.getAvatarLink(avatarName, size)
+            "bust" -> api.getBustLink(avatarName, size)
+            else -> ""
+        }
     }
 }

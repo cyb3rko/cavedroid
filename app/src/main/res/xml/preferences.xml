@@ -13,7 +13,16 @@
             android:defaultValue=""
             android:entries="@array/night_modes"
             android:entryValues="@array/night_modes_values"
-            android:key="nightmode"/>
+            android:key="nightmode" />
+
+        <ListPreference
+            android:title="Player Avatar"
+            android:summary="Choose which type of avatar to show"
+            app:iconSpaceReserved="false"
+            android:defaultValue=""
+            android:entries="@array/avatar_types"
+            android:entryValues="@array/avatar_types_values"
+            android:key="avatar_type" />
 
     </PreferenceCategory>
 

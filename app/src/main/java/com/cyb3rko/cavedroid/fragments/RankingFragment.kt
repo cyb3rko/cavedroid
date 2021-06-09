@@ -1,6 +1,7 @@
 package com.cyb3rko.cavedroid.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -14,9 +15,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.SHARED_PREFERENCE
 import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.ItemEntryViewHolder
@@ -36,6 +36,7 @@ class RankingFragment : Fragment() {
 
     private val args: RankingFragmentArgs by navArgs()
     private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
+    private lateinit var mySPR: SharedPreferences
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -49,6 +50,8 @@ class RankingFragment : Fragment() {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
         val root = binding.root
         myContext = requireContext()
+
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
         return root
     }
@@ -96,15 +99,9 @@ class RankingFragment : Fragment() {
                                 }
                             }
                             if (player.name != "The Bank") {
-                                Glide.with(myContext)
-                                    .load(api.getAvatarLink(player.name, 100))
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(vh.avatarView)
+                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, player.name, 100)
                             } else {
-                                Glide.with(myContext)
-                                    .load(api.getAvatarLink("God", 100))
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(vh.avatarView)
+                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
                             }
                         }
                     )

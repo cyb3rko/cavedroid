@@ -1,6 +1,7 @@
 package com.cyb3rko.cavedroid.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
@@ -14,12 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.cyb3rko.cavedroid.HtmlWebView
-import com.cyb3rko.cavedroid.JavascriptInterface
-import com.cyb3rko.cavedroid.R
-import com.cyb3rko.cavedroid.Utils
+import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
@@ -37,6 +33,7 @@ class ProfileCategoryFragment : Fragment() {
     private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: ProfileCategoryFragmentArgs by navArgs()
+    private lateinit var mySPR: SharedPreferences
     private lateinit var webView: HtmlWebView
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -51,6 +48,8 @@ class ProfileCategoryFragment : Fragment() {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
         val root = binding.root
         myContext = requireContext()
+
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
         return root
     }
@@ -127,15 +126,9 @@ class ProfileCategoryFragment : Fragment() {
                                 }
                             }
                             if (entry.seller != "The Bank") {
-                                Glide.with(myContext)
-                                    .load(api.getAvatarLink(entry.seller, 100))
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(vh.avatarView)
+                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, entry.seller, 100)
                             } else {
-                                Glide.with(myContext)
-                                    .load(api.getAvatarLink("God", 100))
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(vh.avatarView)
+                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
                             }
                         }
                     )
