@@ -154,7 +154,6 @@ class ProfileCategoryFragment : Fragment() {
                                 val amount = entry.amount.toInt()
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
-                                println(entry.item + " " + entry.marketAvg)
                                 MaterialDialog(myContext).show {
                                     if (vh.avatarView.drawable != null) icon(drawable = vh.avatarView.drawable)
                                     title(text = entry.item)
@@ -181,11 +180,13 @@ class ProfileCategoryFragment : Fragment() {
                                                 Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
                                             }
                                             2 -> {
-                                                Utils.storeToClipboard(myContext, entry.price)
+                                                val text = "${entry.price} Coins"
+                                                Utils.storeToClipboard(myContext, text)
                                                 Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_price))
                                             }
                                             3 -> {
-                                                Utils.storeToClipboard(myContext, perItem.toString())
+                                                val text = "$perItem Coins"
+                                                Utils.storeToClipboard(myContext, text)
                                                 Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
                                             }
                                         }

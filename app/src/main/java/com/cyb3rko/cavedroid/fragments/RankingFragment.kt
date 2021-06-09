@@ -58,7 +58,6 @@ class RankingFragment : Fragment() {
 
         val api = CavetaleAPI()
         var limit = 0
-        var dataSuffix = ""
 
         when (args.rankingType) {
             0 -> ""// TODO Error
@@ -112,7 +111,6 @@ class RankingFragment : Fragment() {
                 }
 
                 limit = if (args.rankingType == 1) 100 else 50
-                dataSuffix = getString(if (args.rankingType == 1) R.string.ranking_player_suffix1 else R.string.ranking_player_suffix2)
             }
             3 -> {
                 adapter = RecyclerViewAdapter.adapterOf {
@@ -193,7 +191,15 @@ class RankingFragment : Fragment() {
                     1, 2 -> {
                         val tempList = MutableList(limit) {
                             val pair = list[it] as Pair<String, String>
-                            PlayerViewState.PlayerEntry(pair.first, "${pair.second}\n$dataSuffix")
+                            val secondPart = if (args.rankingType == 1) {
+                                getString(R.string.ranking_player_data1, pair.second)
+                            } else {
+                                getString(R.string.ranking_player_data2, pair.second)
+                            }
+                            PlayerViewState.PlayerEntry(
+                                pair.first,
+                                secondPart
+                            )
                         }
                         adapter.submitList(tempList as List<Nothing>?)
                     }
