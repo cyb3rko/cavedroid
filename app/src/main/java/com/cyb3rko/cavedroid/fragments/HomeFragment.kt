@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
                 loadProfile(currentName)
             }
         } else {
-            showNameDialog()
+            showNameDialog(false)
         }
 
         return root
@@ -300,7 +300,7 @@ class HomeFragment : Fragment() {
         })
 
         menu.findItem(R.id.profile_name_dialog).setOnMenuItemClickListener {
-            showNameDialog()
+            showNameDialog(true)
             true
         }
 
@@ -326,7 +326,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showNameDialog() {
+    private fun showNameDialog(cancelable: Boolean) {
         MaterialDialog(requireActivity())
             .noAutoDismiss()
             .onPreShow {
@@ -334,7 +334,7 @@ class HomeFragment : Fragment() {
                 input.setText(mySPR.getString(NAME, ""))
             }
             .customView(R.layout.dialog_view)
-            .cancelable(true)
+            .cancelable(cancelable)
             .title(R.string.name_dialog_title)
             .positiveButton(R.string.name_dialog_button) {
                 val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
