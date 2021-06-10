@@ -281,6 +281,8 @@ class HomeFragment : Fragment() {
                 menu.forEach {
                     it.isVisible = false
                 }
+                searchView.isIconified = false
+                searchView.requestFocusFromTouch()
                 return true
             }
 
