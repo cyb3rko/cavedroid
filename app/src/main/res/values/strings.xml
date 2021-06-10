@@ -94,6 +94,13 @@
     <string name="feedback_dialog_message">If you have some feedback or you found a bug, feel free to report it on the GitHub repository.</string>
     <string name="feedback_dialog_button">Open Repo</string>
 
+    <string name="missing_icons_dialog_title">Missing Icons Report</string>
+    <string name="missing_icons_dialog_message1">%1$s missing icon(s) found.\n\nDo you want to report them to me (Cyb3rKo) including your
+        name?</string>
+    <string name="missing_icons_dialog_message2">No missing icons found.\n\nThere\'s nothing to report.</string>
+    <string name="missing_icons_dialog_button">@android:string/ok</string>
+    <string name="missing_icons_discord_message">----------\n%1$s, Missing Icons: %2$d\n</string>
+
     <string name="intro_fragment1_title">Welcome…</string>
     <string name="intro_fragment1_description">This is the unofficial Cavedroid app made by Cyb3rKo</string>
     <string name="intro_fragment2_title">Feel free to contribute</string>

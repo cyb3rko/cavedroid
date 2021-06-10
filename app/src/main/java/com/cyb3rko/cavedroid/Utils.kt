@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -17,6 +18,11 @@ import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import dev.kord.common.entity.Snowflake
+import dev.kord.core.Kord
+import dev.kord.core.entity.channel.MessageChannel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 internal const val PRIVACY_POLICY = "privacy_policy"
 internal const val TERMS_OF_USE = "terms_of_use"
@@ -56,6 +62,36 @@ object Utils {
         }
     }
 
+    internal fun showMissingIconsDialog(context: Context, missingIcons: MutableSet<String>, mySPR: SharedPreferences) {
+        val message = if (missingIcons.isNotEmpty()) {
+            context.getString(R.string.missing_icons_dialog_message1, missingIcons.size.toString())
+        } else {
+            context.getString(R.string.missing_icons_dialog_message2)
+        }
+        val name = mySPR.getString(NAME, "Null")
+        MaterialDialog(context).show {
+            title(R.string.missing_icons_dialog_title)
+            message(text = message)
+            positiveButton(R.string.missing_icons_dialog_button) {
+                if (missingIcons.isEmpty()) return@positiveButton
+                GlobalScope.launch {
+                    try {
+                        val kord = Kord(Secrets().getAPIToken(context.packageName))
+                        val channel = kord.getGuild(Snowflake(840366805649457172))?.getChannel(Snowflake(852596801432453170))
+                        var reportMessage = context.getString(R.string.missing_icons_discord_message, name, missingIcons.size)
+                        missingIcons.sorted().forEach {
+                            reportMessage += "\n$it"
+                        }
+                        (channel as MessageChannel).createMessage(reportMessage)
+                        missingIcons.clear()
+                    } catch (e: Exception) {
+                        Log.e("Cavedroid.Utils", "Reading and reporting missing icons failed: $e, ${e.message}")
+                    }
+                }
+            }
+        }
+    }
+
     internal fun getFormattedDialogInformation(category: String, value: String, lineBreak: Boolean = true): String {
         var information = "<b>$category</b>: $value"
         if (lineBreak) {
@@ -68,7 +104,7 @@ object Utils {
         return getFormattedDialogInformation(category, "$value Coins", lineBreak)
     }
 
-    internal fun loadItemIcon(context: Context, imageView: ImageView, item: String) {
+    internal fun loadItemIcon(context: Context, imageView: ImageView, item: String, missingIcons: MutableSet<String>) {
         val itemName = item.replace(" ", "_").toLowerCase()
         val formattedName = itemName.split(",")[0]
         val avatarResId = context.resources.getIdentifier("_item_$formattedName", "drawable", context.packageName)
@@ -76,6 +112,7 @@ object Utils {
             imageView.setImageResource(avatarResId)
         } else {
             imageView.setImageResource(0)
+            missingIcons.add(item)
         }
     }
 

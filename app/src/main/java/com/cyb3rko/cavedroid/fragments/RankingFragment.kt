@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Html
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,6 +33,7 @@ class RankingFragment : Fragment() {
 
     private val args: RankingFragmentArgs by navArgs()
     private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
+    private val missingIcons = mutableSetOf<String>()
     private lateinit var mySPR: SharedPreferences
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -167,7 +165,7 @@ class RankingFragment : Fragment() {
                                     }
                                 }
                             }
-                            Utils.loadItemIcon(myContext, vh.avatarView, item.name)
+                            Utils.loadItemIcon(myContext, vh.avatarView, item.name, missingIcons)
                         }
                     )
                 }
@@ -222,7 +220,14 @@ class RankingFragment : Fragment() {
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.clear()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if (args.rankingType == 3) {
+            inflater.inflate(R.menu.topbar_menu2, menu)
+            menu.findItem(R.id.missing_icons_report).setOnMenuItemClickListener {
+                Utils.showMissingIconsDialog(myContext, missingIcons, mySPR)
+                true
+            }
+        }
     }
 }

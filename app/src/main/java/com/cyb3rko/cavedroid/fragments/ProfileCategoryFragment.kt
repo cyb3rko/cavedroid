@@ -33,6 +33,7 @@ class ProfileCategoryFragment : Fragment() {
     private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: ProfileCategoryFragmentArgs by navArgs()
+    private val missingIcons = mutableSetOf<String>()
     private lateinit var mySPR: SharedPreferences
     private lateinit var webView: HtmlWebView
 
@@ -186,14 +187,7 @@ class ProfileCategoryFragment : Fragment() {
                                     }
                                 }
                             }
-                            val itemName = entry.item.replace(" ", "_").toLowerCase()
-                            val formattedName = itemName.split(",")[0]
-                            val avatarResId = myContext.resources.getIdentifier("_item_$formattedName", "drawable", myContext.packageName)
-                            if (avatarResId != 0) {
-                                vh.avatarView.setImageResource(avatarResId)
-                            } else {
-                                vh.avatarView.setImageResource(0)
-                            }
+                            Utils.loadItemIcon(myContext, vh.avatarView, entry.item, missingIcons)
                         }
                     )
                 }
@@ -265,8 +259,15 @@ class ProfileCategoryFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.clear()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if (args.category == 3) {
+            inflater.inflate(R.menu.topbar_menu2, menu)
+            menu.findItem(R.id.missing_icons_report).setOnMenuItemClickListener {
+                Utils.showMissingIconsDialog(myContext, missingIcons, mySPR)
+                true
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
