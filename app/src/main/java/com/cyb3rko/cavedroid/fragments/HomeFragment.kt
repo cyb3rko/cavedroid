@@ -261,13 +261,14 @@ class HomeFragment : Fragment() {
                 binding.animationView.playAnimation()
                 binding.animationView.visibility = View.VISIBLE
                 showInformation(false)
-                if (query != null) {
-                    loadProfile(query)
-                    currentName = query
+                val formattedQuery = query?.trim()
+                if (formattedQuery != null) {
+                    loadProfile(formattedQuery)
+                    currentName = formattedQuery
                 }
-                if (query?.isNotBlank() == true) {
+                if (formattedQuery?.isNotBlank() == true) {
                     FirebaseAnalytics.getInstance(myContext).logEvent("player_search") {
-                        param("player", query)
+                        param("player", formattedQuery)
                     }
                 }
 
@@ -348,15 +349,15 @@ class HomeFragment : Fragment() {
             .title(R.string.name_dialog_title)
             .positiveButton(R.string.name_dialog_button) {
                 val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
-                val newName = input.text.toString()
-                if (newName.isNotBlank()) {
+                val newName = input.text.toString().trim()
+                if (newName.isNotEmpty()) {
                     mySPREditor.putString(NAME, newName).apply()
                     binding.animationView.playAnimation()
                     binding.animationView.visibility = View.VISIBLE
                     showInformation(false)
                     loadProfile(newName)
                     it.cancel()
-                    (requireActivity() as MainActivity).receiveLatestAnnouncement()
+                    if (!it.cancelable) (requireActivity() as MainActivity).receiveLatestAnnouncement()
                 } else {
                     input.error = getString(R.string.name_dialog_error)
                 }
