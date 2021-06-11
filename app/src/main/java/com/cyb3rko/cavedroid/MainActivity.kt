@@ -74,9 +74,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAPIToken() = Secrets().getAPIToken(packageName)
 
-    fun receiveLatestAnnouncement() {
+    fun receiveLatestAnnouncement(force: Boolean = false) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
-        if (!sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
+        if (!force && !sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
         if (sharedPreferences.getString(NAME, "")!!.isBlank()) return
 
         GlobalScope.launch {
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     val guild = kord.getGuild(Snowflake(195206438623248384))!!
                     val messageObject = (guild.getChannel(Snowflake(265060069194858496)) as MessageChannel).getLastMessage()!!
 
-                    if (messageObject.id.value != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
+                    if (force || messageObject.id.value != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
                         showAnnouncementDialog(guild, messageObject, sharedPreferences)
                     }
                 }

@@ -306,6 +306,11 @@ class HomeFragment : Fragment() {
             true
         }
 
+        menu.findItem(R.id.recent_announcement).setOnMenuItemClickListener {
+            (requireActivity() as MainActivity).receiveLatestAnnouncement(true)
+            true
+        }
+
         menu.findItem(R.id.about).setOnMenuItemClickListener {
             findNavController().navigate(R.id.navigation_about)
             true
