@@ -276,13 +276,16 @@ class HomeFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean { return false }
         })
 
+        menuSearchItem.setOnMenuItemClickListener {
+            searchView.isIconified = false
+            searchView.requestFocusFromTouch()
+        }
+
         menuSearchItem.setOnActionExpandListener(object: MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 menu.forEach {
                     it.isVisible = false
                 }
-                searchView.isIconified = false
-                searchView.requestFocusFromTouch()
                 return true
             }
 
