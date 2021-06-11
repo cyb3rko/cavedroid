@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         if (mySPR.getBoolean(FIRST_START, true) || mySPR.getString(CONSENT_DATE, "")!!.isEmpty()) {
             finish()
             startActivity(Intent(applicationContext, MyAppIntro::class.java))
+            return
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     fun receiveLatestAnnouncement(force: Boolean = false) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
+        if (sharedPreferences.getBoolean(OLD_ANDROID, false)) return
         if (!force && !sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
         if (sharedPreferences.getString(NAME, "")!!.isBlank()) return
 

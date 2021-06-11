@@ -2,7 +2,9 @@ package com.cyb3rko.cavedroid.appintro
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.cyb3rko.cavedroid.*
@@ -52,18 +54,28 @@ class MyAppIntro : AppIntro() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        val mySPR = applicationContext.getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
-        val editor = mySPR.edit()
 
-        FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(mySPR.getBoolean(ANALYTICS_COLLECTION, true))
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(mySPR.getBoolean(CRASHLYTICS_COLLECTION, true))
+        try {
+            val mySPR = applicationContext.getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
+            val editor = mySPR.edit()
 
-        val date = Calendar.getInstance().time
-        @SuppressLint("SimpleDateFormat") val sDF = SimpleDateFormat("yyyy-MM-dd")
-        @SuppressLint("SimpleDateFormat") val sDF2 = SimpleDateFormat("HH:mm:ss")
-        editor.putString(CONSENT_DATE, sDF.format(date))
-        editor.putString(CONSENT_TIME, sDF2.format(date))
-        editor.putBoolean(FIRST_START, false).apply()
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(mySPR.getBoolean(ANALYTICS_COLLECTION, true))
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(mySPR.getBoolean(CRASHLYTICS_COLLECTION, true))
+
+            val date = Calendar.getInstance().time
+            @SuppressLint("SimpleDateFormat") val sDF = SimpleDateFormat("yyyy-MM-dd")
+            @SuppressLint("SimpleDateFormat") val sDF2 = SimpleDateFormat("HH:mm:ss")
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                editor.putBoolean(OLD_ANDROID, true)
+                editor.putBoolean(SHOW_ANNOUNCEMENTS, false)
+                editor.putBoolean(ANNOUNCEMENT_IMAGE, false)
+            }
+            editor.putString(CONSENT_DATE, sDF.format(date))
+            editor.putString(CONSENT_TIME, sDF2.format(date))
+            editor.putBoolean(FIRST_START, false).apply()
+        } catch (e: Exception) {
+            Log.e("Cavedroid.Intro", "${e.cause}, ${e.message!!}")
+        }
 
         finish()
         startActivity(Intent(applicationContext, MainActivity::class.java))

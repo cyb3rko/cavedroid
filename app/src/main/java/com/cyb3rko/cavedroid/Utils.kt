@@ -38,6 +38,7 @@ internal const val FIRST_START = "first_start"
 internal const val LATEST_MESSAGE = "latest_message"
 internal const val NAME = "name"
 internal const val NIGHTMODE = "nightmode"
+internal const val OLD_ANDROID = "old_android"
 internal const val SHARED_PREFERENCE = "Safe"
 internal const val SHOW_ANNOUNCEMENTS = "show_announcements"
 
