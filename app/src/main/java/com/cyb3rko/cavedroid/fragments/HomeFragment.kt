@@ -355,6 +355,7 @@ class HomeFragment : Fragment() {
                     binding.animationView.playAnimation()
                     binding.animationView.visibility = View.VISIBLE
                     showInformation(false)
+                    currentName = newName
                     loadProfile(newName)
                     it.cancel()
                     if (!it.cancelable) (requireActivity() as MainActivity).receiveLatestAnnouncement()
