@@ -22,7 +22,9 @@ class AnimationCreditsFragment : Fragment() {
         val myContext = requireContext()
         val information = listOf(
             Triple("Fake 3d coin", "Saim Hayyat", "https://lottiefiles.com/36928-fake-3d-coin"),
-            Triple("No connection animation", "Lenny Miranda Jr.", "https://lottiefiles.com/9010-no-connection-animation")
+            Triple("No connection animation", "Lenny Miranda Jr.", "https://lottiefiles.com/9010-no-connection-animation"),
+            Triple("search - in / out", "iconic studios", "https://lottiefiles.com/63061-search-in-out"),
+            Triple("Empty Box Animation", "Aadesh Kulkami", "https://lottiefiles.com/67812-empty-box-animation")
         )
         val view = ScrollView(myContext)
         val linearLayout = LinearLayout(myContext)
