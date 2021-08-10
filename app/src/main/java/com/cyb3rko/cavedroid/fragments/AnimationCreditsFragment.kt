@@ -21,7 +21,8 @@ class AnimationCreditsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val myContext = requireContext()
         val information = listOf(
-            Triple("Fake 3d coin", "Saim Hayyat", "https://lottiefiles.com/36928-fake-3d-coin")
+            Triple("Fake 3d coin", "Saim Hayyat", "https://lottiefiles.com/36928-fake-3d-coin"),
+            Triple("No connection animation", "Lenny Miranda Jr.", "https://lottiefiles.com/9010-no-connection-animation")
         )
         val view = ScrollView(myContext)
         val linearLayout = LinearLayout(myContext)

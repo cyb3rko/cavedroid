@@ -105,6 +105,7 @@ class HomeFragment : Fragment() {
             setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
             setColorSchemeResources(R.color.refreshLayoutArrow)
             setOnRefreshListener {
+                isRefreshing = false
                 loadProfile(mySPR.getString(NAME, "")!!)
             }
         }
@@ -186,6 +187,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadProfile(name: String) {
+        showInformation(false)
+        showAnimation(true, true)
         val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")
         val avatarName = if (name != "The Bank") name else "God"
         GlobalScope.launch {
@@ -208,8 +211,7 @@ class HomeFragment : Fragment() {
                                 dataSource: DataSource?,
                                 isFirstResource: Boolean
                             ): Boolean {
-                                binding.animationView.pauseAnimation()
-                                binding.animationView.visibility = View.GONE
+                                showAnimation(false, true)
                                 binding.nameView.visibility = View.VISIBLE
                                 binding.apply {
                                     nameView.text = name
@@ -219,7 +221,6 @@ class HomeFragment : Fragment() {
                                     soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
                                     boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
                                     offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
-                                    refreshLayout.isRefreshing = false
                                 }
                                 showInformation(true)
                                 return false
@@ -229,6 +230,9 @@ class HomeFragment : Fragment() {
                 }
             } catch (e: Exception) {
                 Log.w("Cavedroid.Data", "${e.cause}, ${e.message!!}")
+                requireActivity().runOnUiThread {
+                    showAnimation(true, false)
+                }
             }
         }
     }
@@ -245,6 +249,20 @@ class HomeFragment : Fragment() {
             soldContainer.visibility = visibility
             boughtContainer.visibility = visibility
             offersContainer.visibility = visibility
+        }
+    }
+
+    private fun showAnimation(show: Boolean, connected: Boolean) {
+        val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
+        val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
+        val animation = if (connected) "coin-spin.json" else "no-connection.json"
+        binding.apply {
+            animationView.apply {
+                setAnimation(animation)
+                visibility = viewVisibility
+                playAnimation()
+            }
+            animationInfo.visibility = infoVisibility
         }
     }
 
