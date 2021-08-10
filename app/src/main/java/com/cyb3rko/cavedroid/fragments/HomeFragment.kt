@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid.fragments
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.*
 import android.graphics.drawable.Drawable
@@ -39,7 +40,6 @@ import com.cyb3rko.cavetaleapi.CavetaleAPI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.mikepenz.aboutlibraries.LibsBuilder
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
             if (args.name != currentName) {
                 currentName = args.name
                 GlobalScope.launch {
-                    activity?.runOnUiThread {
+                    requireActivity().runOnUiThread {
                         while (!this@HomeFragment::topMenu.isInitialized);
                         topMenu.forEach {
                             it.isVisible = false
@@ -138,6 +138,7 @@ class HomeFragment : Fragment() {
         var viewType = 0
         val webView = HtmlWebView(myContext)
         webView.webViewClient = object: WebViewClient() {
+            @SuppressLint("CheckResult")
             override fun onPageFinished(view: WebView?, url: String?) {
                 webView.fetchHmtl()
 
@@ -150,7 +151,7 @@ class HomeFragment : Fragment() {
 
                             val uuid = api.getNameUuid(webView.javascriptInterface.html!!)
                             webView.javascriptInterface.clearHTML()
-                            activity?.runOnUiThread {
+                            requireActivity().runOnUiThread {
                                 webView.loadUrl(api.getNameHistoryLink(uuid))
                             }
                             viewType = 1
@@ -165,7 +166,7 @@ class HomeFragment : Fragment() {
                                 Thread.sleep(50)
                             }
 
-                            activity?.runOnUiThread {
+                            requireActivity().runOnUiThread {
                                 progressDialog.dismiss()
                                 MaterialDialog(myContext).show {
                                     noAutoDismiss()
@@ -200,7 +201,7 @@ class HomeFragment : Fragment() {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .listener(object: RequestListener<Drawable> {
                             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                                Log.d("Cavedroid.Avatar", e?.message!!)
+                                Log.e("Cavedroid.Avatar", e?.message!!)
                                 return false
                             }
 
@@ -212,8 +213,8 @@ class HomeFragment : Fragment() {
                                 isFirstResource: Boolean
                             ): Boolean {
                                 showAnimation(false, true)
-                                binding.nameView.visibility = View.VISIBLE
                                 binding.apply {
+                                    nameView.visibility = View.VISIBLE
                                     nameView.text = name
                                     balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
                                     earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
@@ -229,7 +230,7 @@ class HomeFragment : Fragment() {
                         .into(binding.avatarView)
                 }
             } catch (e: Exception) {
-                Log.w("Cavedroid.Data", "${e.cause}, ${e.message!!}")
+                Log.e("Cavedroid.Data", "${e.cause}, ${e.message!!}")
                 requireActivity().runOnUiThread {
                     showAnimation(true, false)
                 }

@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -56,6 +57,7 @@ class ProfileCategoryFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

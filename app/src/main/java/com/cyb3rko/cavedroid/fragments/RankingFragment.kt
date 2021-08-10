@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -55,6 +56,7 @@ class RankingFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -57,6 +58,7 @@ class SearchFragment : Fragment() {
         return root
     }
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
