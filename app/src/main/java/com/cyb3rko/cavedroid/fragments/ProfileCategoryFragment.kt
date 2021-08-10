@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.cyb3rko.cavedroid.*
@@ -24,6 +25,7 @@ import com.cyb3rko.cavetaleapi.CavetaleAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.ibrahimyilmaz.kiel.adapter.RecyclerViewAdapter
+import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 import kotlin.math.round
 
@@ -31,7 +33,7 @@ class ProfileCategoryFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
 
-    private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
+    private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: ProfileCategoryFragmentArgs by navArgs()
     private var link = ""
@@ -64,13 +66,12 @@ class ProfileCategoryFragment : Fragment() {
         val api = CavetaleAPI()
 
         when (args.category) {
-            0 -> ""// TODO Error
             1, 2 -> {
-                adapter = RecyclerViewAdapter.adapterOf {
+                adapter = adapterOf {
                     register(
                         layoutResource = R.layout.item_recycler_market,
                         viewHolder = ::MarketEntryViewHolder,
-                        onBindBindViewHolder = { vh, _, entry ->
+                        onBindViewHolder = { vh, _, entry ->
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
                             vh.priceView.text = getString(R.string.item_price, entry.price)
                             vh.sellerView.text = entry.seller
@@ -139,11 +140,11 @@ class ProfileCategoryFragment : Fragment() {
                 }
             }
             3 -> {
-                adapter = RecyclerViewAdapter.adapterOf {
+                adapter = adapterOf {
                     register(
                         layoutResource = R.layout.item_recycler_market,
                         viewHolder = ::MarketEntryViewHolder,
-                        onBindBindViewHolder = { vh, _, entry ->
+                        onBindViewHolder = { vh, _, entry ->
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
                             vh.priceView.text = getString(R.string.item_price, entry.price)
                             vh.sellerView.visibility = View.GONE
@@ -210,7 +211,7 @@ class ProfileCategoryFragment : Fragment() {
                     }
 
                     loadHtmlIntoRecycler(webView.javascriptInterface)
-                    webView.javascriptInterface.html = null
+                    webView.javascriptInterface.clearHTML()
                 }
             }
 
@@ -219,9 +220,11 @@ class ProfileCategoryFragment : Fragment() {
             }
         }
 
-        binding.recycler.layoutManager = LinearLayoutManager(myContext)
-        binding.recycler.adapter = adapter
         binding.apply {
+            recycler.apply {
+                layoutManager = LinearLayoutManager(myContext)
+                adapter = this@ProfileCategoryFragment.adapter
+            }
             animationView.playAnimation()
             animationView.visibility = View.VISIBLE
         }
@@ -264,13 +267,13 @@ class ProfileCategoryFragment : Fragment() {
                     else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
                 }
             }
-            activity?.runOnUiThread {
+            requireActivity().runOnUiThread {
                 showAnimation(false, true, false)
                 adapter.submitList(finalList as List<Nothing>)
                 showRecycler(true)
             }
         } else {
-            activity?.runOnUiThread {
+            requireActivity().runOnUiThread {
                 showAnimation(true, true, true)
             }
         }

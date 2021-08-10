@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.cyb3rko.cavedroid.R
@@ -24,7 +25,7 @@ import com.cyb3rko.cavedroid.rankings.PlayerViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import me.ibrahimyilmaz.kiel.adapter.RecyclerViewAdapter
+import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 import kotlin.math.round
 
@@ -64,13 +65,12 @@ class RankingFragment : Fragment() {
         var limit = 0
 
         when (args.rankingType) {
-            0 -> ""// TODO Error
             1, 2 -> {
-                adapter = RecyclerViewAdapter.adapterOf {
+                adapter = adapterOf {
                     register(
                         layoutResource = R.layout.item_recycler_player,
                         viewHolder = ::PlayerEntryViewHolder,
-                        onBindBindViewHolder = { vh, index, player ->
+                        onBindViewHolder = { vh, index, player ->
                             vh.rankView.text = getString(R.string.ranking_entry, index + 1)
                             vh.nameView.text = player.name
                             vh.dataView.text = player.data
@@ -111,11 +111,11 @@ class RankingFragment : Fragment() {
                 limit = if (args.rankingType == 1) 100 else 50
             }
             3 -> {
-                adapter = RecyclerViewAdapter.adapterOf {
+                adapter = adapterOf {
                     register(
                         layoutResource = R.layout.item_recycler_item,
                         viewHolder = ::ItemEntryViewHolder,
-                        onBindBindViewHolder = { vh, index, item ->
+                        onBindViewHolder = { vh, index, item ->
                             vh.rankView.text = getString(R.string.ranking_entry, index + 1)
                             vh.nameView.text = item.name
                             vh.amountView.text = item.amount
@@ -228,7 +228,7 @@ class RankingFragment : Fragment() {
                         submitList(tempList as List<Nothing>)
                     }
                 }
-                activity?.runOnUiThread {
+                requireActivity().runOnUiThread {
                     showAnimation(false)
                     binding.recycler.layoutManager = LinearLayoutManager(myContext)
                     binding.recycler.adapter = adapter

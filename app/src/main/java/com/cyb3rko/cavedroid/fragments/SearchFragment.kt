@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
@@ -31,7 +32,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import me.ibrahimyilmaz.kiel.adapter.RecyclerViewAdapter
+import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 
 class SearchFragment : Fragment() {
@@ -41,6 +42,7 @@ class SearchFragment : Fragment() {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: SearchFragmentArgs by navArgs()
     private lateinit var webView: HtmlWebView
@@ -62,11 +64,11 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = RecyclerViewAdapter.adapterOf<MarketViewState.MarketEntry> {
+        adapter = adapterOf {
             register(
                 layoutResource = R.layout.item_recycler_market,
                 viewHolder = ::MarketEntryViewHolder,
-                onBindBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
+                onBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
                     vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
                     vh.priceView.text = getString(R.string.item_price, marketEntry.price)
                     vh.sellerView.text = marketEntry.seller
@@ -133,6 +135,7 @@ class SearchFragment : Fragment() {
                     kotlin.run { webView.fetchHmtl() }
                 }, 600)
 
+                @Suppress("BlockingMethodInNonBlockingContext")
                 GlobalScope.launch {
                     while (webView.javascriptInterface.html == null) {
                         Thread.sleep(50)
@@ -148,8 +151,10 @@ class SearchFragment : Fragment() {
             }
         }
 
-        binding.recycler.layoutManager = LinearLayoutManager(myContext)
-        binding.recycler.adapter = adapter
+        binding.recycler.apply {
+            layoutManager = LinearLayoutManager(myContext)
+            adapter = this@SearchFragment.adapter
+        }
 
         binding.searchInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -193,7 +198,7 @@ class SearchFragment : Fragment() {
             val tempList = list[it]
             MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
         }
-        activity?.runOnUiThread {
+        requireActivity().runOnUiThread {
             if (finalList.isNotEmpty()) {
                 showAnimation(false)
                 adapter.submitList(finalList as List<Nothing>)
