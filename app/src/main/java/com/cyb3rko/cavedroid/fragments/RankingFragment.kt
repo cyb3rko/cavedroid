@@ -32,7 +32,8 @@ class RankingFragment : Fragment() {
     private lateinit var myContext: Context
 
     private val args: RankingFragmentArgs by navArgs()
-    private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
+    private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
+    private lateinit var api: CavetaleAPI
     private val missingIcons = mutableSetOf<String>()
     private lateinit var mySPR: SharedPreferences
 
@@ -57,7 +58,7 @@ class RankingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val api = CavetaleAPI()
+        api = CavetaleAPI()
         var limit = 0
 
         when (args.rankingType) {
@@ -174,6 +175,21 @@ class RankingFragment : Fragment() {
             }
         }
 
+        fetchData(limit)
+
+        binding.refreshLayout.apply {
+            setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
+            setColorSchemeResources(R.color.refreshLayoutArrow)
+            setOnRefreshListener {
+                isRefreshing = false
+                showRecycler(false)
+                showAnimation(true)
+                fetchData(limit)
+            }
+        }
+    }
+
+    private fun fetchData(limit: Int) {
         GlobalScope.launch {
             val list = when (args.rankingType) {
                 1 -> api.getRichlist(limit)
@@ -196,7 +212,7 @@ class RankingFragment : Fragment() {
                                 secondPart
                             )
                         }
-                        adapter.submitList(tempList as List<Nothing>?)
+                        submitList(tempList as List<Nothing>)
                     }
                     3 -> {
                         val tempList = MutableList(limit) {
@@ -207,16 +223,46 @@ class RankingFragment : Fragment() {
                                 getString(R.string.ranking_item_turnover, triple.third)
                             )
                         }
-                        adapter.submitList(tempList as List<Nothing>?)
+                        submitList(tempList as List<Nothing>)
                     }
                 }
                 activity?.runOnUiThread {
-                    binding.animationView.visibility = View.INVISIBLE
-                    binding.animationView.pauseAnimation()
+                    showAnimation(false)
                     binding.recycler.layoutManager = LinearLayoutManager(myContext)
                     binding.recycler.adapter = adapter
+                    showRecycler(true)
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    showRecycler(false)
+                    showAnimation(true, false)
                 }
             }
+        }
+    }
+
+    private fun submitList(list: List<Nothing>) {
+        requireActivity().runOnUiThread {
+            adapter.submitList(list)
+        }
+    }
+
+    private fun showRecycler(show: Boolean) {
+        val visibility = if (show) View.VISIBLE else View.INVISIBLE
+        binding.recycler.visibility = visibility
+    }
+
+    private fun showAnimation(show: Boolean, connected: Boolean = true) {
+        val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
+        val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
+        val animation = if (connected) "coin-spin.json" else "no-connection.json"
+        binding.apply {
+            animationView.apply {
+                setAnimation(animation)
+                visibility = viewVisibility
+                if (show) playAnimation() else pauseAnimation()
+            }
+            animationInfo.visibility = infoVisibility
         }
     }
 

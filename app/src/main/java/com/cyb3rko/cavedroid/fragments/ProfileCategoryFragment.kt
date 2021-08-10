@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Html
 import android.view.*
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.cyb3rko.cavedroid.*
+import com.cyb3rko.cavedroid.JavascriptInterface
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
@@ -33,6 +33,7 @@ class ProfileCategoryFragment : Fragment() {
     private lateinit var adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: ProfileCategoryFragmentArgs by navArgs()
+    private var link = ""
     private val missingIcons = mutableSetOf<String>()
     private lateinit var mySPR: SharedPreferences
     private lateinit var webView: HtmlWebView
@@ -206,51 +207,97 @@ class ProfileCategoryFragment : Fragment() {
                         Thread.sleep(50)
                     }
 
-                    loadHtmlIntoRecycler(webView.javascriptInterface, adapter)
+                    loadHtmlIntoRecycler(webView.javascriptInterface)
+                    webView.javascriptInterface.html = null
                 }
+            }
+
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                showAnimation(true, false, false)
             }
         }
 
         binding.recycler.layoutManager = LinearLayoutManager(myContext)
         binding.recycler.adapter = adapter
-
         binding.apply {
             animationView.playAnimation()
             animationView.visibility = View.VISIBLE
         }
 
-        val link = when (args.category) {
+        link = when (args.category) {
             1 -> api.getItemsSoldLink(args.name)
             2 -> api.getItemsBoughtLink(args.name)
             3 -> api.getCurrentOffersLink(args.name)
             else -> ""
         }
-        webView.loadUrl(link)
+        fetchData()
+
+        binding.refreshLayout.apply {
+            setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
+            setColorSchemeResources(R.color.refreshLayoutArrow)
+            setOnRefreshListener {
+                isRefreshing = false
+                showRecycler(false)
+                showAnimation(true, true, false)
+                fetchData()
+            }
+        }
     }
 
-    private fun loadHtmlIntoRecycler(
-        webInterface: JavascriptInterface,
-        adapter: RecyclerViewAdapter<*, RecyclerViewHolder<*>>
-    ) {
+    private fun fetchData() = webView.loadUrl(link)
+
+    private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
         val list = when (args.category) {
             1 -> api.getItemsSold(webInterface.html!!)
             2 -> api.getItemsBought(webInterface.html!!)
             3 -> api.getCurrentOffers(webInterface.html!!)
             else -> emptyList()
         }
-        val finalList = MutableList(list.size) {
-            val tempList = list[it]
-            when (args.category) {
-                1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
-                3 -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
-                else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+        if (list.isNotEmpty()) {
+            val finalList = MutableList(list.size) {
+                val tempList = list[it]
+                when (args.category) {
+                    1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
+                    3 -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                    else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                }
+            }
+            activity?.runOnUiThread {
+                showAnimation(false, true, false)
+                adapter.submitList(finalList as List<Nothing>)
+                showRecycler(true)
+            }
+        } else {
+            activity?.runOnUiThread {
+                showAnimation(true, true, true)
             }
         }
-        activity?.runOnUiThread {
-            binding.animationView.visibility = View.INVISIBLE
-            binding.animationView.pauseAnimation()
-            adapter.submitList(finalList as List<Nothing>)
-            adapter.notifyDataSetChanged()
+    }
+
+    private fun showRecycler(show: Boolean) {
+        val visibility = if (show) View.VISIBLE else View.INVISIBLE
+        binding.recycler.visibility = visibility
+    }
+
+    private fun showAnimation(show: Boolean, connected: Boolean, emptyList: Boolean) {
+        val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
+        val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
+        val newSpeed = if (emptyList || !connected) 1.2f else 3f
+        val animation = if (connected && !emptyList) {
+            "coin-spin.json"
+        } else if (emptyList) {
+            "no-results.json"
+        } else {
+            "no-connection.json"
+        }
+        binding.apply {
+            animationView.apply {
+                setAnimation(animation)
+                speed = newSpeed
+                visibility = viewVisibility
+                playAnimation()
+            }
+            animationInfo.visibility = infoVisibility
         }
     }
 

@@ -9,6 +9,8 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.os.bundleOf
@@ -19,10 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
-import com.cyb3rko.cavedroid.HtmlWebView
-import com.cyb3rko.cavedroid.JavascriptInterface
-import com.cyb3rko.cavedroid.R
-import com.cyb3rko.cavedroid.Utils
+import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
@@ -137,8 +136,13 @@ class SearchFragment : Fragment() {
                         Thread.sleep(50)
                     }
 
-                    loadHtmlIntoRecycler(webView.javascriptInterface, adapter)
+                    loadHtmlIntoRecycler(webView.javascriptInterface)
+                    webView.javascriptInterface.clearHTML()
                 }
+            }
+
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                showAnimation(true, false)
             }
         }
 
@@ -154,12 +158,8 @@ class SearchFragment : Fragment() {
                 Utils.hideKeyboard(requireActivity())
                 webView.javascriptInterface.clearHTML()
                 adapter.submitList(emptyList())
-                adapter.notifyDataSetChanged()
-                binding.apply {
-                    animationView.playAnimation()
-                    animationView.visibility = View.VISIBLE
-                }
-                webView.loadUrl(api.getSearchPhrase(text))
+                showAnimation(true)
+                fetchData(text)
             }
             true
         }
@@ -170,22 +170,62 @@ class SearchFragment : Fragment() {
                 onEditorAction(EditorInfo.IME_ACTION_SEARCH)
             }
         }
+
+        binding.refreshLayout.apply {
+            setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
+            setColorSchemeResources(R.color.refreshLayoutArrow)
+            setOnRefreshListener {
+                isRefreshing = false
+                showRecycler(false)
+                showAnimation(true)
+                fetchData(binding.searchInput.text.toString())
+            }
+        }
     }
 
-    private fun loadHtmlIntoRecycler(
-        webInterface: JavascriptInterface,
-        adapter: RecyclerViewAdapter<MarketViewState.MarketEntry, RecyclerViewHolder<MarketViewState.MarketEntry>>
-    ) {
+    private fun fetchData(searchPhrase: String) = webView.loadUrl(api.getSearchPhrase(searchPhrase))
+
+    private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
         val list = api.getMarketResults(webInterface.html!!)
         val finalList = MutableList(list.size) {
             val tempList = list[it]
             MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
         }
         activity?.runOnUiThread {
-            binding.animationView.visibility = View.INVISIBLE
-            binding.animationView.pauseAnimation()
-            adapter.submitList(finalList)
-            adapter.notifyDataSetChanged()
+            if (finalList.isNotEmpty()) {
+                showAnimation(false)
+                adapter.submitList(finalList as List<Nothing>)
+                showRecycler(true)
+            } else {
+                showAnimation(true, true, true)
+            }
+        }
+    }
+
+    private fun showRecycler(show: Boolean) {
+        val visibility = if (show) View.VISIBLE else View.INVISIBLE
+        binding.recycler.visibility = visibility
+    }
+
+    private fun showAnimation(show: Boolean, connected: Boolean = true, emptyList: Boolean = false) {
+        val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
+        val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
+        val newSpeed = if (emptyList || !connected) 1.2f else 3f
+        val animation = if (connected && !emptyList) {
+            "coin-spin.json"
+        } else if (emptyList) {
+            "no-results.json"
+        } else {
+            "no-connection.json"
+        }
+        binding.apply {
+            animationView.apply {
+                setAnimation(animation)
+                speed = newSpeed
+                visibility = viewVisibility
+                playAnimation()
+            }
+            animationInfo.visibility = infoVisibility
         }
     }
 
