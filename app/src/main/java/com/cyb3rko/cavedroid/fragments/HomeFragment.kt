@@ -256,10 +256,12 @@ class HomeFragment : Fragment() {
     private fun showAnimation(show: Boolean, connected: Boolean) {
         val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
         val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
+        val newSpeed = if (!connected) 1.2f else 3f
         val animation = if (connected) "coin-spin.json" else "no-connection.json"
         binding.apply {
             animationView.apply {
                 setAnimation(animation)
+                speed = newSpeed
                 visibility = viewVisibility
                 playAnimation()
             }
