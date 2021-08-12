@@ -199,45 +199,47 @@ class RankingFragment : Fragment() {
                 3 -> api.getTopItems(limit)
                 else -> listOf()
             }
-            if (list.isNotEmpty()) {
-                when (args.rankingType) {
-                    1, 2 -> {
-                        val tempList = MutableList(limit) {
-                            val pair = list[it] as Pair<String, String>
-                            val secondPart = if (args.rankingType == 1) {
-                                getString(R.string.ranking_player_data1, pair.second)
-                            } else {
-                                getString(R.string.ranking_player_data2, pair.second)
+            if (context != null) {
+                if (list.isNotEmpty()) {
+                    when (args.rankingType) {
+                        1, 2 -> {
+                            val tempList = MutableList(limit) {
+                                val pair = list[it] as Pair<String, String>
+                                val secondPart = if (args.rankingType == 1) {
+                                    getString(R.string.ranking_player_data1, pair.second)
+                                } else {
+                                    getString(R.string.ranking_player_data2, pair.second)
+                                }
+                                PlayerViewState.PlayerEntry(
+                                    pair.first,
+                                    secondPart
+                                )
                             }
-                            PlayerViewState.PlayerEntry(
-                                pair.first,
-                                secondPart
-                            )
+                            submitList(tempList as List<Nothing>)
                         }
-                        submitList(tempList as List<Nothing>)
-                    }
-                    3 -> {
-                        val tempList = MutableList(limit) {
-                            val triple = list[it] as Triple<String, String, String>
-                            ItemViewState.ItemEntry(
-                                triple.first,
-                                getString(R.string.ranking_item_units, triple.second),
-                                getString(R.string.ranking_item_turnover, triple.third)
-                            )
+                        3 -> {
+                            val tempList = MutableList(limit) {
+                                val triple = list[it] as Triple<String, String, String>
+                                ItemViewState.ItemEntry(
+                                    triple.first,
+                                    getString(R.string.ranking_item_units, triple.second),
+                                    getString(R.string.ranking_item_turnover, triple.third)
+                                )
+                            }
+                            submitList(tempList as List<Nothing>)
                         }
-                        submitList(tempList as List<Nothing>)
                     }
-                }
-                requireActivity().runOnUiThread {
-                    showAnimation(false)
-                    binding.recycler.layoutManager = LinearLayoutManager(myContext)
-                    binding.recycler.adapter = adapter
-                    showRecycler(true)
-                }
-            } else {
-                requireActivity().runOnUiThread {
-                    showRecycler(false)
-                    showAnimation(true, false)
+                    requireActivity().runOnUiThread {
+                        showAnimation(false)
+                        binding.recycler.layoutManager = LinearLayoutManager(myContext)
+                        binding.recycler.adapter = adapter
+                        showRecycler(true)
+                    }
+                } else {
+                    requireActivity().runOnUiThread {
+                        showRecycler(false)
+                        showAnimation(true, false)
+                    }
                 }
             }
         }
