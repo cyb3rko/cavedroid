@@ -106,7 +106,7 @@ object Utils {
     }
 
     internal fun loadItemIcon(context: Context, imageView: ImageView, item: String, missingIcons: MutableSet<String>) {
-        val itemName = item.replace(" ", "_").toLowerCase()
+        val itemName = item.replace(" ", "_").replace("'", "").toLowerCase()
         val formattedName = itemName.split(",")[0]
         val avatarResId = context.resources.getIdentifier("_item_$formattedName", "drawable", context.packageName)
         if (avatarResId != 0) {
