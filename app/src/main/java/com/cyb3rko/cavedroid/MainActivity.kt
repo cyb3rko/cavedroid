@@ -1,5 +1,6 @@
 package com.cyb3rko.cavedroid
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -33,6 +34,8 @@ import dev.kord.core.entity.channel.MessageChannel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -106,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             .replace(">", "")
             .replace("\n", "<br/>")
 
+        // Replace user ids with server nick names
         while (message.contains("@!")) {
             val substrings = message.split("@!", limit = 2)
             val id = substrings[1].substring(0..17)
@@ -114,6 +118,7 @@ class MainActivity : AppCompatActivity() {
             message = "${substrings[0]}$name $substring2"
         }
 
+        // Replace channel ids with channel names
         while (message.contains(" #")) {
             try {
                 val substrings = message.split("#", limit = 2)
@@ -127,11 +132,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Remove time left until event
+        while (message.contains("(t:")) {
+            val index = message.indexOf("(t:")
+            val endIndex = message.indexOf(":R)", index + 12)
+            message = message.substring(0 until index - 1) + message.substring(endIndex + 3)
+        }
+
+        // Replace timestamp with formatted date and time
+        while (message.contains("t:")) {
+            val index = message.indexOf("t:")
+            val endIndex = message.indexOf(":F", index + 12)
+            val time = message.substring(index + 2 until endIndex).toLong() * 1000
+            val date = Date(time)
+            @SuppressLint("SimpleDateFormat")
+            val formattedDate = SimpleDateFormat("MM/dd/yyyy - HH:mm 'UTC'").format(date)
+            message = message.substring(0 until index) + formattedDate + message.substring(endIndex + 2)
+        }
+
         message = message.replace("&%", "#")
 
         runOnUiThread {
             MaterialDialog(this@MainActivity, BottomSheet(LayoutMode.MATCH_PARENT)).show {
-                customView(R.layout.announcement_dialog)
+                customView(viewRes = R.layout.announcement_dialog, scrollable = true, noVerticalPadding = true)
                 onPreShow {
                     val view = it.getCustomView()
                     if (messageObject.attachments.isNotEmpty()) {
