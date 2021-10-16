@@ -274,8 +274,14 @@ class ProfileCategoryFragment : Fragment() {
                 showRecycler(true)
             }
         } else {
-            requireActivity().runOnUiThread {
-                showAnimation(true, true, true)
+            if (args.amount > 0) {
+                requireActivity().runOnUiThread {
+                    fetchData()
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    showAnimation(true, true, true)
+                }
             }
         }
     }

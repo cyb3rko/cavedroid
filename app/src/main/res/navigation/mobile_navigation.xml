@@ -44,6 +44,10 @@
             android:name="name"
             app:argType="string" />
         <argument
+            android:name="amount"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
             android:name="title"
             app:argType="string" />
         <action

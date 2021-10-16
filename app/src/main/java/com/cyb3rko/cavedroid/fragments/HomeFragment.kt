@@ -57,6 +57,10 @@ class HomeFragment : Fragment() {
     private lateinit var mySPR: SharedPreferences
     private lateinit var mySPREditor: SharedPreferences.Editor
 
+    private var amountItemsSold = 0
+    private var amountItemsBought = 0
+    private var amountOffers = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -111,17 +115,32 @@ class HomeFragment : Fragment() {
         }
 
         binding.soldContainer.setOnClickListener {
-            val action = HomeFragmentDirections.openProfileCategory(1, currentName, getString(R.string.topbar_title_items_sold))
+            val action = HomeFragmentDirections.openProfileCategory(
+                1,
+                currentName,
+                amountItemsSold,
+                getString(R.string.topbar_title_items_sold)
+            )
             findNavController().navigate(action)
         }
 
         binding.boughtContainer.setOnClickListener {
-            val action = HomeFragmentDirections.openProfileCategory(2, currentName, getString(R.string.topbar_title_items_bought))
+            val action = HomeFragmentDirections.openProfileCategory(
+                2,
+                currentName,
+                amountItemsBought,
+                getString(R.string.topbar_title_items_bought)
+            )
             findNavController().navigate(action)
         }
 
         binding.offersContainer.setOnClickListener {
-            val action = HomeFragmentDirections.openProfileCategory(3, currentName, getString(R.string.topbar_title_offers))
+            val action = HomeFragmentDirections.openProfileCategory(
+                3,
+                currentName,
+                amountOffers,
+                getString(R.string.topbar_title_offers)
+            )
             findNavController().navigate(action)
         }
 
@@ -213,6 +232,9 @@ class HomeFragment : Fragment() {
                                 isFirstResource: Boolean
                             ): Boolean {
                                 showAnimation(false, true)
+                                amountItemsSold = user.itemsSold.toInt()
+                                amountItemsBought = user.itemsBought.toInt()
+                                amountOffers = user.currentOffers.toInt()
                                 binding.apply {
                                     nameView.visibility = View.VISIBLE
                                     nameView.text = name
