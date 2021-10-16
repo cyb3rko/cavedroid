@@ -7,11 +7,9 @@ import androidx.cardview.widget.CardView
 import com.cyb3rko.cavedroid.R
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 
-class MarketEntryViewHolder(view: View) : RecyclerViewHolder<MarketViewState.MarketEntry>(view) {
+class OfferEntryViewHolder(view: View) : RecyclerViewHolder<OfferEntryViewState.OfferEntry>(view) {
     val cardView: CardView = view.findViewById(R.id.item_card)
     val amountView: TextView = view.findViewById(R.id.item_amount)
     val priceView: TextView = view.findViewById(R.id.item_price)
     val iconView: ImageView = view.findViewById(R.id.item_icon)
-    val playerView: TextView = view.findViewById(R.id.item_player)
-    val avatarView: ImageView = view.findViewById(R.id.item_avatar)
 }

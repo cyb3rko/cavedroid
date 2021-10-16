@@ -21,10 +21,11 @@ import com.cyb3rko.cavedroid.JavascriptInterface
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
+import com.cyb3rko.cavedroid.rankings.OfferEntryViewHolder
+import com.cyb3rko.cavedroid.rankings.OfferEntryViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import me.ibrahimyilmaz.kiel.adapter.RecyclerViewAdapter
 import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 import kotlin.math.round
@@ -74,14 +75,14 @@ class ProfileCategoryFragment : Fragment() {
                         onBindViewHolder = { vh, _, entry ->
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
                             vh.priceView.text = getString(R.string.item_price, entry.price)
-                            vh.sellerView.text = entry.seller
+                            vh.playerView.text = entry.player
                             vh.cardView.setOnClickListener {
                                 val amount = entry.amount.toInt()
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
                                 MaterialDialog(myContext).show {
                                     icon(drawable = vh.avatarView.drawable)
-                                    title(text = entry.seller)
+                                    title(text = entry.player)
                                     message(text = Html.fromHtml(
                                         Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information1), entry.item) +
                                                 Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information2), entry.amount) +
@@ -106,10 +107,10 @@ class ProfileCategoryFragment : Fragment() {
                                                 findNavController().navigate(R.id.go_to_item_search, bundleOf("item" to entry.item))
                                             }
                                             1 -> {
-                                                findNavController().navigate(R.id.go_to_home, bundleOf("name" to entry.seller))
+                                                findNavController().navigate(R.id.go_to_home, bundleOf("name" to entry.player))
                                             }
                                             2 -> {
-                                                Utils.storeToClipboard(myContext, entry.seller)
+                                                Utils.storeToClipboard(myContext, entry.player)
                                                 Utils.showClipboardToast(myContext, if (args.category == 1) "buyer name" else "seller name")
                                             }
                                             3 -> {
@@ -130,11 +131,12 @@ class ProfileCategoryFragment : Fragment() {
                                     }
                                 }
                             }
-                            if (entry.seller != "The Bank") {
-                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, entry.seller, 100)
+                            if (entry.player != "The Bank") {
+                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, entry.player, 100)
                             } else {
                                 Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
                             }
+                            Utils.loadItemIcon(myContext, vh.iconView, entry.item, missingIcons)
                         }
                     )
                 }
@@ -142,18 +144,17 @@ class ProfileCategoryFragment : Fragment() {
             3 -> {
                 adapter = adapterOf {
                     register(
-                        layoutResource = R.layout.item_recycler_market,
-                        viewHolder = ::MarketEntryViewHolder,
+                        layoutResource = R.layout.item_recycler_offer,
+                        viewHolder = ::OfferEntryViewHolder,
                         onBindViewHolder = { vh, _, entry ->
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
                             vh.priceView.text = getString(R.string.item_price, entry.price)
-                            vh.sellerView.visibility = View.GONE
                             vh.cardView.setOnClickListener {
                                 val amount = entry.amount.toInt()
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
                                 MaterialDialog(myContext).show {
-                                    if (vh.avatarView.drawable != null) icon(drawable = vh.avatarView.drawable)
+                                    if (vh.iconView.drawable != null) icon(drawable = vh.iconView.drawable)
                                     title(text = entry.item)
                                     message(text = Html.fromHtml(
                                         Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information2), entry.amount) +
@@ -191,7 +192,7 @@ class ProfileCategoryFragment : Fragment() {
                                     }
                                 }
                             }
-                            Utils.loadItemIcon(myContext, vh.avatarView, entry.item, missingIcons)
+                            Utils.loadItemIcon(myContext, vh.iconView, entry.item, missingIcons)
                         }
                     )
                 }
@@ -263,7 +264,7 @@ class ProfileCategoryFragment : Fragment() {
                 val tempList = list[it]
                 when (args.category) {
                     1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
-                    3 -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                    3 -> OfferEntryViewState.OfferEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
                     else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
                 }
             }

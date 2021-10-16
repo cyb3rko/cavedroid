@@ -5,10 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -45,6 +42,7 @@ class SearchFragment : Fragment() {
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: SearchFragmentArgs by navArgs()
+    private val missingIcons = mutableSetOf<String>()
     private lateinit var webView: HtmlWebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,11 +69,11 @@ class SearchFragment : Fragment() {
                 onBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
                     vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
                     vh.priceView.text = getString(R.string.item_price, marketEntry.price)
-                    vh.sellerView.text = marketEntry.seller
+                    vh.playerView.text = marketEntry.player
                     vh.cardView.setOnClickListener {
                         MaterialDialog(myContext).show {
                             icon(drawable = vh.avatarView.drawable)
-                            title(text = marketEntry.seller)
+                            title(text = marketEntry.player)
                             message(text = Html.fromHtml(
                                 Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information1), marketEntry.item) +
                                         Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information2), marketEntry.amount) +
@@ -95,10 +93,10 @@ class SearchFragment : Fragment() {
                             )) { _, index, _ ->
                                 when (index) {
                                     0 -> {
-                                        findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.seller))
+                                        findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.player))
                                     }
                                     1 -> {
-                                        Utils.storeToClipboard(myContext, marketEntry.seller)
+                                        Utils.storeToClipboard(myContext, marketEntry.player)
                                         Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                     }
                                     2 -> {
@@ -119,11 +117,12 @@ class SearchFragment : Fragment() {
                             }
                         }
                     }
-                    if (marketEntry.seller != "The Bank") {
-                        Glide.with(myContext).load(api.getAvatarLink(marketEntry.seller, 100)).into(vh.avatarView)
+                    if (marketEntry.player != "The Bank") {
+                        Glide.with(myContext).load(api.getAvatarLink(marketEntry.player, 100)).into(vh.avatarView)
                     } else {
                         Glide.with(myContext).load(api.getAvatarLink("God", 100)).into(vh.avatarView)
                     }
+                    Utils.loadItemIcon(myContext, vh.iconView, marketEntry.item, missingIcons)
                 }
             )
         }
@@ -236,7 +235,12 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.clear()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.topbar_menu2, menu)
+        menu.findItem(R.id.missing_icons_report).setOnMenuItemClickListener {
+            Utils.showMissingIconsDialog(myContext, missingIcons, requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE))
+            true
+        }
     }
 }
