@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             tools:context=".fragments.HomeFragment">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/header"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -77,23 +77,16 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/balance_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                app:contentPaddingTop="8dp"
-                app:contentPaddingBottom="8dp"
-                app:contentPadding="5dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp"
-                android:visibility="invisible"
+                style="@style/Home.CardView"
+                android:layout_marginTop="30dp"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/header">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -112,32 +105,20 @@
                         android:id="@+id/balance_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
+                        style="@style/Home.CardTextView"
                         tools:text="Coins in account:\n1,234,567.89" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/earnings_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:contentPaddingTop="8dp"
-                app:contentPaddingBottom="8dp"
-                app:contentPadding="5dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp"
-                android:visibility="invisible"
+                style="@style/Home.CardView"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/balance_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/balance_container">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,32 +137,20 @@
                         android:id="@+id/earnings_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
+                        style="@style/Home.CardTextView"
                         tools:text="Total earnings in market:\n987,654.32" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/spending_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:contentPaddingTop="8dp"
-                app:contentPaddingBottom="8dp"
-                app:contentPadding="5dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp"
-                android:visibility="invisible"
+                style="@style/Home.CardView"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/earnings_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/earnings_container">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -200,32 +169,20 @@
                         android:id="@+id/spending_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
+                        style="@style/Home.CardTextView"
                         tools:text="Total spending in market:\n123,456.78" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/sold_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:contentPaddingTop="8dp"
-                app:contentPaddingBottom="8dp"
-                app:contentPadding="5dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp"
-                android:visibility="invisible"
+                style="@style/Home.CardViewClickable"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/spending_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/spending_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -247,9 +204,7 @@
                         android:id="@+id/sold_view"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
+                        style="@style/Home.CardTextView"
                         app:layout_constraintStart_toEndOf="@id/sold_icon"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -273,25 +228,15 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/bought_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:contentPaddingTop="8dp"
-                app:contentPaddingBottom="8dp"
-                app:contentPadding="5dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp"
-                android:visibility="invisible"
+                style="@style/Home.CardViewClickable"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/sold_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/sold_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -313,9 +258,7 @@
                         android:id="@+id/bought_view"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
+                        style="@style/Home.CardTextView"
                         app:layout_constraintStart_toEndOf="@id/bought_icon"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -339,25 +282,15 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/offers_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:contentPaddingTop="8dp"
-                app:contentPaddingBottom="8dp"
-                app:contentPadding="5dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp"
-                android:visibility="invisible"
+                style="@style/Home.CardViewClickable"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/bought_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/bought_container">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -379,9 +312,7 @@
                         android:id="@+id/offers_view"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
+                        style="@style/Home.CardTextView"
                         app:layout_constraintStart_toEndOf="@id/offers_icon"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -405,7 +336,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <Space
                 android:layout_width="match_parent"

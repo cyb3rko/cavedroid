@@ -5,7 +5,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="cardBackground">@color/cardview_dark_background</color>
     <color name="refreshLayoutBackground">@color/cardview_dark_background</color>
     <color name="refreshLayoutArrow">#FFFFFF</color>
     <color name="click_hint">#FFFFFF</color>
