@@ -33,8 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/ranking_button1"
-                    android:textColor="@color/md_list_item_textcolor"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                    style="@style/Rankings.CardTextView" />
 
             </LinearLayout>
 
@@ -62,8 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/ranking_button2"
-                    android:textColor="@color/md_list_item_textcolor"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                    style="@style/Rankings.CardTextView" />
 
             </LinearLayout>
 
@@ -91,8 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/ranking_button3"
-                    android:textColor="@color/md_list_item_textcolor"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                    style="@style/Rankings.CardTextView" />
 
             </LinearLayout>
 

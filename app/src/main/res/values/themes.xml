@@ -84,6 +84,14 @@
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_marginStart">25dp</item>
         <item name="android:layout_marginEnd">25dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Rankings.CardTextView" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+        <item name="android:textColor">@color/md_list_item_textcolor</item>
     </style>
 
     <style name="Ranking.ItemCardView" parent="Widget.MaterialComponents.CardView">
