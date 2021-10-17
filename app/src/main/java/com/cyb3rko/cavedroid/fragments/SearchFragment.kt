@@ -2,6 +2,7 @@ package com.cyb3rko.cavedroid.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
@@ -19,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import com.bumptech.glide.Glide
 import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
@@ -43,6 +43,7 @@ class SearchFragment : Fragment() {
     private val api = CavetaleAPI()
     private val args: SearchFragmentArgs by navArgs()
     private val missingIcons = mutableSetOf<String>()
+    private lateinit var mySPR: SharedPreferences
     private lateinit var webView: HtmlWebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +55,8 @@ class SearchFragment : Fragment() {
         _binding = FragmentItemSearchBinding.inflate(inflater, container, false)
         val root = binding.root
         myContext = requireContext()
+
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
         return root
     }
@@ -118,9 +121,9 @@ class SearchFragment : Fragment() {
                         }
                     }
                     if (marketEntry.player != "The Bank") {
-                        Glide.with(myContext).load(api.getAvatarLink(marketEntry.player, 100)).into(vh.avatarView)
+                        Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, marketEntry.player, 100)
                     } else {
-                        Glide.with(myContext).load(api.getAvatarLink("God", 100)).into(vh.avatarView)
+                        Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
                     }
                     Utils.loadItemIcon(myContext, vh.iconView, marketEntry.item, missingIcons)
                 }
