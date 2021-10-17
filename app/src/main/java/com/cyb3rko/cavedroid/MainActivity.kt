@@ -3,9 +3,11 @@ package com.cyb3rko.cavedroid
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -53,7 +55,20 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
+
         binding = ActivityMainBinding.inflate(layoutInflater)
+        val typedValue = TypedValue()
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(typedValue.data))
+        if (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt() !=
+                R.style.Theme_Cavedroid_Standard) {
+            if (!Utils.isNightModeActive(resources)) {
+                theme.resolveAttribute(R.attr.colorSecondary, typedValue, true)
+                binding.navView.setBackgroundColor(typedValue.data)
+            }
+        }
+
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView

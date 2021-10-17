@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary"></color>
-    <color name="colorPrimaryVariant">#003056</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
     <color name="refreshLayoutBackground">@color/cardview_dark_background</color>
     <color name="refreshLayoutArrow">#FFFFFF</color>
     <color name="click_hint">#FFFFFF</color>
     <color name="foreground_color">@android:color/primary_text_dark</color>
+
+    <color name="forest_accent">#343843</color>
+    <color name="house_accent">#2E392A</color>
 </resources>

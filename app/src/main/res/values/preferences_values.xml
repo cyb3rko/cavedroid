@@ -11,6 +11,17 @@
         <item>1</item>
     </string-array>
 
+    <string-array name="background_images">
+        <item>None</item>
+        <item>Jungle / Spruce Forest (Light / Dark mode)</item>
+        <item>Modern House</item>
+    </string-array>
+    <string-array name="background_images_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
     <string-array name="avatar_types">
         <item>Normal Avatar</item>
         <item>Bust</item>

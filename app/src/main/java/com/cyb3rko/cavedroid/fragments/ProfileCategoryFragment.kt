@@ -8,6 +8,8 @@ import android.os.Handler
 import android.text.Html
 import android.view.*
 import android.webkit.*
+import androidx.annotation.ColorInt
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -34,6 +36,8 @@ class ProfileCategoryFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
 
+    @ColorInt
+    var accentColor = 0
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: ProfileCategoryFragmentArgs by navArgs()
@@ -57,6 +61,11 @@ class ProfileCategoryFragment : Fragment() {
 
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
+
         return root
     }
 
@@ -66,6 +75,8 @@ class ProfileCategoryFragment : Fragment() {
 
         val api = CavetaleAPI()
 
+        retrieveAccentColor()
+
         when (args.category) {
             1, 2 -> {
                 adapter = adapterOf {
@@ -73,6 +84,9 @@ class ProfileCategoryFragment : Fragment() {
                         layoutResource = R.layout.item_recycler_market,
                         viewHolder = ::MarketEntryViewHolder,
                         onBindViewHolder = { vh, _, entry ->
+                            if (accentColor != 0) {
+                                vh.cardView.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
+                            }
                             vh.amountView.text = getString(R.string.item_amount, entry.amount, entry.item)
                             vh.priceView.text = getString(R.string.item_price, entry.price)
                             vh.playerView.text = entry.player
@@ -247,6 +261,14 @@ class ProfileCategoryFragment : Fragment() {
                 showAnimation(true, true, false)
                 fetchData()
             }
+        }
+    }
+
+    private fun retrieveAccentColor() {
+        accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+            else -> 0
         }
     }
 

@@ -25,6 +25,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
     private lateinit var mySPR: SharedPreferences
 
     private lateinit var nightModeList: ListPreference
+    private lateinit var backgroundImageList: ListPreference
     private lateinit var avatarTypeList: ListPreference
     private lateinit var showAnnouncementSwitch: SwitchPreference
     private lateinit var announcementImageSwitch: SwitchPreference
@@ -39,6 +40,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         preferenceManager.sharedPreferencesName = SHARED_PREFERENCE
         mySPR = preferenceManager.sharedPreferences
         nightModeList = findPreference(NIGHTMODE)!!
+        backgroundImageList = findPreference(BACKGROUND_IMAGE)!!
         avatarTypeList = findPreference(AVATAR_TYPE)!!
         showAnnouncementSwitch = findPreference(SHOW_ANNOUNCEMENTS)!!
         announcementImageSwitch = findPreference(ANNOUNCEMENT_IMAGE)!!
@@ -46,6 +48,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         crashlyticsCollectionSwitch = findPreference(CRASHLYTICS_COLLECTION)!!
 
         nightModeList.value = mySPR.getString(NIGHTMODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+        backgroundImageList.value = mySPR.getString(BACKGROUND_IMAGE, "-1")
         avatarTypeList.value = mySPR.getString(AVATAR_TYPE, "avatar")
         showAnnouncementSwitch.isChecked = mySPR.getBoolean(SHOW_ANNOUNCEMENTS, true)
         announcementImageSwitch.isChecked = mySPR.getBoolean(ANNOUNCEMENT_IMAGE, true)
@@ -58,6 +61,21 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             NIGHTMODE -> {
                 nightModeList.setOnPreferenceChangeListener { _, newValue ->
                     AppCompatDelegate.setDefaultNightMode(newValue.toString().toInt())
+                    true
+                }
+                true
+            }
+            BACKGROUND_IMAGE -> {
+                backgroundImageList.setOnPreferenceChangeListener { _, newValue ->
+                    val nightMode = Utils.isNightModeActive(requireContext().resources)
+                    val newThemeId = when ((newValue as String).toInt()) {
+                        -1 -> R.style.Theme_Cavedroid_Standard
+                        0 -> if (nightMode) R.style.Theme_Cavedroid_BlueDark else R.style.Theme_Cavedroid_BlueLight
+                        1 -> if (nightMode) R.style.Theme_Cavedroid_GreenDark else R.style.Theme_Cavedroid_GreenLight
+                        else -> R.style.Theme_Cavedroid_Standard
+                    }
+                    mySPR.edit().putString(THEME, newThemeId.toString()).commit()
+                    requireActivity().recreate()
                     true
                 }
                 true

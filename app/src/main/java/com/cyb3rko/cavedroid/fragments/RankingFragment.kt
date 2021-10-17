@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Html
 import android.view.*
+import androidx.annotation.ColorInt
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,6 +18,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.cyb3rko.cavedroid.R
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
+import com.cyb3rko.cavedroid.THEME
 import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.ItemEntryViewHolder
@@ -33,6 +36,8 @@ class RankingFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
 
+    @ColorInt
+    var accentColor = 0
     private val args: RankingFragmentArgs by navArgs()
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private lateinit var api: CavetaleAPI
@@ -54,6 +59,11 @@ class RankingFragment : Fragment() {
 
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
+
         return root
     }
 
@@ -64,6 +74,8 @@ class RankingFragment : Fragment() {
         api = CavetaleAPI()
         var limit = 0
 
+        retrieveAccentColor()
+
         when (args.rankingType) {
             1, 2 -> {
                 adapter = adapterOf {
@@ -71,6 +83,9 @@ class RankingFragment : Fragment() {
                         layoutResource = R.layout.item_recycler_player,
                         viewHolder = ::PlayerEntryViewHolder,
                         onBindViewHolder = { vh, index, player ->
+                            if (accentColor != 0) {
+                                vh.cardView.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
+                            }
                             vh.rankView.text = getString(R.string.ranking_entry, index + 1)
                             vh.nameView.text = player.name
                             vh.dataView.text = player.data
@@ -188,6 +203,14 @@ class RankingFragment : Fragment() {
                 showAnimation(true)
                 fetchData(limit)
             }
+        }
+    }
+
+    private fun retrieveAccentColor() {
+        accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+            else -> 0
         }
     }
 

@@ -16,6 +16,15 @@
             android:key="nightmode" />
 
         <ListPreference
+            android:title="Background Image"
+            android:summary="Set a beautiful app wide background image (can impact performance)"
+            app:iconSpaceReserved="false"
+            android:defaultValue=""
+            android:entries="@array/background_images"
+            android:entryValues="@array/background_images_values"
+            android:key="background_image" />
+
+        <ListPreference
             android:title="Player Avatar"
             android:summary="Choose which type of avatar to show"
             app:iconSpaceReserved="false"

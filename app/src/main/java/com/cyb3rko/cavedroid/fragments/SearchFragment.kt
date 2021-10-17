@@ -12,6 +12,8 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.annotation.ColorInt
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -39,6 +41,8 @@ class SearchFragment : Fragment() {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
+    @ColorInt
+    var accentColor = 0
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: SearchFragmentArgs by navArgs()
@@ -58,6 +62,19 @@ class SearchFragment : Fragment() {
 
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
+        val searchAnimation = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+            R.style.Theme_Cavedroid_BlueLight -> "search_blue_light.json"
+            R.style.Theme_Cavedroid_BlueDark -> "search_blue_dark.json"
+            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> "search_green.json"
+            else -> "search_blue_light.json"
+        }
+        binding.animationView.setAnimation(searchAnimation)
+
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
+
         return root
     }
 
@@ -65,11 +82,16 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        retrieveAccentColor()
+
         adapter = adapterOf {
             register(
                 layoutResource = R.layout.item_recycler_market,
                 viewHolder = ::MarketEntryViewHolder,
                 onBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
+                    if (accentColor != 0) {
+                        vh.cardView.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
+                    }
                     vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
                     vh.priceView.text = getString(R.string.item_price, marketEntry.price)
                     vh.playerView.text = marketEntry.player
@@ -189,6 +211,14 @@ class SearchFragment : Fragment() {
                 showAnimation(true)
                 fetchData(binding.searchInput.text.toString())
             }
+        }
+    }
+
+    private fun retrieveAccentColor() {
+        accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+            else -> 0
         }
     }
 

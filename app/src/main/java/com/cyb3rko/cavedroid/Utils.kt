@@ -5,6 +5,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -13,6 +15,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.bumptech.glide.Glide
@@ -30,6 +33,7 @@ internal const val TERMS_OF_USE = "terms_of_use"
 internal const val ANALYTICS_COLLECTION = "analytics_collection"
 internal const val ANNOUNCEMENT_IMAGE = "announcement_image"
 internal const val AVATAR_TYPE = "avatar_type"
+internal const val BACKGROUND_IMAGE = "background_image"
 internal const val CONSENT_DATE = "consent_date"
 internal const val CONSENT_TIME = "consent_time"
 internal const val CRASHLYTICS_COLLECTION = "crashlytics_collection"
@@ -41,6 +45,7 @@ internal const val NIGHTMODE = "nightmode"
 internal const val OLD_ANDROID = "old_android"
 internal const val SHARED_PREFERENCE = "Safe"
 internal const val SHOW_ANNOUNCEMENTS = "show_announcements"
+internal const val THEME = "theme"
 
 object Utils {
     internal fun showToast(context: Context, message: String, length: Int = Toast.LENGTH_SHORT) {
@@ -138,6 +143,33 @@ object Utils {
             "avatar" -> api.getAvatarLink(avatarName, size)
             "bust" -> api.getBustLink(avatarName, size)
             else -> ""
+        }
+    }
+
+    internal fun getBackgroundDrawableId(resources: Resources, mySPR: SharedPreferences): Int {
+        return when (mySPR.getString(BACKGROUND_IMAGE, "-1")!!.toInt()) {
+            0 -> {
+                if (isNightModeActive(resources)) {
+                    R.drawable.background_forest2
+                } else {
+                    R.drawable.background_forest1
+                }
+            }
+            1 -> R.drawable.background_house
+            else -> -1
+        }
+    }
+
+    internal fun isNightModeActive(resources: Resources): Boolean {
+        when (AppCompatDelegate.getDefaultNightMode()) {
+            AppCompatDelegate.MODE_NIGHT_YES -> return true
+            AppCompatDelegate.MODE_NIGHT_NO -> return false
+        }
+
+        return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> true
+            Configuration.UI_MODE_NIGHT_NO -> false
+            else -> false
         }
     }
 }

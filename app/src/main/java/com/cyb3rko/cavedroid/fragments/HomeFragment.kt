@@ -18,6 +18,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.SearchView
+import androidx.annotation.ColorInt
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -73,6 +75,13 @@ class HomeFragment : Fragment() {
 
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
         mySPREditor = mySPR.edit()
+
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
+
+        setElementAccentColor()
 
         currentName = mySPR.getString(NAME, "")!!
         if (currentName.isNotBlank() && args.name.isBlank()) {
@@ -288,6 +297,29 @@ class HomeFragment : Fragment() {
                 playAnimation()
             }
             animationInfo.visibility = infoVisibility
+        }
+    }
+
+    private fun setElementAccentColor() {
+        @ColorInt val accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+            else -> 0
+        }
+        if (accentColor == 0) return
+
+        binding.apply {
+            listOf(
+                header,
+                balanceContainer,
+                earningsContainer,
+                spendingContainer,
+                soldContainer,
+                boughtContainer,
+                offersContainer
+            ).forEach {
+                it.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
+            }
         }
     }
 

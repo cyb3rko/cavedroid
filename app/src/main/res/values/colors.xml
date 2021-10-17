@@ -2,6 +2,10 @@
 <resources>
     <color name="colorPrimary">#00599F</color>
     <color name="colorPrimaryVariant">#003056</color>
+    <color name="colorSecondary">#00A1D9</color>
+    <color name="colorSecondaryVariant">#00A1D9</color>
+    <color name="colorOnSecondary">@color/black</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
@@ -9,4 +13,7 @@
     <color name="refreshLayoutArrow">#393939</color>
     <color name="click_hint">#000000</color>
     <color name="foreground_color">@android:color/primary_text_light</color>
+
+    <color name="forest_accent">#C2F4FB</color>
+    <color name="house_accent">#D0E8C7</color>
 </resources>
