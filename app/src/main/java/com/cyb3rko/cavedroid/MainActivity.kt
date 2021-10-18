@@ -43,31 +43,26 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var mySPR: SharedPreferences
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val mySPR = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
+        mySPR = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
         if (mySPR.getBoolean(FIRST_START, true) || mySPR.getString(CONSENT_DATE, "")!!.isEmpty()) {
             finish()
             startActivity(Intent(applicationContext, MyAppIntro::class.java))
             return
         }
 
-        setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, false)) {
+            setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
+        } else {
+            setTheme(R.style.Theme_Cavedroid_Standard)
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val typedValue = TypedValue()
-        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(typedValue.data))
-        if (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt() !=
-                R.style.Theme_Cavedroid_Standard) {
-            if (!Utils.isNightModeActive(resources)) {
-                theme.resolveAttribute(R.attr.colorSecondary, typedValue, true)
-                binding.navView.setBackgroundColor(typedValue.data)
-            }
-        }
 
         setContentView(binding.root)
 
@@ -83,6 +78,23 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
+            setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
+            val typedValue = TypedValue()
+            theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(typedValue.data))
+            if (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt() !=
+                R.style.Theme_Cavedroid_Standard) {
+                if (!Utils.isNightModeActive(resources)) {
+                    theme.resolveAttribute(R.attr.colorSecondary, typedValue, true)
+                    binding.navView.setBackgroundColor(typedValue.data)
+                }
+            }
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

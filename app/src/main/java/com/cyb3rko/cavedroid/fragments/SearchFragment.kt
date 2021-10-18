@@ -62,11 +62,15 @@ class SearchFragment : Fragment() {
 
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
-        val searchAnimation = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
-            R.style.Theme_Cavedroid_BlueLight -> "search_blue_light.json"
-            R.style.Theme_Cavedroid_BlueDark -> "search_blue_dark.json"
-            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> "search_green.json"
-            else -> "search_blue_light.json"
+        var searchAnimation = "search_blue_dark.json"
+
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
+            searchAnimation = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+                R.style.Theme_Cavedroid_BlueLight -> "search_blue_light.json"
+                R.style.Theme_Cavedroid_BlueDark -> "search_blue_dark.json"
+                R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> "search_green.json"
+                else -> "search_blue_dark.json"
+            }
         }
         binding.animationView.setAnimation(searchAnimation)
 
@@ -215,10 +219,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun retrieveAccentColor() {
-        accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
-            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
-            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
-            else -> 0
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
+            accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+                R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+                R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+                else -> 0
+            }
         }
     }
 

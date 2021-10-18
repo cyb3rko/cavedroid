@@ -11,10 +11,10 @@ import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.*
+import com.cyb3rko.cavedroid.ADAPTIVE_THEMING
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
 import com.cyb3rko.cavedroid.THEME
-import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentRankingsBinding
 
 class RankingsFragment : Fragment() {
@@ -42,7 +42,7 @@ class RankingsFragment : Fragment() {
             root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
         }
 
-        setElementAccentColor()
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
 
         return root
     }

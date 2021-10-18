@@ -265,10 +265,12 @@ class ProfileCategoryFragment : Fragment() {
     }
 
     private fun retrieveAccentColor() {
-        accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
-            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
-            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
-            else -> 0
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
+            accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+                R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+                R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+                else -> 0
+            }
         }
     }
 

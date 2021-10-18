@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
             root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
         }
 
-        setElementAccentColor()
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
 
         currentName = mySPR.getString(NAME, "")!!
         if (currentName.isNotBlank() && args.name.isBlank()) {

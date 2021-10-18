@@ -24,6 +24,12 @@
             android:entryValues="@array/background_images_values"
             android:key="background_image" />
 
+        <SwitchPreference
+            android:title="Adaptive app theming"
+            android:summary="Adapt the app theming to the current background image (can impact performance)"
+            app:iconSpaceReserved="false"
+            android:key="adaptive_theming" />
+
         <ListPreference
             android:title="Player Avatar"
             android:summary="Choose which type of avatar to show"

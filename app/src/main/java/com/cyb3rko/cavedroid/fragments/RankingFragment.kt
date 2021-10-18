@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.*
+import com.cyb3rko.cavedroid.ADAPTIVE_THEMING
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
 import com.cyb3rko.cavedroid.THEME
-import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.ItemEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.ItemViewState
@@ -207,10 +207,12 @@ class RankingFragment : Fragment() {
     }
 
     private fun retrieveAccentColor() {
-        accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
-            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
-            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
-            else -> 0
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
+            accentColor = when (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt()) {
+                R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
+                R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
+                else -> 0
+            }
         }
     }
 
