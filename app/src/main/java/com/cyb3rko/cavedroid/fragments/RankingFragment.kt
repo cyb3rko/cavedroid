@@ -131,6 +131,9 @@ class RankingFragment : Fragment() {
                         layoutResource = R.layout.item_recycler_item,
                         viewHolder = ::ItemEntryViewHolder,
                         onBindViewHolder = { vh, index, item ->
+                            if (accentColor != 0) {
+                                vh.cardView.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
+                            }
                             vh.rankView.text = getString(R.string.ranking_entry, index + 1)
                             vh.nameView.text = item.name
                             vh.amountView.text = item.amount
