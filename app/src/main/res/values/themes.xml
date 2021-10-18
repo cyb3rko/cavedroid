@@ -20,8 +20,8 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#00A1D9</item>
-        <item name="colorSecondaryVariant">#00A1D9</item>
+        <item name="colorSecondary">#187CCA</item>
+        <item name="colorSecondaryVariant">#ADD9DF</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -34,8 +34,8 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#00A1D9</item>
-        <item name="colorSecondaryVariant">#00A1D9</item>
+        <item name="colorSecondary">#187CCA</item>
+        <item name="colorSecondaryVariant">#ADD9DF</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -48,8 +48,8 @@
         <item name="colorPrimaryVariant">#2F5023</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#C2E7B4</item>
-        <item name="colorSecondaryVariant">#A3CF92</item>
+        <item name="colorSecondary">#73AF5D</item>
+        <item name="colorSecondaryVariant">#D0E8C7</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -62,8 +62,8 @@
         <item name="colorPrimaryVariant">#2F5023</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#C2E7B4</item>
-        <item name="colorSecondaryVariant">#A3CF92</item>
+        <item name="colorSecondary">#73AF5D</item>
+        <item name="colorSecondaryVariant">#D0E8C7</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

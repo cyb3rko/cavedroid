@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             if (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt() !=
                 R.style.Theme_Cavedroid_Standard) {
                 if (!Utils.isNightModeActive(resources)) {
-                    theme.resolveAttribute(R.attr.colorSecondary, typedValue, true)
+                    theme.resolveAttribute(R.attr.colorSecondaryVariant, typedValue, true)
                     binding.navView.setBackgroundColor(typedValue.data)
                 }
             }

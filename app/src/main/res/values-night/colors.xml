@@ -5,6 +5,6 @@
     <color name="click_hint">#FFFFFF</color>
     <color name="foreground_color">@android:color/primary_text_dark</color>
 
-    <color name="forest_accent">#343843</color>
+    <color name="forest_accent">#2A334A</color>
     <color name="house_accent">#2E392A</color>
 </resources>
