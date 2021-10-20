@@ -344,12 +344,10 @@ class ProfileCategoryFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        if (args.category == 3) {
-            inflater.inflate(R.menu.topbar_menu2, menu)
-            menu.findItem(R.id.missing_icons_report).setOnMenuItemClickListener {
-                Utils.showMissingIconsDialog(myContext, missingIcons, mySPR)
-                true
-            }
+        inflater.inflate(R.menu.topbar_menu2, menu)
+        menu.findItem(R.id.missing_icons_report).setOnMenuItemClickListener {
+            Utils.showMissingIconsDialog(myContext, missingIcons, mySPR)
+            true
         }
     }
 

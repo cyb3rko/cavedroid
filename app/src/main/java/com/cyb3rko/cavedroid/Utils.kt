@@ -7,6 +7,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -19,7 +22,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import com.cyb3rko.cavedroid.skintools.Section
+import com.cyb3rko.cavedroid.skintools.extractSection
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
@@ -113,13 +122,80 @@ object Utils {
     }
 
     internal fun loadItemIcon(context: Context, imageView: ImageView, item: String, missingIcons: MutableSet<String>) {
+        imageView.setImageResource(0)
+        if (item.contains("Player Head")) {
+            if (item == "Player Head" || item == "Player Head <>") {
+                imageView.setImageResource(R.drawable._ic_no_image)
+                return
+            }
+            var playerHeadName = item.split("<")[1].split(">")[0]
+            playerHeadName = playerHeadName
+                .replace(" ", "_")
+                .replace("'", "")
+                .replace("(", "")
+                .replace(")", "")
+                .toLowerCase()
+
+            GlobalScope.launch {
+                val resId = context.resources.getIdentifier(playerHeadName, "string", context.packageName)
+                if (resId != 0) {
+                    val skinId = context.getString(resId)
+                    try {
+                        val drawable = Glide.with(context)
+                            .asBitmap()
+                            .load("https://textures.minecraft.net/texture/$skinId")
+                            .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .get()
+                        (context as Activity).runOnUiThread {
+                            imageView.setImageBitmapOnReady { head(drawable, width, width) }
+                        }
+                    } catch (e: Exception) {
+                        missingIcons.add(item)
+                    }
+                } else {
+                    (context as Activity).runOnUiThread {
+                        Glide.with(context)
+                            .load(CavetaleAPI().getAvatarLink(playerHeadName, 100))
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .addListener(object: RequestListener<Drawable> {
+                                override fun onLoadFailed(
+                                    e: GlideException?,
+                                    model: Any?,
+                                    target: Target<Drawable>?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    missingIcons.add(item)
+                                    return false
+                                }
+
+                                override fun onResourceReady(
+                                    resource: Drawable?,
+                                    model: Any?,
+                                    target: Target<Drawable>?,
+                                    dataSource: DataSource?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    return false
+                                }
+                            })
+                            .into(imageView)
+                    }
+                }
+            }
+
+            return
+        }
+        if (item.contains("pocket", true)) {
+            val avatarResId = context.resources.getIdentifier("item_pocket_mob", "drawable", context.packageName)
+            imageView.setImageResource(avatarResId)
+            return
+        }
         val itemName = item.replace(" ", "_").replace("'", "").toLowerCase()
         val formattedName = itemName.split(",")[0]
         val avatarResId = context.resources.getIdentifier("_item_$formattedName", "drawable", context.packageName)
         if (avatarResId != 0) {
             imageView.setImageResource(avatarResId)
         } else {
-            imageView.setImageResource(0)
             missingIcons.add(item)
         }
     }
@@ -173,5 +249,17 @@ object Utils {
             Configuration.UI_MODE_NIGHT_NO -> false
             else -> false
         }
+    }
+
+    private fun head(skinTexture: Bitmap, width: Int, height: Int): Bitmap {
+        val head = skinTexture.extractSection(Section.Head())
+        val headOverlay = skinTexture.extractSection(Section.HeadOverlay())
+        Canvas(head).drawBitmap(headOverlay, 0f, 0f, null)
+        return Bitmap.createScaledBitmap(head, width, height, false)
+            .also { head.recycle() }
+    }
+
+    private fun ImageView.setImageBitmapOnReady(func: ImageView.() -> Bitmap) {
+        post { setImageBitmap(func()) }
     }
 }

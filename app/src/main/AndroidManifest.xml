@@ -27,6 +27,8 @@
         </activity>
         <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity android:name="com.cyb3rko.abouticons.IconInfoActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity android:name=".appintro.MyAppIntro"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 

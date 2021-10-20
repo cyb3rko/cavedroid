@@ -44,6 +44,12 @@
         <item>https://www.flaticon.com/free-icon/books-stack-of-three_29302</item>
     </string-array>
 
+    <string-array name="ic_no_image">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/question_2476231</item>
+    </string-array>
+
     <string-array name="ic_offers">
         <item>Freepik</item>
         <item>flaticon.com</item>
@@ -115,6 +121,12 @@
         <item>Flat Icons</item>
         <item>flaticon.com</item>
         <item>https://www.flaticon.com/free-icon/agent_2534183</item>
+    </string-array>
+
+    <string-array name="item_acacia_boat">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Boat?file=BoatNew.gif</item>
     </string-array>
 
     <string-array name="item_acacia_fence">
@@ -207,6 +219,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Arrow?file=Arrow.png</item>
     </string-array>
 
+    <string-array name="item_azalea">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Azalea?file=BabyAzaleaTree.png</item>
+    </string-array>
+
     <string-array name="item_azure_bluet">
         <item>SilverHexxitFights</item>
         <item>minecraftpc.fandom.com</item>
@@ -264,6 +282,24 @@
         <item>https://minecraft.fandom.com/wiki/Beetroot_Seeds?file=Beetroot_Seeds_JE2_BE2.png</item>
     </string-array>
 
+    <string-array name="item_bell">
+        <item>ChristopherInnit</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Bell?file=Bell.png</item>
+    </string-array>
+
+    <string-array name="item_big_dripleaf">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Big_Dripleaf?file=DripleafPlant.png</item>
+    </string-array>
+
+    <string-array name="item_birch_boat">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Boat?file=BoatNew.gif</item>
+    </string-array>
+
     <string-array name="item_birch_fence">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -306,6 +342,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Birch_Stairs_(N)_JE4_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
+    <string-array name="item_black_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Black_Wall_Banner.png</item>
         <item>false</item>
         <item>cc_by_nc_3.0</item>
     </string-array>
@@ -380,6 +424,12 @@
         <item>https://minecraft.fandom.com/wiki/Block_of_Amethyst?file=Block_of_Amethyst_JE3_BE1.png</item>
     </string-array>
 
+    <string-array name="item_block_of_quartz">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Block_of_Quartz_JE3.png</item>
+    </string-array>
+
     <string-array name="item_block_of_copper">
         <item>Deshman-gpuser</item>
         <item>minecraft.fandom.com</item>
@@ -394,6 +444,12 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_block_of_emerald">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Block_of_Emerald?file=BlockOfEmeraldNew.png</item>
+    </string-array>
+
     <string-array name="item_block_of_gold">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -404,6 +460,20 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Block_of_Iron?file=Block_of_Iron_JE4_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
+    <string-array name="item_block_of_redstone">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Block_of_Redstone?file=RedstoneBlockNew.png</item>
+    </string-array>
+
+    <string-array name="item_blue_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Blue_Wall_Banner.png</item>
         <item>false</item>
         <item>cc_by_nc_3.0</item>
     </string-array>
@@ -528,6 +598,14 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_brown_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Brown_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_brown_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -544,6 +622,28 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Brown_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_brown_mushroom">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Mushroom?file=Brown_Mushroom_JE2_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
+    <string-array name="item_brown_mushroom_block">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Huge_Mushrooms?file=BrownMushroomBlockNew.png</item>
+    </string-array>
+
+    <string-array name="item_brown_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Brown_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_brown_stained_glass">
@@ -588,6 +688,24 @@
         <item>https://ftbwiki.org/Coral_Fan</item>
         <item>false</item>
         <item>cc_by_nc_sa_3.0</item>
+    </string-array>
+
+    <string-array name="item_bucket_of_axolotl">
+        <item>Penuma01</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Bucket_of_Axolotl?file=BucketAxolotl.png</item>
+    </string-array>
+
+    <string-array name="item_bucket_of_cod">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Bucket_of_aquatic_mob?file=Bucket_of_Cod_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_bucket_of_tropical_fish">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Bucket_of_aquatic_mob?file=Bucket_of_Tropical_Fish_JE3_BE2.png</item>
     </string-array>
 
     <string-array name="item_cactus">
@@ -652,10 +770,22 @@
         <item>https://minecraft.fandom.com/wiki/Armor?file=Chainmail_Leggings_%2528item%2529_JE1_BE1.png</item>
     </string-array>
 
+    <string-array name="item_chest">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Chest?file=Chest.png</item>
+    </string-array>
+
     <string-array name="item_chicken_spawn_egg">
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Chicken_Spawn_Egg.png</item>
+    </string-array>
+
+    <string-array name="item_chiseled_sandstone">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Chiseled_Sandstone?file=ChiseledSandstoneNew.png</item>
     </string-array>
 
     <string-array name="item_chiseled_stone_bricks">
@@ -692,6 +822,12 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_cobbled_deepslate">
+        <item>DenisKLI</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Cobbled_Deepslate?file=Cobbled_Deepslate_JE2_BE1.png</item>
+    </string-array>
+
     <string-array name="item_cobblestone">
         <item>Deshman-gpuser</item>
         <item>minecraft.fandom.com</item>
@@ -722,6 +858,30 @@
         <item>PancakeIdentity</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Steak_JE4_BE3.png</item>
+    </string-array>
+
+    <string-array name="item_cooked_chicken">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Cooked_Chicken?file=CookedChickenNew.png</item>
+    </string-array>
+
+    <string-array name="item_cooked_cod">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Cooked_Cod?file=CookedCodNew.png</item>
+    </string-array>
+
+    <string-array name="item_cooked_mutton">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Cooked_Mutton?file=Cooked+Mutton+new.png</item>
+    </string-array>
+
+    <string-array name="item_cooked_porkchop">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Cooked_Porkchop?file=CookedPorkchopNew.png</item>
     </string-array>
 
     <string-array name="item_cookie">
@@ -758,6 +918,14 @@
         <item>DenisKLI</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Polished_Blackstone_Bricks?file=Cracked_Polished_Blackstone_Bricks_JE2.png</item>
+    </string-array>
+
+    <string-array name="item_creeper_head">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Head?file=Creeper_Head.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_creeper_spawn_egg">
@@ -835,6 +1003,14 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_cyan_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Cyan_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_cyan_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -851,6 +1027,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Cyan_Glazed_Terracotta_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_cyan_shulker_box">
+        <item>Capopanzone</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Cyan_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_cyan_stained_glass">
@@ -879,6 +1063,12 @@
         <item>https://minecraftpc.fandom.com/wiki/Dandelion?file=Dandelion.png</item>
         <item>false</item>
         <item>cc_by_sa_4.0</item>
+    </string-array>
+
+    <string-array name="item_dark_oak_boat">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Boat?file=BoatNew.gif</item>
     </string-array>
 
     <string-array name="item_dark_oak_fence">
@@ -927,6 +1117,18 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_deepslate">
+        <item>DenisKLI</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Deepslate?file=Deepslate_%2528UD%2529_JE3.png</item>
+    </string-array>
+
+    <string-array name="item_deepslate_redstone_ore">
+        <item>DenisKLI</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Redstone_Ore?file=Deepslate_Redstone_Ore_JE2_BE1.png</item>
+    </string-array>
+
     <string-array name="item_detector_rail">
         <item>Xx AsiAnZ xX</item>
         <item>minecraft-archive.fandom.com</item>
@@ -943,6 +1145,14 @@
         <item>Pneuma01</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Axe?file=Diamond_Axe_JE3_BE3.png</item>
+    </string-array>
+
+    <string-array name="item_diamond_block">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Block_of_Diamond_JE6_BE3.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_diamond_boots">
@@ -1112,6 +1322,18 @@
         <item>true</item>
     </string-array>
 
+    <string-array name="item_enchanting_table">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Enchantment_Table?file=EnchantmentTableNew.png</item>
+    </string-array>
+
+    <string-array name="item_end_crystal">
+        <item>Pneuma01</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/End_Crystal?file=End_Crystal_JE1_BE1.png</item>
+    </string-array>
+
     <string-array name="item_end_rod">
         <item>Deshman-gpuser</item>
         <item>minecraft.fandom.com</item>
@@ -1190,10 +1412,22 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_flint">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Flint?file=FlintNew.png</item>
+    </string-array>
+
     <string-array name="item_flower_pot">
         <item>Pneuma01</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Flower_Pot?file=Flower_Pot_%2528item%2529_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_flowering_azalea">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Azalea?file=BabyBloomingAzaleaTree.png</item>
     </string-array>
 
     <string-array name="item_fox_spawn_egg">
@@ -1220,6 +1454,24 @@
         <item>https://minecraft.fandom.com/wiki/File:Glass_JE4_BE2.png</item>
         <item>false</item>
         <item>cc_by_nc_3.0</item>
+    </string-array>
+
+    <string-array name="item_glass_bottle">
+        <item>TheVeryInkdyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Glass_Bottle?file=GlassBottleNew.png</item>
+    </string-array>
+
+    <string-array name="item_glistering_melon_slice">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Glistering_Melon?file=GlisteringMelonNew.png</item>
+    </string-array>
+
+    <string-array name="item_glow_berries">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Glow_Berries?file=GlowBerriesItem.png</item>
     </string-array>
 
     <string-array name="item_glowstone">
@@ -1266,6 +1518,12 @@
         <item>https://minecraft.fandom.com/wiki/Boots</item>
         <item>false</item>
         <item>cc_by_nc_sa_3.0</item>
+    </string-array>
+
+    <string-array name="item_golden_carrot">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Golden_Carrot?file=GoldenCarrotNew.png</item>
     </string-array>
 
     <string-array name="item_golden_chestplate">
@@ -1343,6 +1601,14 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_gray_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Gray_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_gray_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1359,6 +1625,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Gray_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_gray_shulker_box">
+        <item>Capopanzone</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Gray_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_gray_stained_glass">
@@ -1381,6 +1655,14 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_green_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Green_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_green_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1397,6 +1679,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Green_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_green_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Green_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_green_stained_glass">
@@ -1441,6 +1731,18 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=HoglinSpawnEgg.png</item>
+    </string-array>
+
+    <string-array name="item_honey_block">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Honey_Block?file=HoneyBlockV2.png</item>
+    </string-array>
+
+    <string-array name="item_honey_bottle">
+        <item>Sanjay Korrapati14</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Honey_Bottle?file=Honey_Bottle.png</item>
     </string-array>
 
     <string-array name="item_honeycomb">
@@ -1593,6 +1895,18 @@
         <item>https://minecraft.fandom.com/wiki/File:Iron_Sword_JE2_BE2.png</item>
     </string-array>
 
+    <string-array name="item_jack_olantern">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Jack_o&quot;_Lantern?file=JackOLanternNew.png</item>
+    </string-array>
+
+    <string-array name="item_jungle_boat">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Boat?file=BoatNew.gif</item>
+    </string-array>
+
     <string-array name="item_jungle_fence">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1663,6 +1977,18 @@
         <item>https://minecraft.fandom.com/wiki/File:Lapis_Lazuli_JE2_BE2.png</item>
     </string-array>
 
+    <string-array name="item_blaze_powder">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Blaze_Powder?file=Blaze_Powder.png</item>
+    </string-array>
+
+    <string-array name="item_block_of_lapis_lazuli">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Lapis_Lazuli_Block?file=LapisLazuliBlockNew.png</item>
+    </string-array>
+
     <string-array name="item_leather">
         <item>PancakeIdentity</item>
         <item>minecraft.fandom.com</item>
@@ -1706,6 +2032,14 @@
         <item>cc_by_nc_sa_3.0</item>
     </string-array>
 
+    <string-array name="item_light_blue_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Light_Blue_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_light_blue_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1722,6 +2056,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Light_Blue_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_light_blue_shulker_box">
+        <item>Capopanzone</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Light_Blue_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_light_blue_stained_glass">
@@ -1744,6 +2086,14 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_light_gray_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Light_Gray_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_light_gray_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1760,6 +2110,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Light_Gray_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_light_gray_shulker_box">
+        <item>Capopanzone</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Light_Gray_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_light_gray_stained_glass">
@@ -1796,6 +2154,14 @@
         <item>https://minecraftbedrock-archive.fandom.com/wiki/Lily_of_the_Valley?file=Lily_of_the_Valley.png</item>
     </string-array>
 
+    <string-array name="item_lime_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Lime_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_lime_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1818,6 +2184,8 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Lime_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_lime_stained_glass">
@@ -1853,6 +2221,14 @@
         <item>true</item>
     </string-array>
 
+    <string-array name="item_magenta_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Magenta_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_magenta_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1869,6 +2245,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Magenta_Glazed_Terracotta_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_magenta_shulker_box">
+        <item>Capopanzone</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Magenta_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_magenta_stained_glass">
@@ -1903,6 +2287,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Magma_Cube_Spawn_Egg.png</item>
     </string-array>
 
+    <string-array name="item_map">
+        <item>Pneuma01</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Map?file=Empty_Map_JE2_BE2.png</item>
+    </string-array>
+
     <string-array name="item_melon">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -1911,10 +2301,34 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_melon_slice">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Melon_Slice?file=MelonSliceNew.png</item>
+    </string-array>
+
     <string-array name="item_mooshroom_spawn_egg">
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Mooshroom_Spawn_Egg.png</item>
+    </string-array>
+
+    <string-array name="item_moss_block">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Moss_Block?file=Moss_Block.png</item>
+    </string-array>
+
+    <string-array name="item_moss_carpet">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Moss_Carpet?file=Moss_Blanket.png</item>
+    </string-array>
+
+    <string-array name="item_mossy_cobblestone">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Mossy_Cobblestone?file=MossyCobblestoneNew.png</item>
     </string-array>
 
     <string-array name="item_mule_spawn_egg">
@@ -1923,10 +2337,70 @@
         <item>https://minecraft.fandom.com/wiki/File:Mule_Spawn_Egg_JE1_BE1.png</item>
     </string-array>
 
+    <string-array name="item_mushroom_stem">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Mushroom_Block?file=Mushroom_Stem_%2528ES%2529_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_mushroom_stew">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Mushroom_Stew?file=MushroomStewNew.png</item>
+    </string-array>
+
     <string-array name="item_music_disc">
         <item>Glitchunpatched</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_13_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_11">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_11_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_blocks">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Blocks_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_far">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Far_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_mall">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Mall_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_mellohi">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Mellohi_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_pigstep">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Pigstep_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_strad">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Strad_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_wait">
+        <item>Magiczocker</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Wait_JE1_BE1.png</item>
     </string-array>
 
     <string-array name="item_mycelium">
@@ -1949,6 +2423,12 @@
         <item>https://minecraft.fandom.com/wiki/File:Nautilus_Shell_JE1_BE2.png</item>
     </string-array>
 
+    <string-array name="item_nether_brick">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Nether_Brick_Block?file=NetherBrickNew.png</item>
+    </string-array>
+
     <string-array name="item_nether_brick_fence">
         <item>EliteHog</item>
         <item>minecraft.fandom.com</item>
@@ -1967,6 +2447,12 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Nether_Gold_Ore?file=Nether_Gold_Ore_JE2_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_netherite_ingot">
+        <item>Sitb</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Netherite_Ingot?file=NetheriteIngot.png</item>
     </string-array>
 
     <string-array name="item_nether_star">
@@ -2058,6 +2544,12 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_oak_boat">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Boat?file=BoatNew.gif</item>
+    </string-array>
+
     <string-array name="item_oak_door">
         <item>Deshman-gpuser</item>
         <item>minecraft.fandom.com</item>
@@ -2132,6 +2624,14 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Ocelot_Spawn_Egg.png</item>
     </string-array>
 
+    <string-array name="item_orange_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Orange_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_orange_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2148,6 +2648,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Orange_Glazed_Terracotta_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_orange_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Orange_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_orange_stained_glass">
@@ -2180,6 +2688,12 @@
         <item>BRFNGRNBWS</item>
         <item>minecraftbedrock-archive.fandom.com</item>
         <item>https://minecraftbedrock-archive.fandom.com/wiki/Oxeye_Daisy?file=Oxeye_Daisy.png</item>
+    </string-array>
+
+    <string-array name="item_painting">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Painting?file=PaintingNew.png</item>
     </string-array>
 
     <string-array name="item_panda_spawn_egg">
@@ -2250,6 +2764,14 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Pillager_spawn_egg.png</item>
     </string-array>
 
+    <string-array name="item_pink_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Pink_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_pink_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2266,6 +2788,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Pink_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_pink_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Pink_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_pink_stained_glass">
@@ -2362,6 +2892,12 @@
         <item>https://minecraft.fandom.com/wiki/Potion?file=Water_Bottle_JE2_BE2.png</item>
     </string-array>
 
+    <string-array name="item_powder_snow_bucket">
+        <item>Thomanski</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Powder_Snow_Bucket?file=Powder_Snow_Bucket_JE1_BE1.png</item>
+    </string-array>
+
     <string-array name="item_powered_rail">
         <item>Xx AsiAnZ xX</item>
         <item>minecraft-archive.fandom.com</item>
@@ -2372,6 +2908,12 @@
         <item>PancakeIdentity</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Prismarine?file=Prismarine_JE2_BE2.gif</item>
+    </string-array>
+
+    <string-array name="item_prismarine_bricks">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Prismarine_Brick?file=PrismarineBrickNew.png</item>
     </string-array>
 
     <string-array name="item_prismarine_crystals">
@@ -2404,6 +2946,14 @@
         <item>https://minecraft.fandom.com/wiki/Pumpkin_Pie?file=Pumpkin_Pie_JE2_BE2.png</item>
     </string-array>
 
+    <string-array name="item_purple_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Purple_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_purple_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2420,6 +2970,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Purple_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_purple_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Purple_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_purple_stained_glass">
@@ -2456,10 +3014,24 @@
         <item>https://minecraft.fandom.com/wiki/File:Nether_Quartz_JE2_BE2.png</item>
     </string-array>
 
+    <string-array name="item_quartz">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/File:Nether_Quartz_JE2_BE2.png</item>
+    </string-array>
+
     <string-array name="item_quartz_block">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Block_of_Quartz_JE3.png</item>
+    </string-array>
+
+    <string-array name="item_quartz_pillar">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Block_of_Quartz?file=Quartz_Pillar_%2528UD%2529_JE3_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_rabbit_spawn_egg">
@@ -2492,6 +3064,14 @@
         <item>https://minecraft.fandom.com/wiki/Raw_Rabbit?file=Raw_Rabbit_JE3_BE2.png</item>
     </string-array>
 
+    <string-array name="item_red_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Red_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_red_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2510,6 +3090,20 @@
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Red_Glazed_Terracotta_JE1_BE1.png</item>
     </string-array>
 
+    <string-array name="item_red_mushroom">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Mushroom?file=Red_Mushroom_JE2_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
+    <string-array name="item_red_mushroom_block">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Huge_Mushrooms?file=RedMushroomBlockNew.png</item>
+    </string-array>
+
     <string-array name="item_red_nether_bricks">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2522,6 +3116,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Sand?file=Red_Sand_JE3_BE2.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
+    <string-array name="item_red_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Red_Shulker_Box.png</item>
         <item>false</item>
         <item>cc_by_nc_3.0</item>
     </string-array>
@@ -2552,10 +3154,30 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_redstone">
+        <item>DeletedUser666948@legacy41520203</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/de/wiki/Datei:Redstone-Staub.png</item>
+    </string-array>
+
     <string-array name="item_redstone_dust">
         <item>DeletedUser666948@legacy41520203</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/de/wiki/Datei:Redstone-Staub.png</item>
+    </string-array>
+
+    <string-array name="item_respawn_anchor">
+        <item>RealKnockout Bot</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Respawn_Anchor?file=Respawn+Anchor.png</item>
+        <item>false</item>
+        <item>cc_by_sa_4.0</item>
+    </string-array>
+
+    <string-array name="item_rooted_dirt">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Rooted_Dirt?file=AzaleaRoots.png</item>
     </string-array>
 
     <string-array name="item_rose_bush">
@@ -2604,6 +3226,12 @@
         <item>cc_by_nc_3.0</item>
     </string-array>
 
+    <string-array name="item_sandstone_wall">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Walls?file=WallsNew.gif</item>
+    </string-array>
+
     <string-array name="item_scaffolding">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2634,6 +3262,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Sheep_Spawn_Egg.png</item>
     </string-array>
 
+    <string-array name="item_shield">
+        <item>Pneuma01</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shield?file=Shield_JE2_BE1.png</item>
+    </string-array>
+
     <string-array name="item_shroomlight">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2659,10 +3293,24 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=ShulkerSpawnEgg.png</item>
     </string-array>
 
+    <string-array name="item_slime_block">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Slime_Block?file=SlimeBlockNew.png</item>
+    </string-array>
+
     <string-array name="item_skeleton_horse_spawn_egg">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/File:Skeleton_Horse_Spawn_Egg_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_skeleton_skull">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Head?file=Skeleton_Skull.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_skeleton_spawn_egg">
@@ -2681,6 +3329,12 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Slime_Spawn_Egg.png</item>
+    </string-array>
+
+    <string-array name="item_small_dripleaf">
+        <item>Pneuma01</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Small_Dripleaf?file=Small_Dripleaf_JE3.png</item>
     </string-array>
 
     <string-array name="item_smooth_quartz_block">
@@ -2765,6 +3419,12 @@
         <item>https://minecraft.fandom.com/wiki/File:Sponge_JE3_BE3.png</item>
     </string-array>
 
+    <string-array name="item_spruce_boat">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Boat?file=BoatNew.gif</item>
+    </string-array>
+
     <string-array name="item_spruce_fence">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -2817,6 +3477,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=IMG_2079.PNG</item>
     </string-array>
 
+    <string-array name="item_steak">
+        <item>Glitchunpatched</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Steak?file=SteakNew.png</item>
+    </string-array>
+
     <string-array name="item_stick">
         <item>Glitchunpatched</item>
         <item>minecraft.fandom.com</item>
@@ -2833,6 +3499,13 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Axe?file=Stone_Axe_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_stone_brick_slab">
+        <item>Xx AsiAnZ xX</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Slab?file=Slab.gif</item>
+        <item>true</item>
     </string-array>
 
     <string-array name="item_stone_brick_stairs">
@@ -2974,6 +3647,12 @@
         <item>cc_by_sa_4.0</item>
     </string-array>
 
+    <string-array name="item_suspicious_stew">
+        <item>Oakar567</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Suspicious_Stew?file=Suspicious_Stew_JE1_BE1.png</item>
+    </string-array>
+
     <string-array name="item_sweet_berries">
         <item>Oakar567</item>
         <item>minecraft.fandom.com</item>
@@ -3048,6 +3727,12 @@
         <item>https://minecraft.fandom.com/wiki/Tuff?file=Tuff_JE1_BE1.png</item>
     </string-array>
 
+    <string-array name="item_turtle_egg">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Turtle_Egg?file=TurtleEgg.png</item>
+    </string-array>
+
     <string-array name="item_turtle_spawn_egg">
         <item>Banana.spead10</item>
         <item>minecraft-archive.fandom.com</item>
@@ -3064,6 +3749,12 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Villager_Spawn_Egg.png</item>
+    </string-array>
+
+    <string-array name="item_vines">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Vines?file=VinesNew.png</item>
     </string-array>
 
     <string-array name="item_wandering_trader_spawn_egg">
@@ -3133,6 +3824,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Weeping_Vines?file=WeepingVinesAge1.png</item>
     </string-array>
 
+    <string-array name="item_wet_sponge">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Wet_Sponge?file=WetSpongeNew.png</item>
+    </string-array>
+
     <string-array name="item_wheat">
         <item>PancakeIdentity</item>
         <item>minecraft.fandom.com</item>
@@ -3143,6 +3840,14 @@
         <item>Kingcat 100</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/de/wiki/Datei:Weizenk%C3%B6rner.png</item>
+    </string-array>
+
+    <string-array name="item_white_banner">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=White_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_white_concrete_powder">
@@ -3161,6 +3866,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=White_Glazed_Terracotta_JE2_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_white_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=White_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_white_stained_glass">
@@ -3252,6 +3965,14 @@
         <item>true</item>
     </string-array>
 
+    <string-array name="item_yellow_banner">
+        <item>User-10384423</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Banner?file=Yellow_Wall_Banner.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
+    </string-array>
+
     <string-array name="item_yellow_concrete_powder">
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
@@ -3268,6 +3989,14 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Terracotta?file=Yellow_Glazed_Terracotta_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_yellow_shulker_box">
+        <item>Michael18751</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Shulker_Box?file=Yellow_Shulker_Box.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_yellow_stained_glass">
@@ -3294,6 +4023,14 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=ZoglinSpawnEgg.png</item>
+    </string-array>
+
+    <string-array name="item_zombie_head">
+        <item>Glitchunpatched</item>
+        <item>minecraft.fandom.com</item>
+        <item>https://minecraft.fandom.com/wiki/Head?file=Zombie_Head.png</item>
+        <item>false</item>
+        <item>cc_by_nc_3.0</item>
     </string-array>
 
     <string-array name="item_zombie_pigman_spawn_egg">
