@@ -10,6 +10,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
 
         mySPR = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
         if (mySPR.getBoolean(FIRST_START, true) || mySPR.getString(CONSENT_DATE, "")!!.isEmpty()) {

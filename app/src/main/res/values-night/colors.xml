@@ -7,4 +7,5 @@
 
     <color name="forest_accent">#2A334A</color>
     <color name="house_accent">#2E392A</color>
+    <color name="splashscreen_background">@color/black</color>
 </resources>

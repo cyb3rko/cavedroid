@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AppSplash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher</item>
         <item name="windowSplashScreenBackground">@color/splashscreen_background</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/branding</item>
         <item name="postSplashScreenTheme">@style/Theme.Cavedroid.Standard</item>
     </style>
 

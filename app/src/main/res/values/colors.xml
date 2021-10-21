@@ -16,4 +16,5 @@
 
     <color name="forest_accent">#C2F4FB</color>
     <color name="house_accent">#D0E8C7</color>
+    <color name="splashscreen_background">@color/white</color>
 </resources>
