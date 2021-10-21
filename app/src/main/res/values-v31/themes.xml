@@ -18,6 +18,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Theme.Cavedroid.BlueLight" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -32,6 +33,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Theme.Cavedroid.BlueDark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -46,6 +48,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Theme.Cavedroid.GreenLight" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -60,6 +63,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Theme.Cavedroid.GreenDark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -74,6 +78,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Theme.Cavedroid.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -88,6 +93,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Button.AppIntro" parent="Widget.MaterialComponents.Button">
