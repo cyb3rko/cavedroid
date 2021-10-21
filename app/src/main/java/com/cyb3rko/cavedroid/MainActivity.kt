@@ -58,8 +58,16 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        if (mySPR.getBoolean(ADAPTIVE_THEMING, false)) {
-            setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
+        if (mySPR.getString(THEME, "0") == "0") {
+            mySPR.edit().putString(THEME, if (Utils.isNightModeActive(resources)) {
+                R.style.Theme_Cavedroid_BlueDark.toString()
+            } else {
+                R.style.Theme_Cavedroid_BlueLight.toString()
+            }).commit()
+        }
+
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
+            setTheme(mySPR.getString(THEME, "0")!!.toInt())
         } else {
             setTheme(R.style.Theme_Cavedroid_Standard)
         }
@@ -90,12 +98,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
-            setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
+            setTheme(mySPR.getString(THEME, "0")!!.toInt())
             val typedValue = TypedValue()
             theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
             supportActionBar?.setBackgroundDrawable(ColorDrawable(typedValue.data))
-            if (mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt() !=
-                R.style.Theme_Cavedroid_Standard) {
+            if (mySPR.getString(THEME, "0")!!.toInt() != R.style.Theme_Cavedroid_Standard) {
                 if (!Utils.isNightModeActive(resources)) {
                     theme.resolveAttribute(R.attr.colorSecondaryVariant, typedValue, true)
                     binding.navView.setBackgroundColor(typedValue.data)
