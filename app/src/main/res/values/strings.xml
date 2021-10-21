@@ -4,6 +4,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="shortcut_search">Item Search</string>
+    <string name="shortcut_rankings">Rankings</string>
+
     <string name="home_balance_caption">Coins in account:</string>
     <string name="home_earnings_caption">Total earnings in market:</string>
     <string name="home_spendings_caption">Total spending in market:</string>

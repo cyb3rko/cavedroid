@@ -78,6 +78,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        when (intent.action) {
+            "com.cyb3rko.cavedroid.searchshortcut" -> navController.navigate(R.id.navigation_notifications)
+            "com.cyb3rko.cavedroid.rankingsshortcut" -> navController.navigate(R.id.navigation_rankings)
+        }
     }
 
     override fun onStart() {

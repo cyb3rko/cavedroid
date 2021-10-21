@@ -72,6 +72,7 @@
         <item>Freepik</item>
         <item>flaticon.com</item>
         <item>https://www.flaticon.com/free-icon/ranking_3487157</item>
+        <item>true</item>
     </string-array>
 
     <string-array name="ic_richlist">
@@ -84,6 +85,7 @@
         <item>Freepik</item>
         <item>flaticon.com</item>
         <item>https://www.flaticon.com/free-icon/magnifier_64673</item>
+        <item>true</item>
     </string-array>
 
     <string-array name="ic_settings">

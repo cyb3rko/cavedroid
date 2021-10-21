@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="search"
+        android:enabled="true"
+        android:icon="@drawable/_ic_search_shortcut"
+        android:shortcutShortLabel="@string/shortcut_search">
+        <intent
+            android:action="com.cyb3rko.cavedroid.searchshortcut"
+            android:targetPackage="com.cyb3rko.cavedroid"
+            android:targetClass="com.cyb3rko.cavedroid.MainActivity">
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="rankings"
+        android:enabled="true"
+        android:icon="@drawable/_ic_ranking_shortcut"
+        android:shortcutShortLabel="@string/shortcut_rankings">
+        <intent
+            android:action="com.cyb3rko.cavedroid.rankingsshortcut"
+            android:targetPackage="com.cyb3rko.cavedroid"
+            android:targetClass="com.cyb3rko.cavedroid.MainActivity">
+        </intent>
+    </shortcut>
+</shortcuts>
