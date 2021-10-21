@@ -225,7 +225,7 @@ object Utils {
     }
 
     internal fun getBackgroundDrawableId(resources: Resources, mySPR: SharedPreferences): Int {
-        return when (mySPR.getString(BACKGROUND_IMAGE, "-1")!!.toInt()) {
+        return when (mySPR.getString(BACKGROUND_IMAGE, "0")!!.toInt()) {
             0 -> {
                 if (isNightModeActive(resources)) {
                     R.drawable.background_forest2

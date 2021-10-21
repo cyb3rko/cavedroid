@@ -50,9 +50,9 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         crashlyticsCollectionSwitch = findPreference(CRASHLYTICS_COLLECTION)!!
 
         nightModeList.value = mySPR.getString(NIGHTMODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
-        backgroundImageList.value = mySPR.getString(BACKGROUND_IMAGE, "-1")
-        adaptiveThemingSwitch.isChecked = mySPR.getBoolean(ADAPTIVE_THEMING, false)
-        adaptiveThemingSwitch.isEnabled = mySPR.getBoolean(BACKGROUND_SET, false)
+        backgroundImageList.value = mySPR.getString(BACKGROUND_IMAGE, "0")
+        adaptiveThemingSwitch.isChecked = mySPR.getBoolean(ADAPTIVE_THEMING, true)
+        adaptiveThemingSwitch.isEnabled = mySPR.getBoolean(BACKGROUND_SET, true)
         avatarTypeList.value = mySPR.getString(AVATAR_TYPE, "avatar")
         showAnnouncementSwitch.isChecked = mySPR.getBoolean(SHOW_ANNOUNCEMENTS, true)
         announcementImageSwitch.isChecked = mySPR.getBoolean(ANNOUNCEMENT_IMAGE, true)
