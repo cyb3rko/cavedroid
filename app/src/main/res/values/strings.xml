@@ -151,6 +151,7 @@
     <string name="about_changelog_link" translatable="false">https://github.com/cyb3rko/cavedroid/releases</string>
     <string name="about_group_legal">Legal</string>
     <string name="about_element_libraries">Used Libraries</string>
+    <string name="about_element_background_images">Used Background Images</string>
     <string name="about_element_icons">Used Icons</string>
     <string name="about_element_animations">Used Animations</string>
     <string name="about_group_connect">Connect with me</string>

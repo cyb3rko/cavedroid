@@ -31,6 +31,9 @@ class AboutFragment : Fragment() {
                     .setOnClickListener(showLibraries())
             )
             .addItem(
+                Element().setTitle(getString(R.string.about_element_background_images)).setIconDrawable(R.drawable._ic_question).setOnClickListener(showBackgroundImages())
+            )
+            .addItem(
                 Element().setTitle(getString(R.string.about_element_icons)).setIconDrawable(R.drawable._ic_question).setOnClickListener(showIcons())
             )
             .addItem(
@@ -88,6 +91,10 @@ class AboutFragment : Fragment() {
                     .start(trueContext)
             }
         }
+    }
+
+    private fun showBackgroundImages(): View.OnClickListener {
+        return View.OnClickListener { findNavController().navigate(R.id.navigation_about_background_images) }
     }
 
     private fun showIcons(): View.OnClickListener {
