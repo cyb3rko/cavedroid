@@ -46,8 +46,10 @@ class SearchFragment : Fragment() {
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
     private val args: SearchFragmentArgs by navArgs()
+    private var lastQueryEmpty = false
     private val missingIcons = mutableSetOf<String>()
     private lateinit var mySPR: SharedPreferences
+    private var text = ""
     private lateinit var webView: HtmlWebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -186,7 +188,7 @@ class SearchFragment : Fragment() {
 
         binding.searchInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val text = v.text.toString()
+                text = v.text.toString()
                 FirebaseAnalytics.getInstance(myContext).logEvent("shop_search") {
                     param("item", text)
                 }
@@ -213,7 +215,7 @@ class SearchFragment : Fragment() {
                 isRefreshing = false
                 showRecycler(false)
                 showAnimation(true)
-                fetchData(binding.searchInput.text.toString())
+                fetchData(text)
             }
         }
     }
@@ -242,7 +244,13 @@ class SearchFragment : Fragment() {
                 adapter.submitList(finalList as List<Nothing>)
                 showRecycler(true)
             } else {
-                showAnimation(true, true, true)
+                if (!lastQueryEmpty) {
+                    fetchData(text)
+                    lastQueryEmpty = true
+                } else {
+                    showAnimation(true, true, true)
+                    lastQueryEmpty = false
+                }
             }
         }
     }
