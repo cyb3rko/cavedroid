@@ -220,14 +220,15 @@ class RankingFragment : Fragment() {
     }
 
     private fun fetchData(limit: Int) {
-        GlobalScope.launch {
-            val list = when (args.rankingType) {
-                1 -> api.getRichlist(limit)
-                2 -> api.getTopSellers(limit)
-                3 -> api.getTopItems(limit)
-                else -> listOf()
-            }
-            if (context != null) {
+        if (context != null) {
+            GlobalScope.launch {
+                val list = when (args.rankingType) {
+                    1 -> api.getRichlist(limit)
+                    2 -> api.getTopSellers(limit)
+                    3 -> api.getTopItems(limit)
+                    else -> listOf()
+                }
+
                 if (list.isNotEmpty()) {
                     when (args.rankingType) {
                         1, 2 -> {

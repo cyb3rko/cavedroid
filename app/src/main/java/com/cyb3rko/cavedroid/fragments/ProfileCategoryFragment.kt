@@ -277,34 +277,36 @@ class ProfileCategoryFragment : Fragment() {
     private fun fetchData() = webView.loadUrl(link)
 
     private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
-        val list = when (args.category) {
-            1 -> api.getItemsSold(webInterface.html!!)
-            2 -> api.getItemsBought(webInterface.html!!)
-            3 -> api.getCurrentOffers(webInterface.html!!)
-            else -> emptyList()
-        }
-        if (list.isNotEmpty()) {
-            val finalList = MutableList(list.size) {
-                val tempList = list[it]
-                when (args.category) {
-                    1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
-                    3 -> OfferEntryViewState.OfferEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
-                    else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+        if (context != null) {
+            val list = when (args.category) {
+                1 -> api.getItemsSold(webInterface.html!!)
+                2 -> api.getItemsBought(webInterface.html!!)
+                3 -> api.getCurrentOffers(webInterface.html!!)
+                else -> emptyList()
+            }
+            if (list.isNotEmpty()) {
+                val finalList = MutableList(list.size) {
+                    val tempList = list[it]
+                    when (args.category) {
+                        1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
+                        3 -> OfferEntryViewState.OfferEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                        else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                    }
                 }
-            }
-            requireActivity().runOnUiThread {
-                showAnimation(false, true, false)
-                adapter.submitList(finalList as List<Nothing>)
-                showRecycler(true)
-            }
-        } else {
-            if (args.amount > 0) {
                 requireActivity().runOnUiThread {
-                    fetchData()
+                    showAnimation(false, true, false)
+                    adapter.submitList(finalList as List<Nothing>)
+                    showRecycler(true)
                 }
             } else {
-                requireActivity().runOnUiThread {
-                    showAnimation(true, true, true)
+                if (args.amount > 0) {
+                    requireActivity().runOnUiThread {
+                        fetchData()
+                    }
+                } else {
+                    requireActivity().runOnUiThread {
+                        showAnimation(true, true, true)
+                    }
                 }
             }
         }

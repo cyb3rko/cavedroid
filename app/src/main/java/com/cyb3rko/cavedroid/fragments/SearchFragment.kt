@@ -233,23 +233,25 @@ class SearchFragment : Fragment() {
     private fun fetchData(searchPhrase: String) = webView.loadUrl(api.getSearchPhrase(searchPhrase))
 
     private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
-        val list = api.getMarketResults(webInterface.html!!)
-        val finalList = MutableList(list.size) {
-            val tempList = list[it]
-            MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
-        }
-        requireActivity().runOnUiThread {
-            if (finalList.isNotEmpty()) {
-                showAnimation(false)
-                adapter.submitList(finalList as List<Nothing>)
-                showRecycler(true)
-            } else {
-                if (!lastQueryEmpty) {
-                    fetchData(text)
-                    lastQueryEmpty = true
+        if (context != null) {
+            val list = api.getMarketResults(webInterface.html!!)
+            val finalList = MutableList(list.size) {
+                val tempList = list[it]
+                MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
+            }
+            requireActivity().runOnUiThread {
+                if (finalList.isNotEmpty()) {
+                    showAnimation(false)
+                    adapter.submitList(finalList as List<Nothing>)
+                    showRecycler(true)
                 } else {
-                    showAnimation(true, true, true)
-                    lastQueryEmpty = false
+                    if (!lastQueryEmpty) {
+                        fetchData(text)
+                        lastQueryEmpty = true
+                    } else {
+                        showAnimation(true, true, true)
+                        lastQueryEmpty = false
+                    }
                 }
             }
         }
