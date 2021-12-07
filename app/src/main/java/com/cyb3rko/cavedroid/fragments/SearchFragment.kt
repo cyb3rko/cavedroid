@@ -103,7 +103,9 @@ class SearchFragment : Fragment() {
                     vh.playerView.text = marketEntry.player
                     vh.cardView.setOnClickListener {
                         MaterialDialog(myContext).show {
-                            icon(drawable = vh.avatarView.drawable)
+                            try {
+                                icon(drawable = vh.avatarView.drawable)
+                            } catch (e: Exception) {}
                             title(text = marketEntry.player)
                             message(text = Html.fromHtml(
                                 Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information1), marketEntry.item) +
