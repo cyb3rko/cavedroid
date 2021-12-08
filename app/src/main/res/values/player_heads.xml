@@ -27,6 +27,7 @@
     <string name="bush">6894dabe58b5e44c0851d2631ff6d79b5b876a4a12bb1cc26d2877399fe6122</string>
     <string name="butcher_villager">ff41ac64afeaff99994a8edaa8b3a40a6623d41801f18dc9be86c1e3efac9ba7</string>
     <string name="cactus">38c9a730269ce1de3e9fa064afb370cbcd0766d729f3e29e4f320a433b098b5</string>
+    <string name="cartographer_villager">e5b7a81adbb3f2883ef0e1fe745619ac4dbac5acc3eedab336310c7528b6b03</string>
     <string name="cat">d5b3f8ca4b3a555ccb3d194449808b4c9d783327197800d4d65974cc685af2ea</string>
     <string name="cauldron">422768db6573651626552bb26442609a7279c7843cb69b8e603d2c1db645d0</string>
     <string name="cave_spider">604d5fcb289fe65b6786682e1c736c3f7b16f39d940e3d2f41cf0040704c6282</string>
@@ -108,6 +109,7 @@
     <string name="lava">368360348c97087f31ee9751a81518f285dfd543970581a13f2a2b588eef4</string>
     <string name="leatherworker_villager">568fcfb19a4803183ed57b3ab48562debdc0e80491e974bb62690dde9420d28a</string>
     <string name="leaves">ffc8641835dde6273adf24f60146a22e64ec4cfa1a130904d9497c21c8470c0</string>
+    <string name="librarian_villager">cdcaa574babb40ee0fa83f2fd5ea20cff31ffa272fe113588ceee469682128e7</string>
     <string name="light_blue_parrot">2b94f236c4a642eb2bcdc3589b9c3c4a0b5bd5df9cd5d68f37f8c83f8e3f1</string>
     <string name="light_blue_wool">f1af46febd45c0f4d81e8fa1b66b275d89e272b2ad55c978553a99c733e1ff</string>
     <string name="light_gray_wool">998ba2b374cfc89454c1b8c32db458a270675439a495496c96771c989116162</string>
