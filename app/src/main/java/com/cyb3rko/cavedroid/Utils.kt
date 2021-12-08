@@ -123,7 +123,7 @@ object Utils {
 
     internal fun loadItemIcon(context: Context, imageView: ImageView, item: String, missingIcons: MutableSet<String>) {
         imageView.setImageResource(0)
-        if (item.contains("Player Head")) {
+        if (item.contains("Player Head") && item != "Player Head <Cavetale>") {
             if (item == "Player Head" || item == "Player Head <>") {
                 imageView.setImageResource(R.drawable._ic_no_image)
                 return
@@ -190,7 +190,12 @@ object Utils {
             imageView.setImageResource(avatarResId)
             return
         }
-        val itemName = item.replace(" ", "_").replace("'", "").toLowerCase()
+        val itemName = item
+            .replace(" ", "_")
+            .replace("'", "")
+            .replace("<", "")
+            .replace(">", "")
+            .toLowerCase()
         val formattedName = itemName.split(",")[0]
         val avatarResId = context.resources.getIdentifier("_item_$formattedName", "drawable", context.packageName)
         if (avatarResId != 0) {
