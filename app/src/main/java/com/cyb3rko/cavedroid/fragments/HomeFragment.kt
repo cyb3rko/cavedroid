@@ -240,25 +240,26 @@ class HomeFragment : Fragment() {
                                 dataSource: DataSource?,
                                 isFirstResource: Boolean
                             ): Boolean {
-                                showAnimation(false, true)
-                                amountItemsSold = user.itemsSold.toInt()
-                                amountItemsBought = user.itemsBought.toInt()
-                                amountOffers = user.currentOffers.toInt()
-                                binding.apply {
-                                    nameView.visibility = View.VISIBLE
-                                    nameView.text = name
-                                    balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
-                                    earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
-                                    spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
-                                    soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
-                                    boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
-                                    offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
-                                }
-                                showInformation(true)
                                 return false
                             }
                         })
                         .into(binding.avatarView)
+
+                    showAnimation(false, true)
+                    amountItemsSold = user.itemsSold.toInt()
+                    amountItemsBought = user.itemsBought.toInt()
+                    amountOffers = user.currentOffers.toInt()
+                    binding.apply {
+                        nameView.visibility = View.VISIBLE
+                        nameView.text = name
+                        balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
+                        earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
+                        spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
+                        soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
+                        boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
+                        offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
+                    }
+                    showInformation(true)
                 }
             } catch (e: Exception) {
                 Log.e("Cavedroid.Data", "${e.cause}, ${e.message!!}")
