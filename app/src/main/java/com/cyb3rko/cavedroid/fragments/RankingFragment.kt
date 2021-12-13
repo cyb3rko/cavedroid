@@ -91,7 +91,9 @@ class RankingFragment : Fragment() {
                             vh.dataView.text = player.data
                             vh.cardView.setOnClickListener {
                                 MaterialDialog(myContext).show {
-                                    icon(drawable = vh.avatarView.drawable)
+                                    try {
+                                        icon(drawable = vh.avatarView.drawable)
+                                    } catch (e: Exception) {}
                                     title(text = player.name)
                                     listItems(items = listOf(
                                         getString(R.string.ranking_player_dialog_button1),
@@ -143,7 +145,9 @@ class RankingFragment : Fragment() {
                                 val price = item.turnover.replace(",", "").dropLast(6).toFloat()
                                 val perItem = round(price / amount * 100) / 100
                                 MaterialDialog(myContext).show {
-                                    if (vh.avatarView.drawable != null) icon(drawable = vh.avatarView.drawable)
+                                    try {
+                                        icon(drawable = vh.avatarView.drawable)
+                                    } catch (e: Exception) {}
                                     title(text = item.name)
                                     message(text = Html.fromHtml(
                                         Utils.getFormattedDialogInformation(getString(R.string.ranking_item_dialog_information1), item.amount) +

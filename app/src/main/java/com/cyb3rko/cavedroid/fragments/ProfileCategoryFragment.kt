@@ -95,7 +95,9 @@ class ProfileCategoryFragment : Fragment() {
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
                                 MaterialDialog(myContext).show {
-                                    icon(drawable = vh.avatarView.drawable)
+                                    try {
+                                        icon(drawable = vh.avatarView.drawable)
+                                    } catch (e: Exception) {}
                                     title(text = entry.player)
                                     message(text = Html.fromHtml(
                                         Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information1), entry.item) +
@@ -168,7 +170,9 @@ class ProfileCategoryFragment : Fragment() {
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
                                 MaterialDialog(myContext).show {
-                                    if (vh.iconView.drawable != null) icon(drawable = vh.iconView.drawable)
+                                    try {
+                                        icon(drawable = vh.iconView.drawable)
+                                    } catch (e: Exception) {}
                                     title(text = entry.item)
                                     message(text = Html.fromHtml(
                                         Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information2), entry.amount) +
