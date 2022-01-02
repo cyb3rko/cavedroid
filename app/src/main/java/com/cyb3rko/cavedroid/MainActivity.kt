@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                     val guild = kord.getGuild(Snowflake(195206438623248384))!!
                     val messageObject = (guild.getChannel(Snowflake(265060069194858496)) as MessageChannel).getLastMessage()!!
 
-                    if (force || messageObject.id.value != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
+                    if (force || messageObject.id.value.toLong() != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
                         showAnnouncementDialog(guild, messageObject, sharedPreferences)
                     }
                 }
@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        sharedPreferences.edit().putLong(LATEST_MESSAGE, messageObject.id.value).apply()
+        sharedPreferences.edit().putLong(LATEST_MESSAGE, messageObject.id.value.toLong()).apply()
     }
 
     override fun onSupportNavigateUp(): Boolean {
