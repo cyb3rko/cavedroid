@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
         if (currentName.isNotBlank() && args.name.isBlank()) {
             loadProfile(currentName)
         } else if (currentName.isNotBlank() && args.name.isNotBlank()) {
-            if (args.name != currentName) {
+            if (args.name != currentName && context != null) {
                 currentName = args.name
                 GlobalScope.launch {
                     requireActivity().runOnUiThread {
@@ -223,48 +223,54 @@ class HomeFragment : Fragment() {
         GlobalScope.launch {
             try {
                 val user = api.getUser(formattedName)
-                requireActivity().runOnUiThread {
-                    Glide.with(this@HomeFragment)
-                        .load(Utils.getAvatarLink(mySPR, api, avatarName, 500))
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .listener(object: RequestListener<Drawable> {
-                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                                Log.e("Cavedroid.Avatar", e?.message!!)
-                                return false
-                            }
+                if (this@HomeFragment.context != null) {
+                    requireActivity().runOnUiThread {
+                        if (this@HomeFragment.context != null) {
+                            Glide.with(this@HomeFragment)
+                                .load(Utils.getAvatarLink(mySPR, api, avatarName, 500))
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .listener(object: RequestListener<Drawable> {
+                                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                        Log.e("Cavedroid.Avatar", e?.message!!)
+                                        return false
+                                    }
 
-                            override fun onResourceReady(
-                                resource: Drawable?,
-                                model: Any?,
-                                target: Target<Drawable>?,
-                                dataSource: DataSource?,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                return false
-                            }
-                        })
-                        .into(binding.avatarView)
+                                    override fun onResourceReady(
+                                        resource: Drawable?,
+                                        model: Any?,
+                                        target: Target<Drawable>?,
+                                        dataSource: DataSource?,
+                                        isFirstResource: Boolean
+                                    ): Boolean {
+                                        return false
+                                    }
+                                })
+                                .into(binding.avatarView)
 
-                    showAnimation(false, true)
-                    amountItemsSold = user.itemsSold.toInt()
-                    amountItemsBought = user.itemsBought.toInt()
-                    amountOffers = user.currentOffers.toInt()
-                    binding.apply {
-                        nameView.visibility = View.VISIBLE
-                        nameView.text = name
-                        balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
-                        earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
-                        spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
-                        soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
-                        boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
-                        offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
+                            showAnimation(false, true)
+                            amountItemsSold = user.itemsSold.toInt()
+                            amountItemsBought = user.itemsBought.toInt()
+                            amountOffers = user.currentOffers.toInt()
+                            binding.apply {
+                                nameView.visibility = View.VISIBLE
+                                nameView.text = name
+                                balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
+                                earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
+                                spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
+                                soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
+                                boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
+                                offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
+                            }
+                            showInformation(true)
+                        }
                     }
-                    showInformation(true)
                 }
             } catch (e: Exception) {
                 Log.e("Cavedroid.Data", "${e.cause}, ${e.message!!}")
-                requireActivity().runOnUiThread {
-                    showAnimation(true, false)
+                if (this@HomeFragment.context != null) {
+                    requireActivity().runOnUiThread {
+                        showAnimation(true, false)
+                    }
                 }
             }
         }

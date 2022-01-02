@@ -233,7 +233,7 @@ class RankingFragment : Fragment() {
                     else -> listOf()
                 }
 
-                if (list.isNotEmpty()) {
+                if (list.isNotEmpty() && this@RankingFragment.context != null) {
                     when (args.rankingType) {
                         1, 2 -> {
                             val tempList = MutableList(limit) {
@@ -268,7 +268,7 @@ class RankingFragment : Fragment() {
                         binding.recycler.adapter = adapter
                         showRecycler(true)
                     }
-                } else {
+                } else if (this@RankingFragment.context != null) {
                     requireActivity().runOnUiThread {
                         showRecycler(false)
                         showAnimation(true, false)
