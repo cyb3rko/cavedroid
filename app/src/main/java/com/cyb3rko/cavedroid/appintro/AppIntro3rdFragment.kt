@@ -12,24 +12,34 @@ import com.cyb3rko.cavedroid.PRIVACY_POLICY
 import com.cyb3rko.cavedroid.R
 import com.cyb3rko.cavedroid.TERMS_OF_USE
 import com.cyb3rko.cavedroid.Utils
+import com.cyb3rko.cavedroid.databinding.FragmentAppintro3Binding
 import com.github.appintro.SlidePolicy
 
 class AppIntro3rdFragment : Fragment(), SlidePolicy {
+    private var _binding: FragmentAppintro3Binding? = null
+
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
 
     private lateinit var button1: Button
     private lateinit var button2: Button
     private lateinit var checkBox1: CheckBox
     private lateinit var checkBox2: CheckBox
+    private var toast: Toast? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-            : View = inflater.inflate(R.layout.fragment_appintro3, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
+        _binding = FragmentAppintro3Binding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        button1 = view.findViewById(R.id.terms_of_use_button)
-        button2 = view.findViewById(R.id.privacy_policy_button)
-        checkBox1 = view.findViewById(R.id.terms_of_use_check)
-        checkBox2 = view.findViewById(R.id.privacy_policy_check)
+    override fun onStart() {
+        super.onStart()
+        binding.apply {
+            button1 = termsOfUseButton
+            button2 = privacyPolicyButton
+            checkBox1 = termsOfUseCheck
+            checkBox2 = privacyPolicyCheck
+        }
 
         button1.setOnClickListener { Utils.showLicenseDialog(context, TERMS_OF_USE) }
         button2.setOnClickListener { Utils.showLicenseDialog(context, PRIVACY_POLICY) }
@@ -39,7 +49,9 @@ class AppIntro3rdFragment : Fragment(), SlidePolicy {
         get() = (checkBox1.isChecked && checkBox2.isChecked)
 
     override fun onUserIllegallyRequestedNextPage() {
-        Toast.makeText(requireContext(), getString(R.string.intro_fragment3_toast), Toast.LENGTH_LONG).show()
+        if (toast != null) toast!!.cancel()
+        toast = Toast.makeText(requireContext(), getString(R.string.intro_fragment3_toast), Toast.LENGTH_LONG)
+        toast!!.show()
     }
 
     companion object {

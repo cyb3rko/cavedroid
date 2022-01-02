@@ -13,7 +13,6 @@ import com.cyb3rko.cavedroid.CRASHLYTICS_COLLECTION
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
-import com.github.appintro.AppIntroPageTransformerType
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.text.SimpleDateFormat
@@ -47,7 +46,6 @@ class MyAppIntro : AppIntro() {
             backgroundColor = backgroundColor
         ))
 
-        setTransformer(AppIntroPageTransformerType.Parallax())
         isWizardMode = true
         isSystemBackButtonLocked = true
     }

@@ -33,7 +33,8 @@
         <activity android:name="com.cyb3rko.abouticons.IconInfoActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity android:name=".appintro.MyAppIntro"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="firebase_analytics_collection_enabled"
