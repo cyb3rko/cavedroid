@@ -432,7 +432,7 @@ class HomeFragment : Fragment() {
             .positiveButton(R.string.name_dialog_button) {
                 val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
                 val newName = input.text.toString().trim()
-                if (newName.isNotEmpty()) {
+                if (Regex("[a-zA-Z0-9_]+").matches(newName) && newName.length < 17) {
                     mySPREditor.putString(NAME, newName).apply()
                     binding.animationView.playAnimation()
                     binding.animationView.visibility = View.VISIBLE
