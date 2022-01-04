@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import android.view.*
 import android.webkit.*
@@ -12,6 +13,8 @@ import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +29,7 @@ import com.cyb3rko.cavedroid.rankings.MarketViewState
 import com.cyb3rko.cavedroid.rankings.OfferEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.OfferEntryViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
@@ -35,6 +38,7 @@ import kotlin.math.round
 class ProfileCategoryFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
+    private lateinit var scope: LifecycleCoroutineScope
 
     @ColorInt
     var accentColor = 0
@@ -56,22 +60,20 @@ class ProfileCategoryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
-        val root = binding.root
-        myContext = requireContext()
-
-        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
-
-        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
-        if (drawableId != -1) {
-            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
-        }
-
-        return root
+        scope = viewLifecycleOwner.lifecycleScope
+        return binding.root
     }
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myContext = requireContext()
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
+
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
 
         val api = CavetaleAPI()
 
@@ -220,13 +222,13 @@ class ProfileCategoryFragment : Fragment() {
         webView = HtmlWebView(myContext)
         webView.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     kotlin.run { webView.fetchHmtl() }
                 }, 600)
 
-                GlobalScope.launch {
+                scope.launch {
                     while (webView.javascriptInterface.html == null) {
-                        Thread.sleep(50)
+                        delay(50)
                     }
 
                     loadHtmlIntoRecycler(webView.javascriptInterface)
@@ -281,37 +283,29 @@ class ProfileCategoryFragment : Fragment() {
     private fun fetchData() = webView.loadUrl(link)
 
     private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
-        if (context != null) {
-            val list = when (args.category) {
-                1 -> api.getItemsSold(webInterface.html!!)
-                2 -> api.getItemsBought(webInterface.html!!)
-                3 -> api.getCurrentOffers(webInterface.html!!)
-                else -> emptyList()
+        val list = when (args.category) {
+            1 -> api.getItemsSold(webInterface.html!!)
+            2 -> api.getItemsBought(webInterface.html!!)
+            3 -> api.getCurrentOffers(webInterface.html!!)
+            else -> emptyList()
+        }
+        if (list.isNotEmpty()) {
+            val finalList = MutableList(list.size) {
+                val tempList = list[it]
+                when (args.category) {
+                    1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
+                    3 -> OfferEntryViewState.OfferEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                    else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                }
             }
-            if (list.isNotEmpty()) {
-                val finalList = MutableList(list.size) {
-                    val tempList = list[it]
-                    when (args.category) {
-                        1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
-                        3 -> OfferEntryViewState.OfferEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
-                        else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
-                    }
-                }
-                requireActivity().runOnUiThread {
-                    showAnimation(false, true, false)
-                    adapter.submitList(finalList as List<Nothing>)
-                    showRecycler(true)
-                }
+            showAnimation(false, true, false)
+            adapter.submitList(finalList as List<Nothing>)
+            showRecycler(true)
+        } else {
+            if (args.amount > 0) {
+                fetchData()
             } else {
-                if (args.amount > 0) {
-                    requireActivity().runOnUiThread {
-                        fetchData()
-                    }
-                } else {
-                    requireActivity().runOnUiThread {
-                        showAnimation(true, true, true)
-                    }
-                }
+                showAnimation(true, true, true)
             }
         }
     }

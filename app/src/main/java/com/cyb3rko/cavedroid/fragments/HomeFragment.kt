@@ -22,6 +22,8 @@ import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
@@ -42,12 +44,12 @@ import com.cyb3rko.cavetaleapi.CavetaleAPI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var myContext: Context
+    private lateinit var scope: LifecycleCoroutineScope
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -70,15 +72,19 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root = binding.root
-        myContext = requireContext()
+        scope = viewLifecycleOwner.lifecycleScope
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        myContext = requireContext()
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
         mySPREditor = mySPR.edit()
 
         val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
         if (drawableId != -1) {
-            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+            view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
         }
 
         if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
@@ -87,18 +93,16 @@ class HomeFragment : Fragment() {
         if (currentName.isNotBlank() && args.name.isBlank()) {
             loadProfile(currentName)
         } else if (currentName.isNotBlank() && args.name.isNotBlank()) {
-            if (args.name != currentName && context != null) {
+            if (args.name != currentName) {
                 currentName = args.name
-                GlobalScope.launch {
-                    requireActivity().runOnUiThread {
-                        while (!this@HomeFragment::topMenu.isInitialized);
-                        topMenu.forEach {
-                            it.isVisible = false
-                        }
-                        val searchView = topMenu.findItem(R.id.search)
-                        searchView.expandActionView()
-                        (searchView.actionView as SearchView).setQuery(args.name, true)
+                scope.launch(Dispatchers.Main) {
+                    while (!this@HomeFragment::topMenu.isInitialized)
+                    topMenu.forEach {
+                        it.isVisible = false
                     }
+                    val searchView = topMenu.findItem(R.id.search)
+                    searchView.expandActionView()
+                    (searchView.actionView as SearchView).setQuery(args.name, true)
                 }
             } else {
                 currentName = args.name
@@ -107,12 +111,6 @@ class HomeFragment : Fragment() {
         } else {
             showNameDialog(false)
         }
-
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.refreshLayout.apply {
             setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
@@ -171,38 +169,34 @@ class HomeFragment : Fragment() {
                 webView.fetchHmtl()
 
                 if (viewType == 0) {
-                    GlobalScope.launch {
+                    scope.launch {
                         try {
                             while (webView.javascriptInterface.html == null) {
-                                Thread.sleep(50)
+                                delay(50)
                             }
 
                             val uuid = api.getNameUuid(webView.javascriptInterface.html!!)
                             webView.javascriptInterface.clearHTML()
-                            requireActivity().runOnUiThread {
-                                webView.loadUrl(api.getNameHistoryLink(uuid))
-                            }
+                            webView.loadUrl(api.getNameHistoryLink(uuid))
                             viewType = 1
                         } catch (e: Exception) {
                             Log.e("Cavedroid.NameHistory", e.message!!)
                         }
                     }
                 } else {
-                    GlobalScope.launch {
+                    scope.launch {
                         try {
                             while (webView.javascriptInterface.html == null) {
-                                Thread.sleep(50)
+                                delay(50)
                             }
 
-                            requireActivity().runOnUiThread {
-                                progressDialog.dismiss()
-                                MaterialDialog(myContext).show {
-                                    noAutoDismiss()
-                                    title(R.string.name_history_title)
-                                    listItems(items = api.getNameHistory(webView.javascriptInterface.html!!)) { _, _, name ->
-                                        Utils.storeToClipboard(myContext, name.toString())
-                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
-                                    }
+                            progressDialog.dismiss()
+                            MaterialDialog(myContext).show {
+                                noAutoDismiss()
+                                title(R.string.name_history_title)
+                                listItems(items = api.getNameHistory(webView.javascriptInterface.html!!)) { _, _, name ->
+                                    Utils.storeToClipboard(myContext, name.toString())
+                                    Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                 }
                             }
                         } catch (e: Exception) {
@@ -220,58 +214,52 @@ class HomeFragment : Fragment() {
         showAnimation(true, true)
         val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")
         val avatarName = if (name != "The Bank") name else "God"
-        GlobalScope.launch {
+        scope.launch {
             try {
-                val user = api.getUser(formattedName)
-                if (this@HomeFragment.context != null) {
-                    requireActivity().runOnUiThread {
-                        if (this@HomeFragment.context != null) {
-                            Glide.with(this@HomeFragment)
-                                .load(Utils.getAvatarLink(mySPR, api, avatarName, 500))
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .listener(object: RequestListener<Drawable> {
-                                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                                        Log.e("Cavedroid.Avatar", e?.message!!)
-                                        return false
-                                    }
+                val userJob = async(Dispatchers.IO) { api.getUser(formattedName) }
+                val user = userJob.await()
 
-                                    override fun onResourceReady(
-                                        resource: Drawable?,
-                                        model: Any?,
-                                        target: Target<Drawable>?,
-                                        dataSource: DataSource?,
-                                        isFirstResource: Boolean
-                                    ): Boolean {
-                                        return false
-                                    }
-                                })
-                                .into(binding.avatarView)
-
-                            showAnimation(false, true)
-                            amountItemsSold = user.itemsSold.toInt()
-                            amountItemsBought = user.itemsBought.toInt()
-                            amountOffers = user.currentOffers.toInt()
-                            binding.apply {
-                                nameView.visibility = View.VISIBLE
-                                nameView.text = name
-                                balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
-                                earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
-                                spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
-                                soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
-                                boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
-                                offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
+                withContext(Dispatchers.Main) {
+                    Glide.with(this@HomeFragment)
+                        .load(Utils.getAvatarLink(mySPR, api, avatarName, 500))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(object: RequestListener<Drawable> {
+                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                Log.e("Cavedroid.Avatar", e?.message!!)
+                                return false
                             }
-                            showInformation(true)
-                        }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                return false
+                            }
+                        })
+                        .into(binding.avatarView)
+
+                    showAnimation(false, true)
+                    amountItemsSold = user.itemsSold.toInt()
+                    amountItemsBought = user.itemsBought.toInt()
+                    amountOffers = user.currentOffers.toInt()
+                    binding.apply {
+                        nameView.visibility = View.VISIBLE
+                        nameView.text = name
+                        balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
+                        earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
+                        spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
+                        soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
+                        boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
+                        offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
                     }
+                    showInformation(true)
                 }
             } catch (e: Exception) {
-                Log.e("Cavedroid.Data", "${e.cause}, ${e.message!!}")
-                if (this@HomeFragment.context != null) {
-                    requireActivity().runOnUiThread {
-                        showAnimation(true, false)
-                    }
-                }
+                Log.e("Cavedroid.Data", "${e.cause}, ${e.message}")
+                showAnimation(true, false)
             }
         }
     }

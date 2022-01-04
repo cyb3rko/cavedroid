@@ -10,6 +10,8 @@ import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +28,8 @@ import com.cyb3rko.cavedroid.rankings.ItemViewState
 import com.cyb3rko.cavedroid.rankings.PlayerEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.PlayerViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
@@ -35,6 +38,7 @@ import kotlin.math.round
 class RankingFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
+    private lateinit var scope: LifecycleCoroutineScope
 
     @ColorInt
     var accentColor = 0
@@ -54,22 +58,20 @@ class RankingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
-        val root = binding.root
-        myContext = requireContext()
-
-        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
-
-        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
-        if (drawableId != -1) {
-            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
-        }
-
-        return root
+        scope = viewLifecycleOwner.lifecycleScope
+        return binding.root
     }
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myContext = requireContext()
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
+
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
 
         api = CavetaleAPI()
         var limit = 0
@@ -224,65 +226,58 @@ class RankingFragment : Fragment() {
     }
 
     private fun fetchData(limit: Int) {
-        if (context != null) {
-            GlobalScope.launch {
-                val list = when (args.rankingType) {
+        scope.launch {
+            val listJob = async(Dispatchers.IO) {
+                when (args.rankingType) {
                     1 -> api.getRichlist(limit)
                     2 -> api.getTopSellers(limit)
                     3 -> api.getTopItems(limit)
                     else -> listOf()
                 }
+            }
+            val list = listJob.await()
 
-                if (list.isNotEmpty() && this@RankingFragment.context != null) {
-                    when (args.rankingType) {
-                        1, 2 -> {
-                            val tempList = MutableList(limit) {
-                                val pair = list[it] as Pair<String, String>
-                                val secondPart = if (args.rankingType == 1) {
-                                    getString(R.string.ranking_player_data1, pair.second)
-                                } else {
-                                    getString(R.string.ranking_player_data2, pair.second)
-                                }
-                                PlayerViewState.PlayerEntry(
-                                    pair.first,
-                                    secondPart
-                                )
+            if (list.isNotEmpty()) {
+                when (args.rankingType) {
+                    1, 2 -> {
+                        val tempList = MutableList(limit) {
+                            val pair = list[it] as Pair<String, String>
+                            val secondPart = if (args.rankingType == 1) {
+                                getString(R.string.ranking_player_data1, pair.second)
+                            } else {
+                                getString(R.string.ranking_player_data2, pair.second)
                             }
-                            submitList(tempList as List<Nothing>)
+                            PlayerViewState.PlayerEntry(
+                                pair.first,
+                                secondPart
+                            )
                         }
-                        3 -> {
-                            val tempList = MutableList(limit) {
-                                val triple = list[it] as Triple<String, String, String>
-                                ItemViewState.ItemEntry(
-                                    triple.first,
-                                    getString(R.string.ranking_item_units, triple.second),
-                                    getString(R.string.ranking_item_turnover, triple.third)
-                                )
-                            }
-                            submitList(tempList as List<Nothing>)
+                        submitList(tempList as List<Nothing>)
+                    }
+                    3 -> {
+                        val tempList = MutableList(limit) {
+                            val triple = list[it] as Triple<String, String, String>
+                            ItemViewState.ItemEntry(
+                                triple.first,
+                                getString(R.string.ranking_item_units, triple.second),
+                                getString(R.string.ranking_item_turnover, triple.third)
+                            )
                         }
-                    }
-                    requireActivity().runOnUiThread {
-                        showAnimation(false)
-                        binding.recycler.layoutManager = LinearLayoutManager(myContext)
-                        binding.recycler.adapter = adapter
-                        showRecycler(true)
-                    }
-                } else if (this@RankingFragment.context != null) {
-                    requireActivity().runOnUiThread {
-                        showRecycler(false)
-                        showAnimation(true, false)
+                        submitList(tempList as List<Nothing>)
                     }
                 }
+                showAnimation(false)
+                binding.recycler.layoutManager = LinearLayoutManager(myContext)
+                binding.recycler.adapter = adapter
+                showRecycler(true)
+            } else {
+                showRecycler(false)
+                showAnimation(true, false)
             }
         }
     }
 
-    private fun submitList(list: List<Nothing>) {
-        requireActivity().runOnUiThread {
-            adapter.submitList(list)
-        }
-    }
+    private fun submitList(list: List<Nothing>) = adapter.submitList(list)
 
     private fun showRecycler(show: Boolean) {
         val visibility = if (show) View.VISIBLE else View.INVISIBLE

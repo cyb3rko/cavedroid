@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import android.view.*
 import android.view.inputmethod.EditorInfo
@@ -16,6 +17,8 @@ import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +32,7 @@ import com.cyb3rko.cavedroid.rankings.MarketViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.ibrahimyilmaz.kiel.adapterOf
 import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
@@ -37,6 +40,7 @@ import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 class SearchFragment : Fragment() {
     private var _binding: FragmentItemSearchBinding? = null
     private lateinit var myContext: Context
+    private lateinit var scope: LifecycleCoroutineScope
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -59,9 +63,14 @@ class SearchFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentItemSearchBinding.inflate(inflater, container, false)
-        val root = binding.root
-        myContext = requireContext()
+        scope = viewLifecycleOwner.lifecycleScope
+        return binding.root
+    }
 
+    @SuppressLint("CheckResult")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        myContext = requireContext()
         mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
 
         var searchAnimation = "search_blue_dark.json"
@@ -78,15 +87,8 @@ class SearchFragment : Fragment() {
 
         val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
         if (drawableId != -1) {
-            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+            view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
         }
-
-        return root
-    }
-
-    @SuppressLint("CheckResult")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         retrieveAccentColor()
 
@@ -163,14 +165,13 @@ class SearchFragment : Fragment() {
         webView = HtmlWebView(myContext)
         webView.webViewClient = object: WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     kotlin.run { webView.fetchHmtl() }
                 }, 600)
 
-                @Suppress("BlockingMethodInNonBlockingContext")
-                GlobalScope.launch {
+                scope.launch {
                     while (webView.javascriptInterface.html == null) {
-                        Thread.sleep(50)
+                        delay(50)
                     }
 
                     loadHtmlIntoRecycler(webView.javascriptInterface)
@@ -235,26 +236,22 @@ class SearchFragment : Fragment() {
     private fun fetchData(searchPhrase: String) = webView.loadUrl(api.getSearchPhrase(searchPhrase))
 
     private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
-        if (context != null) {
-            val list = api.getMarketResults(webInterface.html!!)
-            val finalList = MutableList(list.size) {
-                val tempList = list[it]
-                MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
-            }
-            requireActivity().runOnUiThread {
-                if (finalList.isNotEmpty()) {
-                    showAnimation(false)
-                    adapter.submitList(finalList as List<Nothing>)
-                    showRecycler(true)
-                } else {
-                    if (!lastQueryEmpty) {
-                        fetchData(text)
-                        lastQueryEmpty = true
-                    } else {
-                        showAnimation(true, true, true)
-                        lastQueryEmpty = false
-                    }
-                }
+        val list = api.getMarketResults(webInterface.html!!)
+        val finalList = MutableList(list.size) {
+            val tempList = list[it]
+            MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
+        }
+        if (finalList.isNotEmpty()) {
+            showAnimation(false)
+            adapter.submitList(finalList as List<Nothing>)
+            showRecycler(true)
+        } else {
+            if (!lastQueryEmpty) {
+                fetchData(text)
+                lastQueryEmpty = true
+            } else {
+                showAnimation(true, true, true)
+                lastQueryEmpty = false
             }
         }
     }

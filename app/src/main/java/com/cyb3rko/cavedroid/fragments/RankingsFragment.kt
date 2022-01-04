@@ -32,23 +32,20 @@ class RankingsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRankingsBinding.inflate(inflater, container, false)
-        val root = binding.root
-        myContext = requireContext()
-
-        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
-
-        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
-        if (drawableId != -1) {
-            root.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
-        }
-
-        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myContext = requireContext()
+        mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
+
+        val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
+        if (drawableId != -1) {
+            view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
+        }
+
+        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
         setRankingButtons()
     }
 
