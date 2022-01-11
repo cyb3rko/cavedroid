@@ -39,12 +39,10 @@ import kotlinx.coroutines.launch
 internal const val PRIVACY_POLICY = "privacy_policy"
 internal const val TERMS_OF_USE = "terms_of_use"
 
-internal const val ADAPTIVE_THEMING = "adaptive_theming"
 internal const val ANALYTICS_COLLECTION = "analytics_collection"
 internal const val ANNOUNCEMENT_IMAGE = "announcement_image"
 internal const val AVATAR_TYPE = "avatar_type"
 internal const val BACKGROUND_IMAGE = "background_image"
-internal const val BACKGROUND_SET = "background_set"
 internal const val CONSENT_DATE = "consent_date"
 internal const val CONSENT_TIME = "consent_time"
 internal const val CRASHLYTICS_COLLECTION = "crashlytics_collection"

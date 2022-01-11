@@ -1,20 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00599F</color>
-    <color name="colorPrimaryVariant">#003056</color>
-    <color name="colorSecondary">#00A1D9</color>
-    <color name="colorSecondaryVariant">#00A1D9</color>
-    <color name="colorOnSecondary">@color/black</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dark">#212121</color>
 
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#00599F</color>
+    <color name="colorPrimaryGreen">#4C8F33</color>
+    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorOnPrimaryGreen">@color/white</color>
+    <color name="colorPrimaryContainer">#d3e4ff</color>
+    <color name="colorPrimaryContainerGreen">#bff0a6</color>
+    <color name="colorOnPrimaryContainer">#001c3a</color>
+    <color name="colorOnPrimaryContainerGreen">#022100</color>
+    <color name="colorPrimaryInverse">#a1c9ff</color>
+    <color name="colorPrimaryInverseGreen">#a3d48c</color>
+    <color name="colorSecondary">#545f71</color>
+    <color name="colorSecondaryGreen">#55624c</color>
+    <color name="colorOnSecondary">@color/white</color>
+    <color name="colorOnSecondaryGreen">@color/white</color>
+    <color name="colorSecondaryContainer">#d7e3f8</color>
+    <color name="colorSecondaryContainerGreen">#d8e8cb</color>
+    <color name="colorOnSecondaryContainer">#111c2b</color>
+    <color name="colorOnSecondaryContainerGreen">#131f0d</color>
+    <color name="colorTertiary">#715381</color>
+    <color name="colorTertiaryGreen">#19686b</color>
+    <color name="colorOnTertiary">@color/white</color>
+    <color name="colorOnTertiaryGreen">@color/white</color>
+    <color name="colorTertiaryContainer">#f7d9ff</color>
+    <color name="colorTertiaryContainerGreen">#a8eff1</color>
+    <color name="colorOnTertiaryContainer">#2a0e39</color>
+    <color name="colorOnTertiaryContainerGreen">#002021</color>
+
+    <color name="colorError">#ffb3261e</color>
+    <color name="colorOnError">@color/white</color>
+    <color name="colorErrorContainer">#fff9dedc</color>
+    <color name="colorOnErrorContainer">#ff410e0b</color>
+    <color name="colorOutline">#72767e</color>
+    <color name="colorOutlineGreen">#72786c</color>
+    <color name="colorBackground">#fdfcff</color>
+    <color name="colorBackgroundGreen">#fdfcf6</color>
+    <color name="colorOnBackground">#1b1b1d</color>
+    <color name="colorOnBackgroundGreen">#1a1c19</color>
+    <color name="colorSurface">@color/colorBackground</color>
+    <color name="colorSurfaceGreen">@color/colorBackgroundGreen</color>
+    <color name="colorOnSurface">@color/colorOnBackground</color>
+    <color name="colorOnSurfaceGreen">@color/colorOnBackgroundGreen</color>
+    <color name="colorSurfaceVariant">#dfe2ec</color>
+    <color name="colorSurfaceVariantGreen">#dfe4d7</color>
+    <color name="colorOnSurfaceVariant">#707275</color>
+    <color name="colorOnSurfaceVariantGreen">#43483f</color>
+    <color name="colorSurfaceInverse">#2f3034</color>
+    <color name="colorSurfaceInverseGreen">#2f312c</color>
+    <color name="colorOnSurfaceInverse">#f1f0f4</color>
+    <color name="colorOnSurfaceInverseGreen">#f1f1eb</color>
+
+    <color name="toolBarColor">@color/colorPrimary</color>
+    <color name="toolBarColorGreen">@color/colorPrimaryGreen</color>
+    <color name="statusBarColor">@color/colorPrimary</color>
+    <color name="statusBarColorGreen">@color/colorPrimaryGreen</color>
+    <color name="toolBarTextColor">@color/white</color>
+    <color name="textColor">#6E6E6E</color>
+    <color name="textColorSecondary">@color/white</color>
+    <color name="cardColor">@color/colorSurface</color>
+    <color name="cardColorGreen">@color/colorSurfaceGreen</color>
+    <color name="introElementColor">@color/colorPrimaryInverse</color>
 
     <color name="refreshLayoutBackground">#FFFFFF</color>
     <color name="refreshLayoutArrow">#393939</color>
-    <color name="click_hint">#000000</color>
+    <color name="click_hint">@color/dark</color>
     <color name="foreground_color">@android:color/primary_text_light</color>
 
     <color name="forest_accent">#C2F4FB</color>
     <color name="house_accent">#D0E8C7</color>
     <color name="splashscreen_background">@color/white</color>
+    <color name="colorSearchField">@color/colorSurfaceGreen</color>
 </resources>

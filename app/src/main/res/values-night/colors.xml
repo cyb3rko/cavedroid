@@ -1,11 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="refreshLayoutBackground">@color/cardview_dark_background</color>
-    <color name="refreshLayoutArrow">#FFFFFF</color>
-    <color name="click_hint">#FFFFFF</color>
+    <color name="colorPrimary">#00599F</color>
+    <color name="colorPrimaryGreen">#4C8F33</color>
+    <color name="colorOnPrimary">#00315e</color>
+    <color name="colorOnPrimaryGreen">#103803</color>
+    <color name="colorPrimaryContainer">#12487c</color>
+    <color name="colorPrimaryContainerGreen">#285018</color>
+    <color name="colorOnPrimaryContainer">#d3e4ff</color>
+    <color name="colorOnPrimaryContainerGreen">#bff0a6</color>
+    <color name="colorPrimaryInverse">#326097</color>
+    <color name="colorPrimaryInverseGreen">#3e692e</color>
+    <color name="colorSecondary">#bcc7dc</color>
+    <color name="colorSecondaryGreen">#bccbb1</color>
+    <color name="colorOnSecondary">#263141</color>
+    <color name="colorOnSecondaryGreen">#273421</color>
+    <color name="colorSecondaryContainer">#3c4858</color>
+    <color name="colorSecondaryContainerGreen">#3d4b36</color>
+    <color name="colorOnSecondaryContainer">#d7e3f8</color>
+    <color name="colorOnSecondaryContainerGreen">#d8e8cb</color>
+    <color name="colorTertiary">#dfb9ef</color>
+    <color name="colorTertiaryGreen">#8cd3d5</color>
+    <color name="colorOnTertiary">#402550</color>
+    <color name="colorOnTertiaryGreen">#003739</color>
+    <color name="colorTertiaryContainer">#593b68</color>
+    <color name="colorTertiaryContainerGreen">#004f52</color>
+    <color name="colorOnTertiaryContainer">#f7d9ff</color>
+    <color name="colorOnTertiaryContainerGreen">#a8eff1</color>
+
+    <color name="colorError">#fff2b8b5</color>
+    <color name="colorOnError">#ff601410</color>
+    <color name="colorErrorContainer">#ff8c1d18</color>
+    <color name="colorOnErrorContainer">#fff2b8b5</color>
+    <color name="colorOutline">#8d9199</color>
+    <color name="colorOutlineGreen">#8d9387</color>
+    <color name="colorBackground">#1b1b1d</color>
+    <color name="colorBackgroundGreen">#1a1c19</color>
+    <color name="colorOnBackground">#e3e2e6</color>
+    <color name="colorOnBackgroundGreen">#e3e3dc</color>
+    <color name="colorSurface">#1b1b1d</color>
+    <color name="colorSurfaceGreen">#1a1c19</color>
+    <color name="colorOnSurface">@color/colorOnBackground</color>
+    <color name="colorOnSurfaceGreen">@color/colorOnBackgroundGreen</color>
+    <color name="colorSurfaceVariant">#43474e</color>
+    <color name="colorSurfaceVariantGreen">#43483f</color>
+    <color name="colorOnSurfaceVariant">#c3c6cf</color>
+    <color name="colorOnSurfaceVariantGreen">#c3c8bc</color>
+    <color name="colorSurfaceInverse">@color/colorOnSurface</color>
+    <color name="colorSurfaceInverseGreen">@color/colorOnSurface</color>
+    <color name="colorOnSurfaceInverse">#2f3034</color>
+    <color name="colorOnSurfaceInverseGreen">#2f312c</color>
+
+    <color name="toolBarColor">@color/colorPrimary</color>
+    <color name="toolBarColorGreen">@color/colorPrimaryGreen</color>
+    <color name="statusBarColor">@color/colorPrimary</color>
+    <color name="statusBarColorGreen">@color/colorPrimaryGreen</color>
+    <color name="toolBarTextColor">@color/white</color>
+    <color name="textColor">#aeaeae</color>
+    <color name="textColorSecondary">@color/white</color>
+    <color name="cardColor">#343031</color>
+    <color name="introElementColor">@color/colorPrimaryInverse</color>
+
+    <color name="refreshLayoutBackground">@color/colorSurfaceVariant</color>
+    <color name="refreshLayoutArrow">@color/textColor</color>
+    <color name="click_hint">@color/white</color>
     <color name="foreground_color">@android:color/primary_text_dark</color>
 
     <color name="forest_accent">#2A334A</color>
     <color name="house_accent">#2E392A</color>
-    <color name="splashscreen_background">@color/black</color>
+    <color name="splashscreen_background">@color/colorBackground</color>
+    <color name="colorSearchField">@color/dark</color>
 </resources>

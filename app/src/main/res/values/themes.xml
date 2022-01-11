@@ -1,114 +1,138 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+     Base application theme.
     <style name="Theme.AppSplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher</item>
         <item name="windowSplashScreenBackground">@color/splashscreen_background</item>
         <item name="postSplashScreenTheme">@style/Theme.Cavedroid.Standard</item>
     </style>
 
-    <style name="Theme.Cavedroid.Standard" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
+    <style name="Theme.Cavedroid.Standard" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
+        <item name="colorTertiary">@color/colorTertiary</item>
+        <item name="colorOnTertiary">@color/colorOnTertiary</item>
+        <item name="colorTertiaryContainer">@color/colorTertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="colorErrorContainer">@color/colorErrorContainer</item>
+        <item name="colorOnErrorContainer">@color/colorOnErrorContainer</item>
+        <item name="colorOutline">@color/colorOutline</item>
+        <item name="colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/colorSurfaceInverse</item>
+        <item name="colorOnSurfaceInverse">@color/colorOnSurfaceInverse</item>
+
+        <item name="toolBarColor">@color/toolBarColor</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/statusBarColor</item>
+        <item name="toolBarTextColor">@color/toolBarTextColor</item>
+        <item name="textColor">@color/textColor</item>
+        <item name="cardColor">@color/cardColor</item>
+
         <item name="md_corner_radius">16dp</item>
     </style>
 
-    <style name="Theme.Cavedroid.BlueLight" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
+    <style name="Theme.Cavedroid.Green" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryGreen</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryGreen</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainerGreen</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainerGreen</item>
+        <item name="colorSecondary">@color/colorSecondaryGreen</item>
+        <item name="colorOnSecondary">@color/colorOnSecondaryGreen</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainerGreen</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainerGreen</item>
+        <item name="colorTertiary">@color/colorTertiaryGreen</item>
+        <item name="colorOnTertiary">@color/colorOnTertiaryGreen</item>
+        <item name="colorTertiaryContainer">@color/colorTertiaryContainerGreen</item>
+        <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainerGreen</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="colorErrorContainer">@color/colorErrorContainer</item>
+        <item name="colorOnErrorContainer">@color/colorOnErrorContainer</item>
+        <item name="colorOutline">@color/colorOutlineGreen</item>
+        <item name="colorBackground">@color/colorBackgroundGreen</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundGreen</item>
+        <item name="colorSurface">@color/colorSurfaceGreen</item>
+        <item name="colorOnSurface">@color/colorOnSurfaceGreen</item>
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariantGreen</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariantGreen</item>
+        <item name="colorSurfaceInverse">@color/colorSurfaceInverseGreen</item>
+        <item name="colorOnSurfaceInverse">@color/colorOnSurfaceInverseGreen</item>
+
+        <item name="toolBarColor">@color/toolBarColorGreen</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/statusBarColorGreen</item>
+        <item name="toolBarTextColor">@color/toolBarTextColor</item>
+        <item name="textColor">@color/textColor</item>
+        <item name="cardColor">@color/cardColorGreen</item>
+
+        <item name="md_corner_radius">16dp</item>
+    </style>
+
+    <style name="Theme.Cavedroid.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#187CCA</item>
-        <item name="colorSecondaryVariant">#ADD9DF</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
+        <item name="colorTertiary">@color/colorTertiary</item>
+        <item name="colorOnTertiary">@color/colorOnTertiary</item>
+        <item name="colorTertiaryContainer">@color/colorTertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="colorErrorContainer">@color/colorErrorContainer</item>
+        <item name="colorOnErrorContainer">@color/colorOnErrorContainer</item>
+        <item name="colorOutline">@color/colorOutline</item>
+        <item name="colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/colorSurfaceInverse</item>
+        <item name="colorOnSurfaceInverse">@color/colorOnSurfaceInverse</item>
+
+        <item name="toolBarColor">@color/toolBarColor</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/statusBarColor</item>
+        <item name="toolBarTextColor">@color/toolBarTextColor</item>
+        <item name="textColor">@color/textColor</item>
+        <item name="cardColor">@color/cardColor</item>
+
         <item name="md_corner_radius">16dp</item>
     </style>
 
-    <style name="Theme.Cavedroid.BlueDark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#187CCA</item>
-        <item name="colorSecondaryVariant">#ADD9DF</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="md_corner_radius">16dp</item>
-    </style>
-
-    <style name="Theme.Cavedroid.GreenLight" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#4C8F33</item>
-        <item name="colorPrimaryVariant">#2F5023</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#73AF5D</item>
-        <item name="colorSecondaryVariant">#D0E8C7</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="md_corner_radius">16dp</item>
-    </style>
-
-    <style name="Theme.Cavedroid.GreenDark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#4B8137</item>
-        <item name="colorPrimaryVariant">#2F5023</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#73AF5D</item>
-        <item name="colorSecondaryVariant">#D0E8C7</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="md_corner_radius">16dp</item>
-    </style>
-
-    <style name="Theme.Cavedroid.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#00A1D9</item>
-        <item name="colorSecondaryVariant">#00A1D9</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="md_corner_radius">16dp</item>
-    </style>
-
-    <style name="Button.AppIntro" parent="Widget.MaterialComponents.Button">
+    <style name="Button.AppIntro" parent="Widget.Material3.Button">
         <item name="backgroundTint">#00599F</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="Checkbox.AppIntro" parent="Widget.AppCompat.CompoundButton.CheckBox">
+    <style name="Checkbox.AppIntro" parent="Widget.Material3.CompoundButton.CheckBox">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">16dp</item>
-        <item name="buttonTint">@color/colorPrimary</item>
+        <item name="buttonTint">#00599F</item>
     </style>
 
-    <style name="Home.CardView" parent="Widget.MaterialComponents.CardView">
+    <style name="Home.CardView" parent="Widget.Material3.CardView.Elevated">
         <item name="cardElevation">4dp</item>
         <item name="cardCornerRadius">15dp</item>
         <item name="android:visibility">invisible</item>
@@ -123,7 +147,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
-    <style name="Home.CardViewClickable" parent="Widget.MaterialComponents.CardView">
+    <style name="Home.CardViewClickable" parent="Widget.Material3.CardView.Elevated">
         <item name="cardElevation">4dp</item>
         <item name="cardCornerRadius">15dp</item>
         <item name="android:visibility">invisible</item>
@@ -146,7 +170,7 @@
         <item name="android:layout_marginEnd">20dp</item>
     </style>
 
-    <style name="Rankings.CardView" parent="Widget.MaterialComponents.CardView">
+    <style name="Rankings.CardView" parent="Widget.Material3.CardView.Elevated">
         <item name="cardElevation">4dp</item>
         <item name="cardCornerRadius">10dp</item>
         <item name="android:layout_marginTop">15dp</item>
@@ -156,13 +180,14 @@
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="Rankings.CardTextView" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Rankings.CardTextView" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:focusable">false</item>
         <item name="android:clickable">false</item>
         <item name="android:textColor">@color/md_list_item_textcolor</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="Ranking.ItemCardView" parent="Widget.MaterialComponents.CardView">
+    <style name="Ranking.ItemCardView" parent="Widget.Material3.CardView.Elevated">
         <item name="cardElevation">4dp</item>
         <item name="cardCornerRadius">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
@@ -173,4 +198,7 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="colorControlNormal">@color/textColorSecondary</item>
+    </style>
 </resources>

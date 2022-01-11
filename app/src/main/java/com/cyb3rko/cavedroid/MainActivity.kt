@@ -3,11 +3,9 @@ package com.cyb3rko.cavedroid
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -34,11 +32,10 @@ import dev.kord.core.Kord
 import dev.kord.core.entity.Guild
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,19 +55,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        if (mySPR.getString(THEME, "0") == "0") {
-            mySPR.edit().putString(THEME, if (Utils.isNightModeActive(resources)) {
-                R.style.Theme_Cavedroid_BlueDark.toString()
-            } else {
-                R.style.Theme_Cavedroid_BlueLight.toString()
-            }).commit()
+        if (mySPR.getString(THEME, "0")!!.toInt() !in listOf(R.style.Theme_Cavedroid_Standard, R.style.Theme_Cavedroid_Green)) {
+            mySPR.edit().putString(THEME, R.style.Theme_Cavedroid_Standard.toString()).commit()
         }
-
-        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
-            setTheme(mySPR.getString(THEME, "0")!!.toInt())
-        } else {
-            setTheme(R.style.Theme_Cavedroid_Standard)
-        }
+        setTheme(mySPR.getString(THEME, "0")!!.toInt())
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -86,28 +74,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_notifications, R.id.navigation_rankings
             )
         )
+        setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         when (intent.action) {
             "com.cyb3rko.cavedroid.searchshortcut" -> navController.navigate(R.id.navigation_notifications)
             "com.cyb3rko.cavedroid.rankingsshortcut" -> navController.navigate(R.id.navigation_rankings)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) {
-            setTheme(mySPR.getString(THEME, "0")!!.toInt())
-            val typedValue = TypedValue()
-            theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
-            supportActionBar?.setBackgroundDrawable(ColorDrawable(typedValue.data))
-            if (mySPR.getString(THEME, "0")!!.toInt() != R.style.Theme_Cavedroid_Standard) {
-                if (!Utils.isNightModeActive(resources)) {
-                    theme.resolveAttribute(R.attr.colorSecondaryVariant, typedValue, true)
-                    binding.navView.setBackgroundColor(typedValue.data)
-                }
-            }
         }
     }
 

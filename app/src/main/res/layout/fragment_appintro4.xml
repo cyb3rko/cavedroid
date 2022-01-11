@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/appintro_statusbar_height"
     android:paddingBottom="@dimen/appintro2_bottombar_height"
-    android:background="@color/colorPrimaryVariant"
+    android:background="@color/colorPrimaryContainer"
     tools:context=".appintro.AppIntro4thFragment">
 
     <TextView

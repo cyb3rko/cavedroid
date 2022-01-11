@@ -17,7 +17,6 @@
     <string name="search_view_hint">Player Name</string>
     <string name="name_dialog_title">Put in your ingame name</string>
     <string name="name_dialog_button">@android:string/ok</string>
-    <string name="name_dialog_hint">Player Name</string>
     <string name="name_dialog_error">Invalid Name</string>
     <string name="name_history_fetching">Fetching Data…</string>
     <string name="name_history_title">Name History</string>

@@ -26,7 +26,6 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
     private lateinit var nightModeList: ListPreference
     private lateinit var backgroundImageList: ListPreference
-    private lateinit var adaptiveThemingSwitch: SwitchPreference
     private lateinit var avatarTypeList: ListPreference
     private lateinit var showAnnouncementSwitch: SwitchPreference
     private lateinit var announcementImageSwitch: SwitchPreference
@@ -42,7 +41,6 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         mySPR = preferenceManager.sharedPreferences
         nightModeList = findPreference(NIGHTMODE)!!
         backgroundImageList = findPreference(BACKGROUND_IMAGE)!!
-        adaptiveThemingSwitch = findPreference(ADAPTIVE_THEMING)!!
         avatarTypeList = findPreference(AVATAR_TYPE)!!
         showAnnouncementSwitch = findPreference(SHOW_ANNOUNCEMENTS)!!
         announcementImageSwitch = findPreference(ANNOUNCEMENT_IMAGE)!!
@@ -51,8 +49,6 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
         nightModeList.value = mySPR.getString(NIGHTMODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
         backgroundImageList.value = mySPR.getString(BACKGROUND_IMAGE, "0")
-        adaptiveThemingSwitch.isChecked = mySPR.getBoolean(ADAPTIVE_THEMING, true)
-        adaptiveThemingSwitch.isEnabled = mySPR.getBoolean(BACKGROUND_SET, true)
         avatarTypeList.value = mySPR.getString(AVATAR_TYPE, "avatar")
         showAnnouncementSwitch.isChecked = mySPR.getBoolean(SHOW_ANNOUNCEMENTS, true)
         announcementImageSwitch.isChecked = mySPR.getBoolean(ANNOUNCEMENT_IMAGE, true)
@@ -71,28 +67,16 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             }
             BACKGROUND_IMAGE -> {
                 backgroundImageList.setOnPreferenceChangeListener { _, newValue ->
-                    val nightMode = Utils.isNightModeActive(requireContext().resources)
                     val value = newValue.toString().toInt()
                     val newThemeId = when (value) {
-                        -1 -> R.style.Theme_Cavedroid_Standard
-                        0 -> if (nightMode) R.style.Theme_Cavedroid_BlueDark else R.style.Theme_Cavedroid_BlueLight
-                        1 -> if (nightMode) R.style.Theme_Cavedroid_GreenDark else R.style.Theme_Cavedroid_GreenLight
+                        -1, 0-> R.style.Theme_Cavedroid_Standard
+                        1 -> R.style.Theme_Cavedroid_Green
                         else -> R.style.Theme_Cavedroid_Standard
                     }
                     val editor = mySPR.edit()
-                    editor.putBoolean(BACKGROUND_SET, value != -1)
                     editor.putString(THEME, newThemeId.toString()).commit()
                     requireActivity().recreate()
                     true
-                }
-                true
-            }
-            ADAPTIVE_THEMING -> {
-                requireActivity().recreate()
-                if (adaptiveThemingSwitch.isChecked) {
-                    requireActivity().setTheme(mySPR.getString(THEME, R.style.Theme_Cavedroid_Standard.toString())!!.toInt())
-                } else {
-                    requireActivity().setTheme(R.style.Theme_Cavedroid_Standard)
                 }
                 true
             }

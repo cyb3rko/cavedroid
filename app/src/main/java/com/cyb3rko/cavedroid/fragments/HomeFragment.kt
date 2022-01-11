@@ -1,7 +1,6 @@
 package com.cyb3rko.cavedroid.fragments
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -18,7 +17,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.SearchView
-import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
@@ -86,8 +84,6 @@ class HomeFragment : Fragment() {
         if (drawableId != -1) {
             view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
         }
-
-        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
 
         currentName = mySPR.getString(NAME, "")!!
         if (currentName.isNotBlank() && args.name.isBlank()) {
@@ -157,8 +153,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadNameHistory() {
-        val progressDialog = ProgressDialog(myContext)
-        progressDialog.setMessage(getString(R.string.name_history_fetching))
+        val progressDialog = getProgressDialog()
         progressDialog.show()
 
         var viewType = 0
@@ -190,7 +185,7 @@ class HomeFragment : Fragment() {
                                 delay(50)
                             }
 
-                            progressDialog.dismiss()
+                            progressDialog.cancel()
                             MaterialDialog(myContext).show {
                                 noAutoDismiss()
                                 title(R.string.name_history_title)
@@ -207,6 +202,13 @@ class HomeFragment : Fragment() {
             }
         }
         webView.loadUrl(api.getNameUuidLink(currentName))
+    }
+
+    private fun getProgressDialog(): MaterialDialog {
+        return MaterialDialog(requireActivity())
+            .noAutoDismiss()
+            .customView(R.layout.dialog_view_progress)
+            .cancelable(false)
     }
 
     private fun loadProfile(name: String) {
@@ -292,29 +294,6 @@ class HomeFragment : Fragment() {
                 playAnimation()
             }
             animationInfo.visibility = infoVisibility
-        }
-    }
-
-    private fun setElementAccentColor() {
-        @ColorInt val accentColor = when (mySPR.getString(THEME, "0")!!.toInt()) {
-            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
-            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
-            else -> 0
-        }
-        if (accentColor == 0) return
-
-        binding.apply {
-            listOf(
-                header,
-                balanceContainer,
-                earningsContainer,
-                spendingContainer,
-                soldContainer,
-                boughtContainer,
-                offersContainer
-            ).forEach {
-                it.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
-            }
         }
     }
 
@@ -414,7 +393,7 @@ class HomeFragment : Fragment() {
                 val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
                 input.setText(mySPR.getString(NAME, ""))
             }
-            .customView(R.layout.dialog_view)
+            .customView(R.layout.dialog_view_name)
             .cancelable(cancelable)
             .title(R.string.name_dialog_title)
             .positiveButton(R.string.name_dialog_button) {

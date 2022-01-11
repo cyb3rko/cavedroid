@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cyb3rko.cavedroid.*
-import com.cyb3rko.cavedroid.ADAPTIVE_THEMING
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
-import com.cyb3rko.cavedroid.THEME
 import com.cyb3rko.cavedroid.databinding.FragmentRankingsBinding
 
 class RankingsFragment : Fragment() {
@@ -45,27 +42,7 @@ class RankingsFragment : Fragment() {
             view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)
         }
 
-        if (mySPR.getBoolean(ADAPTIVE_THEMING, true)) setElementAccentColor()
         setRankingButtons()
-    }
-
-    private fun setElementAccentColor() {
-        @ColorInt val accentColor = when (mySPR.getString(THEME, "0")!!.toInt()) {
-            R.style.Theme_Cavedroid_BlueLight, R.style.Theme_Cavedroid_BlueDark -> R.color.forest_accent
-            R.style.Theme_Cavedroid_GreenLight, R.style.Theme_Cavedroid_GreenDark -> R.color.house_accent
-            else -> 0
-        }
-        if (accentColor == 0) return
-
-        binding.apply {
-            listOf(
-                richlistCard,
-                topSellersCard,
-                topItemsCard
-            ).forEach {
-                it.setCardBackgroundColor(ResourcesCompat.getColor(resources, accentColor, myContext.theme))
-            }
-        }
     }
 
     private fun setRankingButtons() {
