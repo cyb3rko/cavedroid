@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -34,7 +35,6 @@ import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         if (!force && !sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
         if (sharedPreferences.getString(NAME, "")!!.isBlank()) return
 
-        GlobalScope.launch {
+        lifecycleScope.launch {
             try {
                 val token = getAPIToken()
                 if (token != "0") {
@@ -147,10 +147,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Remove time left until event
+        var iterations = 0
         while (message.contains("(t:")) {
+            if (iterations > 10) return
             val index = message.indexOf("(t:")
-            val endIndex = message.indexOf(":R)", index + 12)
+            var endIndex: Int
+            endIndex = message.indexOf(":R)", index + 12)
+            if (endIndex == -1) {
+                endIndex = message.indexOf(":t)", index + 12)
+            }
             message = message.substring(0 until index - 1) + message.substring(endIndex + 3)
+            iterations++
         }
 
         // Replace timestamp with formatted date and time
