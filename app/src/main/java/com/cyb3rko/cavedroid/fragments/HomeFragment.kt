@@ -307,22 +307,30 @@ class HomeFragment : Fragment() {
         searchView.isIconifiedByDefault = false
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Utils.hideKeyboard(requireActivity())
-                binding.animationView.playAnimation()
-                binding.animationView.visibility = View.VISIBLE
-                showInformation(false)
-                val formattedQuery = query?.trim()
-                if (formattedQuery != null) {
-                    loadProfile(formattedQuery)
-                    currentName = formattedQuery
-                }
-                if (formattedQuery?.isNotBlank() == true) {
-                    FirebaseAnalytics.getInstance(myContext).logEvent("player_search") {
-                        param("player", formattedQuery)
+                if (query != null) {
+                    val formattedQuery = query.trim()
+                    if (Regex("[a-zA-Z0-9_]+").matches(query) && formattedQuery.length < 17) {
+                        Utils.hideKeyboard(requireActivity())
+                        binding.animationView.playAnimation()
+                        binding.animationView.visibility = View.VISIBLE
+                        showInformation(false)
+                        loadProfile(formattedQuery)
+                        currentName = formattedQuery
+                        if (formattedQuery.isNotBlank()) {
+                            FirebaseAnalytics.getInstance(myContext).logEvent("player_search") {
+                                param("player", formattedQuery)
+                            }
+                        }
+                        return true
+                    } else {
+                        val id = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+                        val editText = searchView.findViewById<EditText>(id)
+                        editText.error = "Invalid Name"
+                        return false
                     }
+                } else {
+                    return false
                 }
-
-                return true
             }
             override fun onQueryTextChange(newText: String?): Boolean { return false }
         })

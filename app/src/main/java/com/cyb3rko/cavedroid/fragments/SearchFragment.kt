@@ -221,7 +221,15 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun fetchData(searchPhrase: String) = webView.loadUrl(api.getSearchPhrase(searchPhrase))
+    private fun fetchData(searchPhrase: String) {
+        val phrase = searchPhrase.trim()
+        if (Regex("[a-zA-Z0-9_<> ]+").matches(phrase)) {
+            webView.loadUrl(api.getSearchPhrase(phrase))
+            binding.searchInput.error = null
+        } else {
+            binding.searchInput.error = "Invalid Input"
+        }
+    }
 
     private fun loadHtmlIntoRecycler(webInterface: JavascriptInterface) {
         val list = api.getMarketResults(webInterface.html!!)
