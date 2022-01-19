@@ -86,6 +86,21 @@ class SearchFragment : Fragment() {
         }
         binding.animationView.setAnimation(searchAnimation)
 
+        val searchTextColor = when (mySPR.getString(THEME, "0")!!.toInt()) {
+            R.style.Theme_Cavedroid_Standard -> {
+                if (Utils.isNightModeActive(resources)) {
+                    R.color.white
+                } else {
+                    R.color.dark
+                }
+            }
+            R.style.Theme_Cavedroid_Green -> {
+                R.color.white
+            }
+            else -> R.color.white
+        }
+        binding.searchInput.setTextColor(resources.getColor(searchTextColor))
+
         val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
         if (drawableId != -1) {
             view.background = ResourcesCompat.getDrawable(resources, drawableId, myContext.theme)

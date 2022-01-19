@@ -15,6 +15,8 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.SHARED_PREFERENCE
+import com.cyb3rko.cavedroid.THEME
 import com.cyb3rko.cavedroid.databinding.*
 import com.github.rjeschke.txtmark.Processor
 
@@ -249,6 +251,13 @@ class WikiEntryFragment : Fragment() {
                             tempBinding.animationView.setAnimation("no-connection.json")
                         }
                     }
+                    val mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
+                    val progressColor = when (mySPR.getString(THEME, "0")!!.toInt()) {
+                        R.style.Theme_Cavedroid_Standard -> R.color.colorPrimaryInverse
+                        R.style.Theme_Cavedroid_Green -> R.color.colorPrimaryInverseGreen
+                        else -> R.color.colorPrimaryInverse
+                    }
+                    tempBinding.progressBar.setIndicatorColor(resources.getColor(progressColor))
                     tempBinding.webview.webChromeClient = object : WebChromeClient() {
                         override fun onProgressChanged(view: WebView?, newProgress: Int) {
                             tempBinding.progressBar.visibility = View.VISIBLE

@@ -59,7 +59,7 @@
     <color name="statusBarColor">@color/colorPrimary</color>
     <color name="statusBarColorGreen">@color/colorPrimaryGreen</color>
     <color name="toolBarTextColor">@color/white</color>
-    <color name="textColor">#6E6E6E</color>
+    <color name="textColor">#595959</color>
     <color name="textColorSecondary">@color/white</color>
     <color name="cardColor">@color/colorSurface</color>
     <color name="cardColorGreen">@color/colorSurfaceGreen</color>
@@ -74,4 +74,7 @@
     <color name="house_accent">#D0E8C7</color>
     <color name="splashscreen_background">@color/white</color>
     <color name="colorSearchField">@color/colorSurfaceGreen</color>
+    <color name="colorSearchView">#fdfcf6</color>
+    <color name="colorSearchViewHint">#B5B5B5</color>
+    <color name="colorEdittextHint">#6E6E6E</color>
 </resources>

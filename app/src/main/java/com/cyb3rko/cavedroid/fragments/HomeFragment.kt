@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
@@ -305,6 +306,10 @@ class HomeFragment : Fragment() {
         val searchView = menuSearchItem.actionView as SearchView
         searchView.queryHint = getString(R.string.search_view_hint)
         searchView.isIconifiedByDefault = false
+        val id = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val textview = searchView.findViewById<AutoCompleteTextView>(id)
+        textview.setTextColor(resources.getColor(R.color.colorSearchView))
+        textview.setHintTextColor(resources.getColor(R.color.colorSearchViewHint))
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
@@ -323,9 +328,7 @@ class HomeFragment : Fragment() {
                         }
                         return true
                     } else {
-                        val id = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
-                        val editText = searchView.findViewById<EditText>(id)
-                        editText.error = "Invalid Name"
+                        textview.error = "Invalid Name"
                         return false
                     }
                 } else {

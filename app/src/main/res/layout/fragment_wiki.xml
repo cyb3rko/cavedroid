@@ -13,17 +13,30 @@
         android:layout_marginEnd="16dp"
         android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/beta_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/beta_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center_horizontal"
-            android:text="Beta"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Beta"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             style="@style/Wiki.ListButton"
@@ -33,7 +46,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/connect_to_beta_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/beta_title" />
+            app:layout_constraintTop_toBottomOf="@id/beta_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/connect_to_beta_button"
@@ -44,17 +57,30 @@
             app:layout_constraintStart_toEndOf="@id/miniverse_button"
             app:layout_constraintTop_toTopOf="@id/miniverse_button" />
 
-        <TextView
-            android:id="@+id/creative_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/creative_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="center_horizontal"
-            android:text="Creative"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/miniverse_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/miniverse_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Creative"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/survival_games_map_making_button"
@@ -64,7 +90,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/colorfall_map_making_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/creative_title" />
+            app:layout_constraintTop_toBottomOf="@id/creative_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/colorfall_map_making_button"
@@ -104,17 +130,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vertigo_map_making_button" />
 
-        <TextView
-            android:id="@+id/features_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/features_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="center_horizontal"
-            android:text="Features"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/worldedit_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/worldedit_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Features"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/pocket_mob_button"
@@ -124,7 +163,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/friendship_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/features_title" />
+            app:layout_constraintTop_toBottomOf="@id/features_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/friendship_button"
@@ -287,17 +326,30 @@
             app:layout_constraintStart_toEndOf="@id/mass_storage_button"
             app:layout_constraintTop_toTopOf="@id/mass_storage_button" />
 
-        <TextView
-            android:id="@+id/general_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/general_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="center_horizontal"
-            android:text="General"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mass_storage_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mass_storage_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="General"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rules_button"
@@ -307,7 +359,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/titles_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/general_title" />
+            app:layout_constraintTop_toBottomOf="@id/general_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/titles_button"
@@ -366,17 +418,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_button" />
 
-        <TextView
-            android:id="@+id/minigames_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/minigames_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="center_horizontal"
-            android:text="Minigames"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/claims_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mass_storage_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Minigames"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enderball_button"
@@ -386,7 +451,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/titles_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/minigames_title" />
+            app:layout_constraintTop_toBottomOf="@id/minigames_card" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/king_of_the_ladder_button"
@@ -445,17 +510,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pvp_arena_button" />
 
-        <TextView
-            android:id="@+id/modded_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/modded_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="center_horizontal"
-            android:text="Modded"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/colorfall_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/colorfall_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Modded"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enigmatica_6_button"
@@ -465,19 +543,32 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/modded_title" />
+            app:layout_constraintTop_toBottomOf="@id/modded_card" />
 
-        <TextView
-            android:id="@+id/raid_title"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/raid_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:gravity="center_horizontal"
-            android:text="Raid"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="10dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/enigmatica_6_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enigmatica_6_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Raid"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/raid_hub_button"
@@ -487,7 +578,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/raid_title" />
+            app:layout_constraintTop_toBottomOf="@id/raid_card" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
