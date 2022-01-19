@@ -17,6 +17,11 @@
         android:title="Rankings" />
 
     <item
+        android:id="@+id/navigation_wiki"
+        android:icon="@drawable/_ic_wiki"
+        android:title="Wiki" />
+
+    <item
         android:id="@+id/navigation_preferences"
         android:icon="@drawable/_ic_settings"
         android:title="Preferences" />

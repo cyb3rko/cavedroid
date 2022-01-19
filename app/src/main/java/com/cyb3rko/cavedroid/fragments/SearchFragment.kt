@@ -29,6 +29,8 @@ import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
+import com.cyb3rko.cavedroid.webviews.HtmlWebView
+import com.cyb3rko.cavedroid.webviews.JavascriptInterface
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent

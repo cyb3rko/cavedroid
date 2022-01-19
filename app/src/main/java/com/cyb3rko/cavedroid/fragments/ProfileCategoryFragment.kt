@@ -21,12 +21,13 @@ import androidx.recyclerview.widget.ListAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.cyb3rko.cavedroid.*
-import com.cyb3rko.cavedroid.JavascriptInterface
+import com.cyb3rko.cavedroid.webviews.JavascriptInterface
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
 import com.cyb3rko.cavedroid.rankings.OfferEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.OfferEntryViewState
+import com.cyb3rko.cavedroid.webviews.HtmlWebView
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import kotlin.math.round
 import kotlinx.coroutines.delay

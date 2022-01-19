@@ -125,6 +125,12 @@
         <item>https://www.flaticon.com/free-icon/agent_2534183</item>
     </string-array>
 
+    <string-array name="ic_wiki">
+        <item>Freepik</item>
+        <item>flaticon.com</item>
+        <item>https://www.flaticon.com/free-icon/wikipedia_837799</item>
+    </string-array>
+
     <string-array name="item_acacia_boat">
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>

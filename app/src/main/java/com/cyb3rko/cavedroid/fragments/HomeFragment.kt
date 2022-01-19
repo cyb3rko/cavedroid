@@ -38,6 +38,7 @@ import com.bumptech.glide.request.target.Target
 import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.appintro.MyAppIntro
 import com.cyb3rko.cavedroid.databinding.FragmentHomeBinding
+import com.cyb3rko.cavedroid.webviews.HtmlWebView
 import com.cyb3rko.cavetaleapi.CavetaleAPI
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent

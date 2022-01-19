@@ -112,6 +112,30 @@
         android:label="Credits">
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_wiki"
+        android:name="com.cyb3rko.cavedroid.fragments.WikiFragment"
+        android:label="Wiki"
+        tools:layout="@layout/fragment_wiki">
+        <action
+            android:id="@+id/open_entry"
+            app:destination="@id/navigation_wiki_entry" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_wiki_entry"
+        android:name="com.cyb3rko.cavedroid.fragments.WikiEntryFragment"
+        android:label="Wiki Entry"
+        tools:layout="@layout/fragment_wiki_entry">
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/close_profile_category"
+            app:destination="@id/navigation_wiki" />
+    </fragment>
+
     <action
         android:id="@+id/go_to_home"
         app:destination="@id/navigation_home" />

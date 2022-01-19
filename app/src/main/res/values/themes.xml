@@ -198,6 +198,15 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="Wiki.ListButton" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="layout_constraintHorizontal_chainStyle">spread</item>
+    </style>
+
     <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="colorControlNormal">@color/textColorSecondary</item>
     </style>

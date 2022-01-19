@@ -1,8 +1,9 @@
-package com.cyb3rko.cavedroid
+package com.cyb3rko.cavedroid.webviews
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.webkit.WebView
+import com.cyb3rko.cavedroid.webviews.JavascriptInterface
 
 @SuppressLint("SetJavaScriptEnabled")
 class HtmlWebView(context: Context) : WebView(context) {

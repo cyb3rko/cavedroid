@@ -1,4 +1,4 @@
-package com.cyb3rko.cavedroid;
+package com.cyb3rko.cavedroid.webviews;
 
 import android.webkit.JavascriptInterface;
 
