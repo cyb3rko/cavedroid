@@ -240,9 +240,10 @@ class SearchFragment : Fragment() {
         val phrase = searchPhrase.trim()
         if (Regex("[a-zA-Z0-9_<> ]+").matches(phrase)) {
             webView.loadUrl(api.getSearchPhrase(phrase))
-            binding.searchInput.error = null
+            binding.textInputLayout.error = null
         } else {
-            binding.searchInput.error = "Invalid Input"
+            binding.textInputLayout.error = "Invalid Input"
+            showAnimation(false, false, false)
         }
     }
 
