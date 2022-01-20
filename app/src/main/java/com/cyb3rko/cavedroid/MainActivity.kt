@@ -124,16 +124,27 @@ class MainActivity : AppCompatActivity() {
             .replace("\n", "<br/>")
 
         // Replace user ids with server nick names
+        var iterations = 0
         while (message.contains("@!")) {
+            if (iterations > 10) {
+                reportAnnouncementError(messageObject)
+                return
+            }
             val substrings = message.split("@!", limit = 2)
             val id = substrings[1].substring(0..17)
             val substring2 = substrings[1].substring(startIndex = 18)
             val name = guild.getMember(Snowflake(id)).displayName
             message = "${substrings[0]}$name $substring2"
+            iterations++
         }
 
         // Replace channel ids with channel names
+        iterations = 0
         while (message.contains(" #")) {
+            if (iterations > 10) {
+                reportAnnouncementError(messageObject)
+                return
+            }
             try {
                 val substrings = message.split("#", limit = 2)
                 val id = substrings[1].substring(0..17)
@@ -144,12 +155,16 @@ class MainActivity : AppCompatActivity() {
                 message = message.replaceFirst("#", "&%")
                 Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
             }
+            iterations++
         }
 
         // Remove time left until event
-        var iterations = 0
+        iterations = 0
         while (message.contains("(t:")) {
-            if (iterations > 10) return
+            if (iterations > 10) {
+                reportAnnouncementError(messageObject)
+                return
+            }
             val index = message.indexOf("(t:")
             var endIndex: Int
             endIndex = message.indexOf(":R)", index + 12)
@@ -161,7 +176,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Replace timestamp with formatted date and time
+        iterations = 0
         while (message.contains("t:")) {
+            if (iterations > 10) {
+                reportAnnouncementError(messageObject)
+                return
+            }
             val index = message.indexOf("t:")
             val endIndex = message.indexOf(":F", index + 12)
             val time = message.substring(index + 2 until endIndex).toLong() * 1000
@@ -169,6 +189,7 @@ class MainActivity : AppCompatActivity() {
             @SuppressLint("SimpleDateFormat")
             val formattedDate = SimpleDateFormat("MM/dd/yyyy - HH:mm 'UTC'").format(date)
             message = message.substring(0 until index) + formattedDate + message.substring(endIndex + 2)
+            iterations++
         }
 
         message = message.replace("&%", "#")
@@ -193,6 +214,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         sharedPreferences.edit().putLong(LATEST_MESSAGE, messageObject.id.value.toLong()).apply()
+    }
+
+    private suspend fun reportAnnouncementError(message: Message) {
+        val kord = Kord(Secrets().getAPIToken(packageName))
+        val channel = kord.getGuild(Snowflake(840366805649457172))?.getChannel(Snowflake(933683219075838012))
+        val reportMessage = "----------\nShowing Announcement dialog failed:\nMessage Id: ${message.id}"
+        (channel as MessageChannel).createMessage(reportMessage)
     }
 
     override fun onSupportNavigateUp(): Boolean {
