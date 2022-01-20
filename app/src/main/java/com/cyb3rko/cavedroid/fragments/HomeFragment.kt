@@ -156,6 +156,7 @@ class HomeFragment : Fragment() {
 
     private fun loadNameHistory() {
         val progressDialog = getProgressDialog()
+        progressDialog.cancelable(true)
         progressDialog.show()
 
         var viewType = 0
@@ -222,6 +223,11 @@ class HomeFragment : Fragment() {
             try {
                 val userJob = async(Dispatchers.IO) { api.getUser(formattedName) }
                 val user = userJob.await()
+
+                if (user == null) {
+                    showAnimation(true, false)
+                    return@launch
+                }
 
                 withContext(Dispatchers.Main) {
                     Glide.with(this@HomeFragment)
@@ -372,7 +378,10 @@ class HomeFragment : Fragment() {
         }
 
         menu.findItem(R.id.recent_announcement).setOnMenuItemClickListener {
-            (requireActivity() as MainActivity).receiveLatestAnnouncement(true)
+            val progressDialog = getProgressDialog()
+            progressDialog.cancelable(true)
+            progressDialog.show()
+            (requireActivity() as MainActivity).receiveLatestAnnouncement(true, progressDialog)
             true
         }
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAPIToken() = Secrets().getAPIToken(packageName)
 
-    fun receiveLatestAnnouncement(force: Boolean = false) {
+    fun receiveLatestAnnouncement(force: Boolean = false, progressDialog: MaterialDialog? = null) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
         if (sharedPreferences.getBoolean(OLD_ANDROID, false)) return
         if (!force && !sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
@@ -107,17 +108,28 @@ class MainActivity : AppCompatActivity() {
                     val messageObject = (guild.getChannel(Snowflake(265060069194858496)) as MessageChannel).getLastMessage()!!
 
                     if (force || messageObject.id.value.toLong() != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
-                        showAnnouncementDialog(guild, messageObject, sharedPreferences)
+                        showAnnouncementDialog(guild, messageObject, sharedPreferences, progressDialog)
+                    } else {
+                        progressDialog?.cancel()
                     }
+                } else {
+                    progressDialog?.cancel()
                 }
             } catch (e: Exception) {
+                progressDialog?.cancel()
+                Toast.makeText(applicationContext, "Showing recent Announcement failed", Toast.LENGTH_SHORT).show()
                 Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
             }
         }
 
     }
 
-    private suspend fun showAnnouncementDialog(guild: Guild, messageObject: Message, sharedPreferences: SharedPreferences) {
+    private suspend fun showAnnouncementDialog(
+        guild: Guild,
+        messageObject: Message,
+        sharedPreferences: SharedPreferences,
+        progressDialog: MaterialDialog?
+    ) {
         var message = messageObject.content
             .replace("<", "")
             .replace(">", "")
@@ -127,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         var iterations = 0
         while (message.contains("@!")) {
             if (iterations > 10) {
+                progressDialog?.cancel()
                 reportAnnouncementError(messageObject)
                 return
             }
@@ -142,6 +155,7 @@ class MainActivity : AppCompatActivity() {
         iterations = 0
         while (message.contains(" #")) {
             if (iterations > 10) {
+                progressDialog?.cancel()
                 reportAnnouncementError(messageObject)
                 return
             }
@@ -153,6 +167,7 @@ class MainActivity : AppCompatActivity() {
                 message = "${substrings[0]}&%$name${substrings[1].drop(18)}"
             } catch (e: Exception) {
                 message = message.replaceFirst("#", "&%")
+                Toast.makeText(applicationContext, "Showing recent Announcement failed", Toast.LENGTH_SHORT).show()
                 Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
             }
             iterations++
@@ -162,6 +177,7 @@ class MainActivity : AppCompatActivity() {
         iterations = 0
         while (message.contains("(t:")) {
             if (iterations > 10) {
+                progressDialog?.cancel()
                 reportAnnouncementError(messageObject)
                 return
             }
@@ -179,6 +195,7 @@ class MainActivity : AppCompatActivity() {
         iterations = 0
         while (message.contains("t:")) {
             if (iterations > 10) {
+                progressDialog?.cancel()
                 reportAnnouncementError(messageObject)
                 return
             }
@@ -195,6 +212,7 @@ class MainActivity : AppCompatActivity() {
         message = message.replace("&%", "#")
 
         runOnUiThread {
+            progressDialog?.cancel()
             MaterialDialog(this@MainActivity, BottomSheet(LayoutMode.MATCH_PARENT)).show {
                 customView(viewRes = R.layout.announcement_dialog, scrollable = true, noVerticalPadding = true)
                 onPreShow {
@@ -217,10 +235,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun reportAnnouncementError(message: Message) {
-        val kord = Kord(Secrets().getAPIToken(packageName))
-        val channel = kord.getGuild(Snowflake(840366805649457172))?.getChannel(Snowflake(933683219075838012))
-        val reportMessage = "----------\nShowing Announcement dialog failed:\nMessage Id: ${message.id}"
-        (channel as MessageChannel).createMessage(reportMessage)
+        try {
+            Toast.makeText(applicationContext, "Showing recent Announcement failed", Toast.LENGTH_SHORT).show()
+            val kord = Kord(Secrets().getAPIToken(packageName))
+            val channel = kord.getGuild(Snowflake(840366805649457172))
+                ?.getChannel(Snowflake(933683219075838012))
+            val reportMessage =
+                "----------\nShowing Announcement dialog failed (endless loop):\nMessage Id: ${message.id}"
+            (channel as MessageChannel).createMessage(reportMessage)
+        } catch (e: Exception) {
+            Log.e("Cavedroid.MainActivity", "Sending announcement error message failed.")
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

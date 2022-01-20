@@ -23,7 +23,7 @@ class MyAppIntro : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorPrimaryContainer, theme)
+        val backgroundColor = ResourcesCompat.getColor(resources, R.color.colorPrimary, theme)
         addSlide(AppIntroFragment.newInstance(
             title = getString(R.string.intro_fragment1_title),
             description = getString(R.string.intro_fragment1_description),

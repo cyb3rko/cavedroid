@@ -142,6 +142,7 @@ object Utils {
                         val drawable = Glide.with(context)
                             .asBitmap()
                             .load("https://textures.minecraft.net/texture/$skinId")
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                             .get()
                         (context as Activity).runOnUiThread {

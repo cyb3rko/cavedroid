@@ -120,16 +120,16 @@
     </style>
 
     <style name="Button.AppIntro" parent="Widget.Material3.Button">
-        <item name="backgroundTint">#00599F</item>
+        <item name="backgroundTint">@color/colorPrimaryContainer</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="Checkbox.AppIntro" parent="Widget.Material3.CompoundButton.CheckBox">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">16dp</item>
-        <item name="buttonTint">#00599F</item>
+        <item name="buttonTint">@color/colorPrimaryContainer</item>
     </style>
 
     <style name="Home.CardView" parent="Widget.Material3.CardView.Elevated">

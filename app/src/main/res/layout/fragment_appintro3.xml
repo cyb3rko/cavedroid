@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/appintro_statusbar_height"
     android:paddingBottom="@dimen/appintro2_bottombar_height"
-    android:background="@color/colorPrimaryContainer"
+    android:background="@color/colorPrimary"
     tools:context=".appintro.AppIntro3rdFragment">
 
     <TextView
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/intro_fragment3_description" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/terms_of_use_button"
                 style="@style/Button.AppIntro"
                 android:layout_width="wrap_content"

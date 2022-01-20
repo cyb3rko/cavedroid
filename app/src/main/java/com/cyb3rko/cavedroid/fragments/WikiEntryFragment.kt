@@ -279,7 +279,7 @@ class WikiEntryFragment : Fragment() {
     private fun loadImage(link: String, imageView: ImageView) {
         Glide.with(myContext)
             .load(link)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(imageView)
     }
 
