@@ -320,7 +320,7 @@ class HomeFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     val formattedQuery = query.trim()
-                    if (Regex("[a-zA-Z0-9_]+").matches(query) && formattedQuery.length < 17) {
+                    if (formattedQuery == "The Bank" || (Regex("[a-zA-Z0-9_]+").matches(query) && formattedQuery.length < 17)) {
                         Utils.hideKeyboard(requireActivity())
                         binding.animationView.playAnimation()
                         binding.animationView.visibility = View.VISIBLE
