@@ -1,7 +1,9 @@
 package com.cyb3rko.cavedroid.fragments
 
 import android.annotation.SuppressLint
-import android.content.*
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -16,8 +18,8 @@ import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import android.widget.SearchView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
@@ -25,9 +27,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onPreShow
 import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -40,6 +40,9 @@ import com.cyb3rko.cavedroid.appintro.MyAppIntro
 import com.cyb3rko.cavedroid.databinding.FragmentHomeBinding
 import com.cyb3rko.cavedroid.webviews.HtmlWebView
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -405,32 +408,39 @@ class HomeFragment : Fragment() {
     }
 
     private fun showNameDialog(cancelable: Boolean) {
-        MaterialDialog(requireActivity())
-            .noAutoDismiss()
-            .onPreShow {
-                val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
-                input.setText(mySPR.getString(NAME, ""))
-            }
-            .customView(R.layout.dialog_view_name)
-            .cancelable(cancelable)
-            .title(R.string.name_dialog_title)
-            .positiveButton(R.string.name_dialog_button) {
-                val input = it.getCustomView().findViewById<EditText>(R.id.md_input)
-                val newName = input.text.toString().trim()
-                if (Regex("[a-zA-Z0-9_]+").matches(newName) && newName.length < 17) {
-                    mySPREditor.putString(NAME, newName).apply()
-                    binding.animationView.playAnimation()
-                    binding.animationView.visibility = View.VISIBLE
-                    showInformation(false)
-                    currentName = newName
-                    loadProfile(newName)
-                    it.cancel()
-                    if (!it.cancelable) (requireActivity() as MainActivity).receiveLatestAnnouncement()
-                } else {
-                    input.error = getString(R.string.name_dialog_error)
+        @SuppressLint("InflateParams")
+        val inputField = layoutInflater.inflate(R.layout.dialog_view_name, null)
+            .findViewById<TextInputLayout>(R.id.md_input)
+
+        @SuppressLint("InflateParams")
+        val inputTextField = inputField.findViewById<TextInputEditText>(R.id.md_input_text)
+
+        MaterialAlertDialogBuilder(myContext, R.style.Dialog_Rounded)
+            .setView(inputField)
+            .setCancelable(cancelable)
+            .setTitle(R.string.name_dialog_title)
+            .setPositiveButton(android.R.string.ok, null)
+            .create().apply {
+                setOnShowListener {
+                    getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                        val newName = inputTextField.text.toString()
+                        if (Regex("[a-zA-Z0-9_]+").matches(newName) && newName.length < 17) {
+                            dismiss()
+                            mySPREditor.putString(NAME, newName).apply()
+                            binding.animationView.playAnimation()
+                            binding.animationView.visibility = View.VISIBLE
+                            showInformation(false)
+                            currentName = newName
+                            loadProfile(newName)
+
+                            if (!cancelable) (requireActivity() as MainActivity).receiveLatestAnnouncement()
+                        } else {
+                            inputField.error = getString(R.string.name_dialog_error)
+                        }
+                    }
                 }
+                show()
             }
-            .show()
     }
 
     private fun showUserConsentDialog() {

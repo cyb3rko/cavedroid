@@ -210,4 +210,13 @@
     <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="colorControlNormal">@color/textColorSecondary</item>
     </style>
+
+    <style name="Dialog.Rounded" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    </style>
+
+    <style name="DialogCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>
