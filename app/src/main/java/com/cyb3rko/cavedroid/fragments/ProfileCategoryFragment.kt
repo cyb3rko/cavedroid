@@ -12,7 +12,6 @@ import android.webkit.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -38,7 +37,6 @@ import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 class ProfileCategoryFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
-    private lateinit var scope: LifecycleCoroutineScope
 
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
     private val api = CavetaleAPI()
@@ -58,7 +56,6 @@ class ProfileCategoryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
-        scope = viewLifecycleOwner.lifecycleScope
         return binding.root
     }
 
@@ -219,7 +216,7 @@ class ProfileCategoryFragment : Fragment() {
                     kotlin.run { webView.fetchHmtl() }
                 }, 600)
 
-                scope.launch {
+                lifecycleScope.launch {
                     while (webView.javascriptInterface.html == null) {
                         delay(50)
                     }

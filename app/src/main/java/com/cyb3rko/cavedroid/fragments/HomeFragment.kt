@@ -21,7 +21,6 @@ import android.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -49,7 +48,6 @@ import kotlinx.coroutines.*
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var myContext: Context
-    private lateinit var scope: LifecycleCoroutineScope
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -72,7 +70,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        scope = viewLifecycleOwner.lifecycleScope
         return binding.root
     }
 
@@ -93,7 +90,7 @@ class HomeFragment : Fragment() {
         } else if (currentName.isNotBlank() && args.name.isNotBlank()) {
             if (args.name != currentName) {
                 currentName = args.name
-                scope.launch(Dispatchers.Main) {
+                lifecycleScope.launch(Dispatchers.Main) {
                     while (!this@HomeFragment::topMenu.isInitialized)
                     topMenu.forEach {
                         it.isVisible = false
@@ -167,7 +164,7 @@ class HomeFragment : Fragment() {
                 webView.fetchHmtl()
 
                 if (viewType == 0) {
-                    scope.launch {
+                    lifecycleScope.launch {
                         try {
                             while (webView.javascriptInterface.html == null) {
                                 delay(50)
@@ -182,7 +179,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                 } else {
-                    scope.launch {
+                    lifecycleScope.launch {
                         try {
                             while (webView.javascriptInterface.html == null) {
                                 delay(50)
@@ -219,7 +216,7 @@ class HomeFragment : Fragment() {
         showAnimation(true, true)
         val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")
         val avatarName = if (name != "The Bank") name else "God"
-        scope.launch {
+        lifecycleScope.launch {
             try {
                 val userJob = async(Dispatchers.IO) { api.getUser(formattedName) }
                 val user = userJob.await()

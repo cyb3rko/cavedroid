@@ -9,7 +9,6 @@ import android.view.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -35,7 +34,6 @@ import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 class RankingFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private lateinit var myContext: Context
-    private lateinit var scope: LifecycleCoroutineScope
 
     private val args: RankingFragmentArgs by navArgs()
     private lateinit var adapter: ListAdapter<*, RecyclerViewHolder<*>>
@@ -53,7 +51,6 @@ class RankingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
-        scope = viewLifecycleOwner.lifecycleScope
         return binding.root
     }
 
@@ -203,7 +200,7 @@ class RankingFragment : Fragment() {
     }
 
     private fun fetchData(limit: Int) {
-        scope.launch {
+        lifecycleScope.launch {
             val listJob = async(Dispatchers.IO) {
                 when (args.rankingType) {
                     1 -> api.getRichlist(limit)

@@ -17,7 +17,6 @@ import android.webkit.WebViewClient
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -42,7 +41,6 @@ import me.ibrahimyilmaz.kiel.core.RecyclerViewHolder
 class SearchFragment : Fragment() {
     private var _binding: FragmentItemSearchBinding? = null
     private lateinit var myContext: Context
-    private lateinit var scope: LifecycleCoroutineScope
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -63,7 +61,6 @@ class SearchFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentItemSearchBinding.inflate(inflater, container, false)
-        scope = viewLifecycleOwner.lifecycleScope
         return binding.root
     }
 
@@ -182,7 +179,7 @@ class SearchFragment : Fragment() {
                     kotlin.run { webView.fetchHmtl() }
                 }, 600)
 
-                scope.launch {
+                lifecycleScope.launch {
                     while (webView.javascriptInterface.html == null) {
                         delay(50)
                     }
