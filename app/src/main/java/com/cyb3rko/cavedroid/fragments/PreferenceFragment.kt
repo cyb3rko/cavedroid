@@ -38,7 +38,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
         addPreferencesFromResource(R.xml.preferences)
         preferenceManager.sharedPreferencesName = SHARED_PREFERENCE
-        mySPR = preferenceManager.sharedPreferences
+        mySPR = preferenceManager.sharedPreferences!!
         nightModeList = findPreference(NIGHTMODE)!!
         backgroundImageList = findPreference(BACKGROUND_IMAGE)!!
         avatarTypeList = findPreference(AVATAR_TYPE)!!
@@ -56,8 +56,8 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         crashlyticsCollectionSwitch.isChecked = mySPR.getBoolean(CRASHLYTICS_COLLECTION, true)
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        return when (preference?.key) {
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        return when (preference.key) {
             NIGHTMODE -> {
                 nightModeList.setOnPreferenceChangeListener { _, newValue ->
                     AppCompatDelegate.setDefaultNightMode(newValue.toString().toInt())
