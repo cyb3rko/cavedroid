@@ -14,16 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.list.listItems
-import com.cyb3rko.cavedroid.*
+import com.cyb3rko.cavedroid.R
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
+import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.ItemEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.ItemViewState
 import com.cyb3rko.cavedroid.rankings.PlayerEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.PlayerViewState
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.math.round
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -79,31 +79,22 @@ class RankingFragment : Fragment() {
                             vh.nameView.text = player.name
                             vh.dataView.text = player.data
                             vh.cardView.setOnClickListener {
-                                MaterialDialog(myContext).show {
-                                    try {
-                                        icon(drawable = vh.avatarView.drawable)
-                                    } catch (e: Exception) {}
-                                    title(text = player.name)
-                                    listItems(items = listOf(
-                                        getString(R.string.ranking_player_dialog_button1),
-                                        getString(R.string.ranking_player_dialog_button2),
-                                        getString(R.string.ranking_player_dialog_button3))
-                                    ) { _, index, _ ->
-                                        when (index) {
-                                            0 -> {
-                                                findNavController().navigate(R.id.go_to_home, bundleOf("name" to player.name))
-                                            }
-                                            1 -> {
-                                                Utils.storeToClipboard(myContext, player.name)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
-                                            }
-                                            2 -> {
-                                                Utils.storeToClipboard(myContext, player.data)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
-                                            }
-                                        }
+                                val icon = if (vh.avatarView.drawable != null) {
+                                    vh.avatarView.drawable
+                                } else null
+
+                                MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                                    .setIcon(icon)
+                                    .setTitle(player.name)
+                                    .setPositiveButton(
+                                        getString(R.string.ranking_player_dialog_button)
+                                    ) { _, _ ->
+                                        findNavController().navigate(
+                                            R.id.go_to_home,
+                                            bundleOf("name" to player.name)
+                                        )
                                     }
-                                }
+                                    .show()
                             }
                             if (player.name != "The Bank") {
                                 Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, player.name, 100)
@@ -130,51 +121,36 @@ class RankingFragment : Fragment() {
                                 val amount = item.amount.dropLast(11).toInt()
                                 val price = item.turnover.replace(",", "").dropLast(6).toFloat()
                                 val perItem = round(price / amount * 100) / 100
-                                MaterialDialog(myContext).show {
-                                    try {
-                                        icon(drawable = vh.avatarView.drawable)
-                                    } catch (e: Exception) {}
-                                    title(text = item.name)
-                                    message(text = Html.fromHtml(
-                                        Utils.getFormattedDialogInformation(getString(R.string.ranking_item_dialog_information1), item.amount) +
-                                                Utils.getFormattedDialogPriceInformation(getString(R.string.ranking_item_dialog_information2),
-                                                    item.turnover) +
-                                                Utils.getFormattedDialogPriceInformation(getString(R.string.ranking_item_dialog_information3),
-                                                    perItem.toString(), false)
-                                    )) {
-                                        lineSpacing(1.4f)
+                                val icon = if (vh.avatarView.drawable != null) {
+                                    vh.avatarView.drawable
+                                } else null
+
+                                MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                                    .setIcon(icon)
+                                    .setTitle(item.name)
+                                    .setMessage(Html.fromHtml(
+                                        Utils.getFormattedDialogInformation(
+                                            getString(R.string.ranking_item_dialog_information1),
+                                            item.amount
+                                        ) +
+                                                Utils.getFormattedDialogInformation(
+                                                    getString(R.string.ranking_item_dialog_information2),
+                                                    item.turnover
+                                                ) +
+                                                Utils.getFormattedDialogPriceInformation(
+                                                    getString(R.string.ranking_item_dialog_information3),
+                                                    perItem.toString(), false
+                                                )
+                                    ))
+                                    .setPositiveButton(
+                                        getString(R.string.ranking_item_dialog_button)
+                                    ) { _, _ ->
+                                        findNavController().navigate(
+                                            R.id.go_to_item_search,
+                                            bundleOf("item" to item.name)
+                                        )
                                     }
-                                    listItems(items = listOf(
-                                        getString(R.string.ranking_item_dialog_button1),
-                                        getString(R.string.ranking_item_dialog_button2),
-                                        getString(R.string.ranking_item_dialog_button3),
-                                        getString(R.string.ranking_item_dialog_button4),
-                                        getString(R.string.ranking_item_dialog_button5)
-                                    )) { _, index, _ ->
-                                        when (index) {
-                                            0 -> {
-                                                findNavController().navigate(R.id.go_to_item_search, bundleOf("item" to item.name))
-                                            }
-                                            1 -> {
-                                                Utils.storeToClipboard(myContext, item.name)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
-                                            }
-                                            2 -> {
-                                                Utils.storeToClipboard(myContext, item.amount)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_amount))
-                                            }
-                                            3 -> {
-                                                Utils.storeToClipboard(myContext, item.turnover)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_turnover))
-                                            }
-                                            4 -> {
-                                                val text = "$perItem Coins"
-                                                Utils.storeToClipboard(myContext, text)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
-                                            }
-                                        }
-                                    }
-                                }
+                                    .show()
                             }
                             Utils.loadItemIcon(myContext, vh.avatarView, item.name, missingIcons)
                         }

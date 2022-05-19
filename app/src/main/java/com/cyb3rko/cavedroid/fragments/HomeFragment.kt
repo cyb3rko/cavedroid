@@ -10,14 +10,13 @@ import android.os.Bundle
 import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
@@ -26,9 +25,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.list.listItems
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -156,7 +152,6 @@ class HomeFragment : Fragment() {
 
     private fun loadNameHistory() {
         val progressDialog = getProgressDialog()
-        progressDialog.cancelable(true)
         progressDialog.show()
 
         var viewType = 0
@@ -189,14 +184,14 @@ class HomeFragment : Fragment() {
                             }
 
                             progressDialog.cancel()
-                            MaterialDialog(myContext).show {
-                                noAutoDismiss()
-                                title(R.string.name_history_title)
-                                listItems(items = api.getNameHistory(webView.javascriptInterface.html!!)) { _, _, name ->
-                                    Utils.storeToClipboard(myContext, name.toString())
+                            val list = api.getNameHistory(webView.javascriptInterface.html!!)
+                            MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                                .setTitle(R.string.name_history_title)
+                                .setItems(list.toTypedArray()) { _, id ->
+                                    Utils.storeToClipboard(myContext, list[id])
                                     Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
                                 }
-                            }
+                                .show()
                         } catch (e: Exception) {
                             Log.e("Cavedroid.NameHistory", e.message!!)
                         }
@@ -207,11 +202,10 @@ class HomeFragment : Fragment() {
         webView.loadUrl(api.getNameUuidLink(currentName))
     }
 
-    private fun getProgressDialog(): MaterialDialog {
-        return MaterialDialog(requireActivity())
-            .noAutoDismiss()
-            .customView(R.layout.dialog_view_progress)
-            .cancelable(false)
+    private fun getProgressDialog(): AlertDialog {
+        return MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+            .setView(R.layout.dialog_view_progress)
+            .show()
     }
 
     private fun loadProfile(name: String) {
@@ -379,7 +373,6 @@ class HomeFragment : Fragment() {
 
         menu.findItem(R.id.recent_announcement).setOnMenuItemClickListener {
             val progressDialog = getProgressDialog()
-            progressDialog.cancelable(true)
             progressDialog.show()
             (requireActivity() as MainActivity).receiveLatestAnnouncement(true, progressDialog)
             true
@@ -391,11 +384,16 @@ class HomeFragment : Fragment() {
         }
 
         menu.findItem(R.id.feedback).setOnMenuItemClickListener {
-            MaterialDialog(requireActivity())
-                .title(R.string.feedback_dialog_title)
-                .message(R.string.feedback_dialog_message)
-                .positiveButton(R.string.feedback_dialog_button) {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cyb3rko/cavedroid/issues")))
+            MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                .setTitle(R.string.feedback_dialog_title)
+                .setMessage(R.string.feedback_dialog_message)
+                .setPositiveButton(R.string.feedback_dialog_button) { _, _ ->
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/cyb3rko/cavedroid/issues")
+                        )
+                    )
                 }
                 .show()
             true
@@ -415,7 +413,7 @@ class HomeFragment : Fragment() {
         @SuppressLint("InflateParams")
         val inputTextField = inputField.findViewById<TextInputEditText>(R.id.md_input_text)
 
-        MaterialAlertDialogBuilder(myContext, R.style.Dialog_Rounded)
+        MaterialAlertDialogBuilder(myContext, R.style.Dialog)
             .setView(inputField)
             .setCancelable(cancelable)
             .setTitle(R.string.name_dialog_title)
@@ -445,45 +443,30 @@ class HomeFragment : Fragment() {
 
     private fun showUserConsentDialog() {
         var dialogMessage = getString(R.string.end_user_consent_2_message_1)
-        dialogMessage += mySPR.getString(CONSENT_DATE, getString(R.string.end_user_consent_2_date_not_found)) +
-                getString(R.string.end_user_consent_2_message_2) +
-                mySPR.getString(CONSENT_TIME, getString(R.string.end_user_consent_2_time_not_found))
+        dialogMessage +=
+            mySPR.getString(CONSENT_DATE, getString(R.string.end_user_consent_2_date_not_found)) +
+                    getString(R.string.end_user_consent_2_message_2) +
+                    mySPR.getString(CONSENT_TIME, getString(R.string.end_user_consent_2_time_not_found))
         val spannableString = SpannableString(dialogMessage)
-        val clickableSpan1 = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                Utils.showLicenseDialog(myContext, PRIVACY_POLICY)
-            }
-        }
-        val clickableSpan2 = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                Utils.showLicenseDialog(myContext, TERMS_OF_USE)
-            }
-        }
-        var currentText = getString(R.string.end_user_consent_2_privacy_policy)
+        var currentText = getString(R.string.end_user_consent_2_date)
         var index = dialogMessage.indexOf(currentText)
-        spannableString.setSpan(
-            clickableSpan1, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        currentText = getString(R.string.end_user_consent_2_terms_of_use)
-        index = dialogMessage.indexOf(currentText)
-        spannableString.setSpan(
-            clickableSpan2, index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        currentText = getString(R.string.end_user_consent_2_date)
-        index = dialogMessage.indexOf(currentText)
         repeat(2) {
-            spannableString.setSpan(UnderlineSpan(), index, index + currentText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannableString.setSpan(
+                UnderlineSpan(),
+                index,
+                index + currentText.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             currentText = getString(R.string.end_user_consent_2_time)
             index = dialogMessage.indexOf(currentText)
         }
 
-        MaterialDialog(myContext).show {
-            title(R.string.end_user_consent_2_title)
-            message(text = spannableString) {
-                messageTextView.movementMethod = LinkMovementMethod.getInstance()
-            }
-            positiveButton(android.R.string.ok)
-            negativeButton(R.string.end_user_consent_2_button_2) {
+        MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+            .setView(R.layout.dialog_end_user_consent)
+            .setTitle(R.string.end_user_consent_2_title)
+            .setMessage(spannableString)
+            .setPositiveButton(android.R.string.ok, null)
+            .setNegativeButton(R.string.end_user_consent_2_button_2) { _, _ ->
                 val analytics = FirebaseAnalytics.getInstance(myContext)
                 analytics.resetAnalyticsData()
                 analytics.setAnalyticsCollectionEnabled(false)
@@ -494,6 +477,16 @@ class HomeFragment : Fragment() {
                 requireActivity().finish()
                 startActivity(Intent(myContext, MyAppIntro::class.java))
             }
-        }
+            .create().apply {
+                setOnShowListener {
+                    window?.findViewById<Button>(R.id.privacy_policy_button)?.setOnClickListener {
+                        Utils.showLicenseDialog(myContext, PRIVACY_POLICY)
+                    }
+                    window?.findViewById<Button>(R.id.terms_of_use_button)?.setOnClickListener {
+                        Utils.showLicenseDialog(myContext, TERMS_OF_USE)
+                    }
+                }
+                show()
+            }
     }
 }

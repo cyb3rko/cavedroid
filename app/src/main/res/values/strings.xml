@@ -40,10 +40,6 @@
     <string name="item_dialog_button1">Search for Item</string>
     <string name="item_dialog_button2.1">View Buyer</string>
     <string name="item_dialog_button2.2">View Seller</string>
-    <string name="item_dialog_button3">Copy Player Name</string>
-    <string name="item_dialog_button4">Copy Item Name</string>
-    <string name="item_dialog_button5">Copy Price</string>
-    <string name="item_dialog_button6">Copy Per Item Price</string>
 
     <string name="item_search_hint">Search</string>
 
@@ -52,11 +48,7 @@
     <string name="item_search_dialog_information3">Total Price</string>
     <string name="item_search_dialog_information4">@string/item_dialog_information4</string>
 
-    <string name="item_search_dialog_button1">View Seller Profile</string>
-    <string name="item_search_dialog_button2">Copy Seller Name</string>
-    <string name="item_search_dialog_button3">@string/item_dialog_button4</string>
-    <string name="item_search_dialog_button4">@string/item_dialog_button5</string>
-    <string name="item_search_dialog_button5">@string/item_dialog_button6</string>
+    <string name="item_search_dialog_button">View Seller Profile</string>
 
     <string name="ranking_button1">Richlist</string>
     <string name="ranking_button2">Top Sellers</string>
@@ -68,19 +60,13 @@
     <string name="ranking_item_units">%1$s\nSold Units</string>
     <string name="ranking_item_turnover">%1$s\nCoins</string>
 
-    <string name="ranking_player_dialog_button1">View Profile</string>
-    <string name="ranking_player_dialog_button2">Copy Name</string>
-    <string name="ranking_player_dialog_button3">Copy Balance</string>
+    <string name="ranking_player_dialog_button">View Profile</string>
 
     <string name="ranking_item_dialog_information1">Sold Units</string>
     <string name="ranking_item_dialog_information2">Total Turnover</string>
     <string name="ranking_item_dialog_information3">Per Item Average</string>
 
-    <string name="ranking_item_dialog_button1">Search for Item</string>
-    <string name="ranking_item_dialog_button2">Copy Item Name</string>
-    <string name="ranking_item_dialog_button3">Copy Sold Units</string>
-    <string name="ranking_item_dialog_button4">Copy Total Turnover</string>
-    <string name="ranking_item_dialog_button5">Copy Per Item Price</string>
+    <string name="ranking_item_dialog_button">Search for Item</string>
 
     <string name="clipboard_category_name">name</string>
     <string name="clipboard_category_item">item</string>
@@ -130,12 +116,12 @@
     <string name="end_user_consent_message">By using this app you agree to the Privacy Policy and the Terms of Use.</string>
     <string name="end_user_consent_button_1">Got it</string>
     <string name="end_user_consent_button_2">Cancel</string>
+    <string name="end_user_consent_privacy_policy">Privacy Policy</string>
+    <string name="end_user_consent_terms_of_use">Terms of Use</string>
 
     <string name="end_user_consent_2_title">Your End User Consent</string>
     <string name="end_user_consent_2_message_1">By using this app you have agreed to the Terms of Use and the Privacy Policy.\n\nDate:&#160;</string>
     <string name="end_user_consent_2_message_2">\n<u>Time:</u> </string>
-    <string name="end_user_consent_2_privacy_policy">Privacy Policy</string>
-    <string name="end_user_consent_2_terms_of_use">Terms of Use</string>
     <string name="end_user_consent_2_date">Date</string>
     <string name="end_user_consent_2_time">Time</string>
     <string name="end_user_consent_2_date_not_found">Date not found</string>

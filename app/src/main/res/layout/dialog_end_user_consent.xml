@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/privacy_policy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/terms_of_use_button"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:textColor="@color/textColor"
+        android:text="@string/end_user_consent_privacy_policy" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/terms_of_use_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/privacy_policy_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:textColor="@color/textColor"
+        android:text="@string/end_user_consent_terms_of_use" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

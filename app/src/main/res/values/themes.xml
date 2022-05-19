@@ -211,12 +211,13 @@
         <item name="colorControlNormal">@color/textColorSecondary</item>
     </style>
 
-    <style name="Dialog.Rounded" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    <style name="Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">?attr/colorSurfaceVariant</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonsStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonsStyle</item>
     </style>
 
-    <style name="DialogCorners">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+    <style name="DialogButtonsStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
     </style>
 </resources>

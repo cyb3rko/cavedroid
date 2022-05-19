@@ -8,7 +8,10 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Html
 import android.view.*
-import android.webkit.*
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -17,17 +20,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.list.listItems
-import com.cyb3rko.cavedroid.*
-import com.cyb3rko.cavedroid.webviews.JavascriptInterface
+import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.SHARED_PREFERENCE
+import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentListingBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
 import com.cyb3rko.cavedroid.rankings.OfferEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.OfferEntryViewState
 import com.cyb3rko.cavedroid.webviews.HtmlWebView
+import com.cyb3rko.cavedroid.webviews.JavascriptInterface
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.math.round
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -86,58 +90,52 @@ class ProfileCategoryFragment : Fragment() {
                                 val amount = entry.amount.toInt()
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
-                                MaterialDialog(myContext).show {
-                                    try {
-                                        icon(drawable = vh.avatarView.drawable)
-                                    } catch (e: Exception) {}
-                                    title(text = entry.player)
-                                    message(text = Html.fromHtml(
-                                        Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information1), entry.item) +
-                                                Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information2), entry.amount) +
-                                                Utils.getFormattedDialogPriceInformation(getString(R.string.item_dialog_information3), entry.price) +
-                                                Utils.getFormattedDialogPriceInformation(getString(R.string.item_dialog_information4), entry.perItem,
-                                                    false)
-                                    )) {
-                                        lineSpacing(1.4f)
+                                val icon = if (vh.avatarView.drawable != null) {
+                                    vh.avatarView.drawable
+                                } else null
+
+                                MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                                    .setIcon(icon)
+                                    .setTitle(entry.player)
+                                    .setMessage(Html.fromHtml(
+                                        Utils.getFormattedDialogInformation(
+                                            getString(R.string.item_dialog_information1),
+                                            entry.item
+                                        ) +
+                                                Utils.getFormattedDialogInformation(
+                                                    getString(R.string.item_dialog_information2),
+                                                    entry.amount
+                                                ) +
+                                                Utils.getFormattedDialogPriceInformation(
+                                                    getString(R.string.item_dialog_information3),
+                                                    entry.price
+                                                ) +
+                                                Utils.getFormattedDialogPriceInformation(
+                                                    getString(R.string.item_dialog_information4),
+                                                    perItem.toString(), false
+                                                )
+                                    ))
+                                    .setPositiveButton(
+                                        getString(R.string.item_dialog_button1)
+                                    ) { _, _ ->
+                                        findNavController().navigate(
+                                            R.id.go_to_item_search,
+                                            bundleOf("item" to entry.item)
+                                        )
                                     }
-                                    listItems(items = listOf(
-                                        getString(R.string.item_dialog_button1),
-                                        if (args.category == 1) getString(R.string.item_dialog_button2_1) else getString(
-                                            R.string.item_dialog_button2_2),
-                                        getString(R.string.item_dialog_button3),
-                                        getString(R.string.item_dialog_button4),
-                                        getString(R.string.item_dialog_button5),
-                                        getString(R.string.item_dialog_button6))
-                                    )
-                                    { _, index, _ ->
-                                        when (index) {
-                                            0 -> {
-                                                findNavController().navigate(R.id.go_to_item_search, bundleOf("item" to entry.item))
-                                            }
-                                            1 -> {
-                                                findNavController().navigate(R.id.go_to_home, bundleOf("name" to entry.player))
-                                            }
-                                            2 -> {
-                                                Utils.storeToClipboard(myContext, entry.player)
-                                                Utils.showClipboardToast(myContext, if (args.category == 1) "buyer name" else "seller name")
-                                            }
-                                            3 -> {
-                                                Utils.storeToClipboard(myContext, entry.item)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
-                                            }
-                                            4 -> {
-                                                val text = "${entry.price} Coins"
-                                                Utils.storeToClipboard(myContext, text)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_price))
-                                            }
-                                            5 -> {
-                                                val text = "$perItem Coins"
-                                                Utils.storeToClipboard(myContext, text)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
-                                            }
+                                    .setNegativeButton(
+                                        if (args.category == 1) {
+                                            getString(R.string.item_dialog_button2_1)
+                                        } else {
+                                            getString(R.string.item_dialog_button2_2)
                                         }
+                                    ) { _, _ ->
+                                        findNavController().navigate(
+                                            R.id.go_to_home,
+                                            bundleOf("name" to entry.player)
+                                        )
                                     }
-                                }
+                                    .show()
                             }
                             if (entry.player != "The Bank") {
                                 Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, entry.player, 100)
@@ -161,46 +159,35 @@ class ProfileCategoryFragment : Fragment() {
                                 val amount = entry.amount.toInt()
                                 val price = entry.price.replace(",", "").toFloat()
                                 val perItem = round(price / amount * 100) / 100
-                                MaterialDialog(myContext).show {
-                                    try {
-                                        icon(drawable = vh.iconView.drawable)
-                                    } catch (e: Exception) {}
-                                    title(text = entry.item)
-                                    message(text = Html.fromHtml(
-                                        Utils.getFormattedDialogInformation(getString(R.string.item_dialog_information2), entry.amount) +
-                                                Utils.getFormattedDialogPriceInformation(getString(R.string.item_dialog_information3), entry.price) +
-                                                Utils.getFormattedDialogPriceInformation(getString(R.string.item_dialog_information4), entry.perItem,
-                                                    false)
-                                    )) {
-                                        lineSpacing(1.4f)
+                                val icon = if (vh.iconView.drawable != null) {
+                                    vh.iconView.drawable
+                                } else null
+
+                                MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                                    .setIcon(icon)
+                                    .setTitle(entry.item)
+                                    .setMessage(Html.fromHtml(
+                                        Utils.getFormattedDialogInformation(
+                                            getString(R.string.item_dialog_information2),
+                                            entry.amount
+                                        ) +
+                                                Utils.getFormattedDialogPriceInformation(
+                                                    getString(R.string.item_dialog_information3),
+                                                    entry.price
+                                                ) +
+                                                Utils.getFormattedDialogPriceInformation(
+                                                    getString(R.string.item_dialog_information4),
+                                                    perItem.toString(), false
+                                                )
+                                    ))
+                                    .setPositiveButton(
+                                        getString(R.string.item_dialog_button1)
+                                    ) { _, _ ->
+                                        findNavController().navigate(
+                                            ProfileCategoryFragmentDirections.goToItemSearch(entry.item)
+                                        )
                                     }
-                                    listItems(items = listOf(
-                                        getString(R.string.item_dialog_button1),
-                                        getString(R.string.item_dialog_button4),
-                                        getString(R.string.item_dialog_button5),
-                                        getString(R.string.item_dialog_button6)))
-                                    { _, index, _ ->
-                                        when (index) {
-                                            0 -> {
-                                                findNavController().navigate(ProfileCategoryFragmentDirections.goToItemSearch(entry.item))
-                                            }
-                                            1 -> {
-                                                Utils.storeToClipboard(myContext, entry.item)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
-                                            }
-                                            2 -> {
-                                                val text = "${entry.price} Coins"
-                                                Utils.storeToClipboard(myContext, text)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_price))
-                                            }
-                                            3 -> {
-                                                val text = "$perItem Coins"
-                                                Utils.storeToClipboard(myContext, text)
-                                                Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
-                                            }
-                                        }
-                                    }
-                                }
+                                    .show()
                             }
                             Utils.loadItemIcon(myContext, vh.iconView, entry.item, missingIcons)
                         }

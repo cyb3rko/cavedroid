@@ -8,6 +8,7 @@ import android.text.Html
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAPIToken() = Secrets().getAPIToken(packageName)
 
-    fun receiveLatestAnnouncement(force: Boolean = false, progressDialog: MaterialDialog? = null) {
+    fun receiveLatestAnnouncement(force: Boolean = false, progressDialog: AlertDialog? = null) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFERENCE, MODE_PRIVATE)
         if (sharedPreferences.getBoolean(OLD_ANDROID, false)) return
         if (!force && !sharedPreferences.getBoolean(SHOW_ANNOUNCEMENTS, true)) return
@@ -128,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         guild: Guild,
         messageObject: Message,
         sharedPreferences: SharedPreferences,
-        progressDialog: MaterialDialog?
+        progressDialog: AlertDialog?
     ) {
         var message = messageObject.content
             .replace("<", "")

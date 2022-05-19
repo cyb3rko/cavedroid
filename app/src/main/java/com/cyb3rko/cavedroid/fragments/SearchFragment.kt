@@ -22,15 +22,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.list.listItems
-import com.cyb3rko.cavedroid.*
+import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.SHARED_PREFERENCE
+import com.cyb3rko.cavedroid.THEME
+import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
 import com.cyb3rko.cavedroid.webviews.HtmlWebView
 import com.cyb3rko.cavedroid.webviews.JavascriptInterface
 import com.cyb3rko.cavetaleapi.CavetaleAPI
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import kotlinx.coroutines.delay
@@ -113,54 +115,37 @@ class SearchFragment : Fragment() {
                     vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
                     vh.priceView.text = getString(R.string.item_price, marketEntry.price)
                     vh.playerView.text = marketEntry.player
+
                     vh.cardView.setOnClickListener {
-                        MaterialDialog(myContext).show {
-                            try {
-                                icon(drawable = vh.avatarView.drawable)
-                            } catch (e: Exception) {}
-                            title(text = marketEntry.player)
-                            message(text = Html.fromHtml(
-                                Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information1), marketEntry.item) +
-                                        Utils.getFormattedDialogInformation(getString(R.string.item_search_dialog_information2), marketEntry.amount) +
-                                        Utils.getFormattedDialogPriceInformation(getString(R.string.item_search_dialog_information3),
-                                            marketEntry.price) +
-                                        Utils.getFormattedDialogPriceInformation(getString(R.string.item_search_dialog_information4),
-                                            marketEntry.perItem))
-                            ) {
-                                lineSpacing(1.4f)
+                        val icon = if (vh.avatarView.drawable != null) {
+                            vh.avatarView.drawable
+                        } else null
+
+                        MaterialAlertDialogBuilder(myContext, R.style.Dialog)
+                            .setIcon(icon)
+                            .setTitle(marketEntry.player)
+                            .setMessage(Html.fromHtml(
+                                Utils.getFormattedDialogInformation(
+                                    getString(R.string.item_search_dialog_information1),
+                                    marketEntry.item
+                                ) +
+                                        Utils.getFormattedDialogInformation(
+                                            getString(R.string.item_search_dialog_information2),
+                                            marketEntry.amount
+                                        ) +
+                                        Utils.getFormattedDialogPriceInformation(
+                                            getString(R.string.item_search_dialog_information3),
+                                            marketEntry.price
+                                        ) +
+                                        Utils.getFormattedDialogPriceInformation(
+                                            getString(R.string.item_search_dialog_information4),
+                                            marketEntry.perItem
+                                        )
+                            ))
+                            .setPositiveButton(R.string.item_search_dialog_button) { _, _ ->
+                                findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.player))
                             }
-                            listItems(items = listOf(
-                                getString(R.string.item_search_dialog_button1),
-                                getString(R.string.item_search_dialog_button2),
-                                getString(R.string.item_search_dialog_button3),
-                                getString(R.string.item_search_dialog_button4),
-                                getString(R.string.item_search_dialog_button5)
-                            )) { _, index, _ ->
-                                when (index) {
-                                    0 -> {
-                                        findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.player))
-                                    }
-                                    1 -> {
-                                        Utils.storeToClipboard(myContext, marketEntry.player)
-                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
-                                    }
-                                    2 -> {
-                                        Utils.storeToClipboard(myContext, marketEntry.item)
-                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_item))
-                                    }
-                                    3 -> {
-                                        val text = "${marketEntry.price} Coins"
-                                        Utils.storeToClipboard(myContext, text)
-                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_price))
-                                    }
-                                    4 -> {
-                                        val text = "${marketEntry.perItem} Coins"
-                                        Utils.storeToClipboard(myContext, text)
-                                        Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_per_item_price))
-                                    }
-                                }
-                            }
-                        }
+                            .show()
                     }
                     if (marketEntry.player != "The Bank") {
                         Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, marketEntry.player, 100)
