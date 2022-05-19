@@ -67,7 +67,11 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -211,7 +215,11 @@ class HomeFragment : Fragment() {
     private fun loadProfile(name: String) {
         showInformation(false)
         showAnimation(true, true)
-        val formattedName = if (!name.contains(" ")) name else name.replace(" ", "%20")
+        val formattedName = if (!name.contains(" ")) {
+            name
+        } else {
+            name.replace(" ", "%20")
+        }
         val avatarName = if (name != "The Bank") name else "God"
         lifecycleScope.launch {
             try {
@@ -228,7 +236,12 @@ class HomeFragment : Fragment() {
                         .load(Utils.getAvatarLink(mySPR, api, avatarName, 500))
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .listener(object: RequestListener<Drawable> {
-                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
                                 Log.e("Cavedroid.Avatar", e?.message!!)
                                 return false
                             }
@@ -252,12 +265,30 @@ class HomeFragment : Fragment() {
                     binding.apply {
                         nameView.visibility = View.VISIBLE
                         nameView.text = name
-                        balanceView.text = getFormattedInformation(getString(R.string.home_balance_caption), user.balance)
-                        earningsView.text = getFormattedInformation(getString(R.string.home_earnings_caption), user.marketEarnings)
-                        spendingView.text = getFormattedInformation(getString(R.string.home_spendings_caption), user.marketSpendings)
-                        soldView.text = getFormattedInformation(getString(R.string.home_sold_caption), user.itemsSold)
-                        boughtView.text = getFormattedInformation(getString(R.string.home_bought_caption), user.itemsBought)
-                        offersView.text = getFormattedInformation(getString(R.string.home_offers_caption), user.currentOffers)
+                        balanceView.text = getFormattedInformation(
+                            getString(R.string.home_balance_caption),
+                            user.balance
+                        )
+                        earningsView.text = getFormattedInformation(
+                            getString(R.string.home_earnings_caption),
+                            user.marketEarnings
+                        )
+                        spendingView.text = getFormattedInformation(
+                            getString(R.string.home_spendings_caption),
+                            user.marketSpendings
+                        )
+                        soldView.text = getFormattedInformation(
+                            getString(R.string.home_sold_caption),
+                            user.itemsSold
+                        )
+                        boughtView.text = getFormattedInformation(
+                            getString(R.string.home_bought_caption),
+                            user.itemsBought
+                        )
+                        offersView.text = getFormattedInformation(
+                            getString(R.string.home_offers_caption),
+                            user.currentOffers
+                        )
                     }
                     showInformation(true)
                 }
@@ -268,7 +299,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getFormattedInformation(category: String, value: String) = Html.fromHtml("<b>$category</b><br/>$value")
+    private fun getFormattedInformation(category: String, value: String): Spanned {
+        return Html.fromHtml("<b>$category</b><br/>$value")
+    }
 
     private fun showInformation(show: Boolean) {
         val visibility = if (show) View.VISIBLE else View.INVISIBLE
@@ -306,7 +339,11 @@ class HomeFragment : Fragment() {
         val searchView = menuSearchItem.actionView as SearchView
         searchView.queryHint = getString(R.string.search_view_hint)
         searchView.isIconifiedByDefault = false
-        val id = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val id = searchView.context.resources.getIdentifier(
+            "android:id/search_src_text",
+            null,
+            null
+        )
         val textview = searchView.findViewById<AutoCompleteTextView>(id)
         textview.setTextColor(resources.getColor(R.color.colorSearchView))
         textview.setHintTextColor(resources.getColor(R.color.colorSearchViewHint))
@@ -314,7 +351,9 @@ class HomeFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     val formattedQuery = query.trim()
-                    if (formattedQuery == "The Bank" || (Regex("[a-zA-Z0-9_]+").matches(query) && formattedQuery.length < 17)) {
+                    if (formattedQuery == "The Bank" ||
+                        (Regex("[a-zA-Z0-9_]+").matches(query) && formattedQuery.length < 17)
+                    ) {
                         Utils.hideKeyboard(requireActivity())
                         binding.animationView.playAnimation()
                         binding.animationView.visibility = View.VISIBLE
@@ -322,7 +361,8 @@ class HomeFragment : Fragment() {
                         loadProfile(formattedQuery)
                         currentName = formattedQuery
                         if (formattedQuery.isNotBlank()) {
-                            FirebaseAnalytics.getInstance(myContext).logEvent("player_search") {
+                            FirebaseAnalytics.getInstance(myContext)
+                                .logEvent("player_search") {
                                 param("player", formattedQuery)
                             }
                         }
@@ -431,7 +471,9 @@ class HomeFragment : Fragment() {
                             currentName = newName
                             loadProfile(newName)
 
-                            if (!cancelable) (requireActivity() as MainActivity).receiveLatestAnnouncement()
+                            if (!cancelable) {
+                                (requireActivity() as MainActivity).receiveLatestAnnouncement()
+                            }
                         } else {
                             inputField.error = getString(R.string.name_dialog_error)
                         }

@@ -27,7 +27,11 @@ class AppIntro3rdFragment : Fragment(), SlidePolicy {
     private lateinit var checkBox2: CheckBox
     private var toast: Toast? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAppintro3Binding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +54,11 @@ class AppIntro3rdFragment : Fragment(), SlidePolicy {
 
     override fun onUserIllegallyRequestedNextPage() {
         if (toast != null) toast!!.cancel()
-        toast = Toast.makeText(requireContext(), getString(R.string.intro_fragment3_toast), Toast.LENGTH_LONG)
+        toast = Toast.makeText(
+            requireContext(),
+            getString(R.string.intro_fragment3_toast),
+            Toast.LENGTH_LONG
+        )
         toast!!.show()
     }
 

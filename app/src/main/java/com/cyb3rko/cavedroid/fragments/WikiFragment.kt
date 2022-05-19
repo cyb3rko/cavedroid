@@ -20,9 +20,12 @@ class WikiFragment : Fragment(), View.OnClickListener {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentWikiBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -32,7 +35,11 @@ class WikiFragment : Fragment(), View.OnClickListener {
         val mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
         val drawableId = Utils.getBackgroundDrawableId(resources, mySPR)
         if (drawableId != -1) {
-            binding.root.background = ResourcesCompat.getDrawable(resources, drawableId, requireContext().theme)
+            binding.root.background = ResourcesCompat.getDrawable(
+                resources,
+                drawableId,
+                requireContext().theme
+            )
         }
 
         binding.innerLayout.children.forEach {

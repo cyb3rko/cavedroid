@@ -58,7 +58,11 @@ class ProfileCategoryFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -138,9 +142,23 @@ class ProfileCategoryFragment : Fragment() {
                                     .show()
                             }
                             if (entry.player != "The Bank") {
-                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, entry.player, 100)
+                                Utils.loadAvatar(
+                                    myContext,
+                                    api,
+                                    mySPR,
+                                    vh.avatarView,
+                                    entry.player,
+                                    100
+                                )
                             } else {
-                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
+                                Utils.loadAvatar(
+                                    myContext,
+                                    api,
+                                    mySPR,
+                                    vh.avatarView,
+                                    "God",
+                                    100
+                                )
                             }
                             Utils.loadItemIcon(myContext, vh.iconView, entry.item, missingIcons)
                         }
@@ -184,7 +202,8 @@ class ProfileCategoryFragment : Fragment() {
                                         getString(R.string.item_dialog_button1)
                                     ) { _, _ ->
                                         findNavController().navigate(
-                                            ProfileCategoryFragmentDirections.goToItemSearch(entry.item)
+                                            ProfileCategoryFragmentDirections
+                                                .goToItemSearch(entry.item)
                                         )
                                     }
                                     .show()
@@ -213,7 +232,11 @@ class ProfileCategoryFragment : Fragment() {
                 }
             }
 
-            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
                 showAnimation(true, false, false)
             }
         }
@@ -260,9 +283,29 @@ class ProfileCategoryFragment : Fragment() {
             val finalList = MutableList(list.size) {
                 val tempList = list[it]
                 when (args.category) {
-                    1, 2 -> MarketViewState.MarketEntry(tempList[3], tempList[0], tempList[1], tempList[2], "", "")
-                    3 -> OfferEntryViewState.OfferEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
-                    else -> MarketViewState.MarketEntry("", tempList[0], tempList[1], tempList[2], tempList[3], tempList[4])
+                    1, 2 -> MarketViewState.MarketEntry(
+                        tempList[3],
+                        tempList[0],
+                        tempList[1],
+                        tempList[2],
+                        "",
+                        ""
+                    )
+                    3 -> OfferEntryViewState.OfferEntry(
+                        tempList[0],
+                        tempList[1],
+                        tempList[2],
+                        tempList[3],
+                        tempList[4]
+                    )
+                    else -> MarketViewState.MarketEntry(
+                        "",
+                        tempList[0],
+                        tempList[1],
+                        tempList[2],
+                        tempList[3],
+                        tempList[4]
+                    )
                 }
             }
             showAnimation(false, true, false)
@@ -282,7 +325,11 @@ class ProfileCategoryFragment : Fragment() {
         binding.recycler.visibility = visibility
     }
 
-    private fun showAnimation(show: Boolean, connected: Boolean, emptyList: Boolean) {
+    private fun showAnimation(
+        show: Boolean,
+        connected: Boolean,
+        emptyList: Boolean
+    ) {
         val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
         val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
         val newSpeed = if (emptyList || !connected) 1.2f else 3f

@@ -21,7 +21,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class PreferenceFragment : PreferenceFragmentCompat() {
-
     private lateinit var mySPR: SharedPreferences
 
     private lateinit var nightModeList: ListPreference
@@ -81,11 +80,13 @@ class PreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
             ANALYTICS_COLLECTION -> {
-                FirebaseAnalytics.getInstance(requireContext()).setAnalyticsCollectionEnabled(analyticsCollectionSwitch.isChecked)
+                FirebaseAnalytics.getInstance(requireContext())
+                    .setAnalyticsCollectionEnabled(analyticsCollectionSwitch.isChecked)
                 true
             }
             CRASHLYTICS_COLLECTION -> {
-                FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsCollectionSwitch.isChecked)
+                FirebaseCrashlytics.getInstance()
+                    .setCrashlyticsCollectionEnabled(crashlyticsCollectionSwitch.isChecked)
                 true
             }
             DATA_DELETION -> {

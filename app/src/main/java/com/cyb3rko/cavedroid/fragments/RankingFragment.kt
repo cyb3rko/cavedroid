@@ -49,7 +49,11 @@ class RankingFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentListingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -97,9 +101,23 @@ class RankingFragment : Fragment() {
                                     .show()
                             }
                             if (player.name != "The Bank") {
-                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, player.name, 100)
+                                Utils.loadAvatar(
+                                    myContext,
+                                    api,
+                                    mySPR,
+                                    vh.avatarView,
+                                    player.name,
+                                    100
+                                )
                             } else {
-                                Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
+                                Utils.loadAvatar(
+                                    myContext,
+                                    api,
+                                    mySPR,
+                                    vh.avatarView,
+                                    "God",
+                                    100
+                                )
                             }
                         }
                     )
@@ -119,7 +137,10 @@ class RankingFragment : Fragment() {
                             vh.turnoverView.text = item.turnover
                             vh.cardView.setOnClickListener {
                                 val amount = item.amount.dropLast(11).toInt()
-                                val price = item.turnover.replace(",", "").dropLast(6).toFloat()
+                                val price = item.turnover
+                                    .replace(",", "")
+                                    .dropLast(6)
+                                    .toFloat()
                                 val perItem = round(price / amount * 100) / 100
                                 val icon = if (vh.avatarView.drawable != null) {
                                     vh.avatarView.drawable

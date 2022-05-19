@@ -57,7 +57,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        if (mySPR.getString(THEME, "0")!!.toInt() !in listOf(R.style.Theme_Cavedroid_Standard, R.style.Theme_Cavedroid_Green)) {
+        if (mySPR.getString(THEME, "0")!!.toInt() !in listOf(
+                R.style.Theme_Cavedroid_Standard,
+                R.style.Theme_Cavedroid_Green)
+        ) {
             mySPR.edit().putString(THEME, R.style.Theme_Cavedroid_Standard.toString()).commit()
         }
         setTheme(mySPR.getString(THEME, "0")!!.toInt())
@@ -81,8 +84,12 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         when (intent.action) {
-            "com.cyb3rko.cavedroid.searchshortcut" -> navController.navigate(R.id.navigation_notifications)
-            "com.cyb3rko.cavedroid.rankingsshortcut" -> navController.navigate(R.id.navigation_rankings)
+            "com.cyb3rko.cavedroid.searchshortcut" -> navController.navigate(
+                R.id.navigation_notifications
+            )
+            "com.cyb3rko.cavedroid.rankingsshortcut" -> navController.navigate(
+                R.id.navigation_rankings
+            )
         }
     }
 
@@ -106,10 +113,18 @@ class MainActivity : AppCompatActivity() {
                 if (token != "0") {
                     val kord = Kord(token)
                     val guild = kord.getGuild(Snowflake(195206438623248384))!!
-                    val messageObject = (guild.getChannel(Snowflake(265060069194858496)) as MessageChannel).getLastMessage()!!
+                    val messageObject = (guild.getChannel(
+                        Snowflake(265060069194858496)
+                    ) as MessageChannel).getLastMessage()!!
 
-                    if (force || messageObject.id.value.toLong() != sharedPreferences.getLong(LATEST_MESSAGE, 0)) {
-                        showAnnouncementDialog(guild, messageObject, sharedPreferences, progressDialog)
+                    if (force || messageObject.id.value.toLong() !=
+                        sharedPreferences.getLong(LATEST_MESSAGE, 0)
+                    ) {
+                        showAnnouncementDialog(
+                            guild,
+                            messageObject, sharedPreferences,
+                            progressDialog
+                        )
                     } else {
                         progressDialog?.cancel()
                     }
@@ -118,11 +133,17 @@ class MainActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 progressDialog?.cancel()
-                Toast.makeText(applicationContext, "Showing recent Announcement failed", Toast.LENGTH_SHORT).show()
-                Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
+                Toast.makeText(
+                    applicationContext,
+                    "Showing recent Announcement failed",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e(
+                    "Cavedroid.MainActivity",
+                    "Reading and showing announcement failed: $e, ${e.message}"
+                )
             }
         }
-
     }
 
     private suspend fun showAnnouncementDialog(
@@ -168,8 +189,15 @@ class MainActivity : AppCompatActivity() {
                 message = "${substrings[0]}&%$name${substrings[1].drop(18)}"
             } catch (e: Exception) {
                 message = message.replaceFirst("#", "&%")
-                Toast.makeText(applicationContext, "Showing recent Announcement failed", Toast.LENGTH_SHORT).show()
-                Log.e("Cavedroid.MainActivity", "Reading and showing announcement failed: $e, ${e.message}")
+                Toast.makeText(
+                    applicationContext,
+                    "Showing recent Announcement failed",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e(
+                    "Cavedroid.MainActivity",
+                    "Reading and showing announcement failed: $e, ${e.message}"
+                )
             }
             iterations++
         }
@@ -188,7 +216,8 @@ class MainActivity : AppCompatActivity() {
             if (endIndex == -1) {
                 endIndex = message.indexOf(":t)", index + 12)
             }
-            message = message.substring(0 until index - 1) + message.substring(endIndex + 3)
+            message = message.substring(0 until index - 1) +
+                    message.substring(endIndex + 3)
             iterations++
         }
 
@@ -206,7 +235,9 @@ class MainActivity : AppCompatActivity() {
             val date = Date(time)
             @SuppressLint("SimpleDateFormat")
             val formattedDate = SimpleDateFormat("MM/dd/yyyy - HH:mm 'UTC'").format(date)
-            message = message.substring(0 until index) + formattedDate + message.substring(endIndex + 2)
+            message = message.substring(0 until index) +
+                    formattedDate +
+                    message.substring(endIndex + 2)
             iterations++
         }
 
@@ -214,20 +245,31 @@ class MainActivity : AppCompatActivity() {
 
         runOnUiThread {
             progressDialog?.cancel()
-            MaterialDialog(this@MainActivity, BottomSheet(LayoutMode.MATCH_PARENT)).show {
-                customView(viewRes = R.layout.announcement_dialog, scrollable = true, noVerticalPadding = true)
+            MaterialDialog(
+                this@MainActivity,
+                BottomSheet(LayoutMode.MATCH_PARENT)
+            ).show {
+                customView(
+                    viewRes = R.layout.announcement_dialog,
+                    scrollable = true,
+                    noVerticalPadding = true
+                )
                 onPreShow {
                     val view = it.getCustomView()
                     if (messageObject.attachments.isNotEmpty()) {
                         val drawable = messageObject.attachments.toList()[0]
-                        if (sharedPreferences.getBoolean(ANNOUNCEMENT_IMAGE, true) && drawable.isImage) {
+                        if (sharedPreferences.getBoolean(ANNOUNCEMENT_IMAGE, true) &&
+                            drawable.isImage
+                        ) {
                             Glide.with(applicationContext)
                                 .load(drawable.url)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .into(view.findViewById(R.id.image))
                         }
                     }
-                    view.findViewById<TextView>(R.id.message).text = Html.fromHtml(Processor.process(message))
+                    view.findViewById<TextView>(R.id.message).text = Html.fromHtml(
+                        Processor.process(message)
+                    )
                 }
             }
         }
@@ -237,7 +279,11 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun reportAnnouncementError(message: Message) {
         try {
-            Toast.makeText(applicationContext, "Showing recent Announcement failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                "Showing recent Announcement failed",
+                Toast.LENGTH_SHORT
+            ).show()
             val kord = Kord(Secrets().getAPIToken(packageName))
             val channel = kord.getGuild(Snowflake(840366805649457172))
                 ?.getChannel(Snowflake(933683219075838012))
@@ -254,7 +300,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+        val hostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_activity_main)
         val fragment = hostFragment?.childFragmentManager?.fragments?.get(0)
         if (fragment is ProfileCategoryFragment) {
             fragment.returnToHome()

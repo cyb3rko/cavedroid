@@ -57,27 +57,44 @@ internal const val SHOW_ANNOUNCEMENTS = "show_announcements"
 internal const val THEME = "theme"
 
 object Utils {
-    internal fun showToast(context: Context, message: String, length: Int = Toast.LENGTH_SHORT) {
+    internal fun showToast(
+        context: Context,
+        message: String,
+        length: Int = Toast.LENGTH_SHORT
+    ) {
         Toast.makeText(context, message, length).show()
     }
 
-    internal fun showClipboardToast(context: Context, content: String) = showToast(context, "Copied $content to clipboard")
+    internal fun showClipboardToast(context: Context, content: String) {
+        showToast(context, "Copied $content to clipboard")
+    }
 
-    internal fun storeToClipboard(context: Context, label: String, text: String = label) {
+    internal fun storeToClipboard(
+        context: Context,
+        label: String,
+        text: String = label
+    ) {
         val clip = ClipData.newPlainText(label, text)
-        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
+            .setPrimaryClip(clip)
     }
 
     internal fun showLicenseDialog(context: Context?, type: String) {
         MaterialDialog(context!!, BottomSheet()).show {
             @Suppress("DEPRECATION")
-            message(0, Html.fromHtml(context.assets.open("$type.html").bufferedReader().use { it.readText() })) {
+            message(0, Html.fromHtml(
+                context.assets.open("$type.html").bufferedReader().use { it.readText() }
+            )) {
                 messageTextView.movementMethod = LinkMovementMethod.getInstance()
             }
         }
     }
 
-    internal fun showMissingIconsDialog(context: Context, missingIcons: MutableSet<String>, mySPR: SharedPreferences) {
+    internal fun showMissingIconsDialog(
+        context: Context,
+        missingIcons: MutableSet<String>,
+        mySPR: SharedPreferences
+    ) {
         val message = if (missingIcons.isNotEmpty()) {
             context.getString(R.string.missing_icons_dialog_message1, missingIcons.size.toString())
         } else {
@@ -92,22 +109,34 @@ object Utils {
                 GlobalScope.launch {
                     try {
                         val kord = Kord(Secrets().getAPIToken(context.packageName))
-                        val channel = kord.getGuild(Snowflake(840366805649457172))?.getChannel(Snowflake(852596801432453170))
-                        var reportMessage = context.getString(R.string.missing_icons_discord_message, name, missingIcons.size)
+                        val channel = kord.getGuild(Snowflake(840366805649457172)
+                        )?.getChannel(Snowflake(852596801432453170))
+                        var reportMessage = context.getString(
+                            R.string.missing_icons_discord_message,
+                            name,
+                            missingIcons.size
+                        )
                         missingIcons.sorted().forEach {
                             reportMessage += "\n$it"
                         }
                         (channel as MessageChannel).createMessage(reportMessage)
                         missingIcons.clear()
                     } catch (e: Exception) {
-                        Log.e("Cavedroid.Utils", "Reading and reporting missing icons failed: $e, ${e.message}")
+                        Log.e(
+                            "Cavedroid.Utils",
+                            "Reading and reporting missing icons failed: $e, ${e.message}"
+                        )
                     }
                 }
             }
         }
     }
 
-    internal fun getFormattedDialogInformation(category: String, value: String, lineBreak: Boolean = true): String {
+    internal fun getFormattedDialogInformation(
+        category: String,
+        value: String,
+        lineBreak: Boolean = true
+    ): String {
         var information = "<b>$category</b>: $value"
         if (lineBreak) {
             information += "<br/>"
@@ -115,11 +144,18 @@ object Utils {
         return information
     }
 
-    internal fun getFormattedDialogPriceInformation(category: String, value: String, lineBreak: Boolean = true): String {
-        return getFormattedDialogInformation(category, "$value Coins", lineBreak)
-    }
+    internal fun getFormattedDialogPriceInformation(
+        category: String,
+        value: String,
+        lineBreak: Boolean = true
+    ) = getFormattedDialogInformation(category, "$value Coins", lineBreak)
 
-    internal fun loadItemIcon(context: Context, imageView: ImageView, item: String, missingIcons: MutableSet<String>) {
+    internal fun loadItemIcon(
+        context: Context,
+        imageView: ImageView,
+        item: String,
+        missingIcons: MutableSet<String>
+    ) {
         imageView.setImageResource(0)
         if (item.contains("Player Head") && item != "Player Head <Cavetale>") {
             if (item == "Player Head" || item == "Player Head <>") {
@@ -135,7 +171,11 @@ object Utils {
                 .toLowerCase()
 
             GlobalScope.launch {
-                val resId = context.resources.getIdentifier(playerHeadName, "string", context.packageName)
+                val resId = context.resources.getIdentifier(
+                    playerHeadName,
+                    "string",
+                    context.packageName
+                )
                 if (resId != 0) {
                     val skinId = context.getString(resId)
                     try {
@@ -185,7 +225,11 @@ object Utils {
             return
         }
         if (item.contains("pocket", true)) {
-            val avatarResId = context.resources.getIdentifier("item_pocket_mob", "drawable", context.packageName)
+            val avatarResId = context.resources.getIdentifier(
+                "item_pocket_mob",
+                "drawable",
+                context.packageName
+            )
             imageView.setImageResource(avatarResId)
             return
         }
@@ -196,7 +240,11 @@ object Utils {
             .replace(">", "")
             .toLowerCase()
         val formattedName = itemName.split(",")[0]
-        val avatarResId = context.resources.getIdentifier("_item_$formattedName", "drawable", context.packageName)
+        val avatarResId = context.resources.getIdentifier(
+            "_item_$formattedName",
+            "drawable",
+            context.packageName
+        )
         if (avatarResId != 0) {
             imageView.setImageResource(avatarResId)
         } else {
@@ -205,7 +253,9 @@ object Utils {
     }
 
     internal fun hideKeyboard(activity: Activity) {
-        val imm = activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity.getSystemService(
+            AppCompatActivity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
         var view = activity.currentFocus
         if (view == null) {
             view = View(activity)
@@ -213,19 +263,29 @@ object Utils {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    internal fun loadAvatar(context: Context, api: CavetaleAPI, mySPR: SharedPreferences, imageView: ImageView, name: String, size: Int) {
+    internal fun loadAvatar(
+        context: Context,
+        api: CavetaleAPI,
+        mySPR: SharedPreferences,
+        imageView: ImageView,
+        name: String,
+        size: Int
+    ) {
         Glide.with(context)
             .load(getAvatarLink(mySPR, api, name, size))
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
     }
 
-    internal fun getAvatarLink(mySPR: SharedPreferences, api: CavetaleAPI, avatarName: String, size: Int): String {
-        return when (mySPR.getString(AVATAR_TYPE, "avatar")) {
-            "avatar" -> api.getAvatarLink(avatarName, size)
-            "bust" -> api.getBustLink(avatarName, size)
-            else -> ""
-        }
+    internal fun getAvatarLink(
+        mySPR: SharedPreferences,
+        api: CavetaleAPI,
+        avatarName: String,
+        size: Int
+    ) = when (mySPR.getString(AVATAR_TYPE, "avatar")) {
+        "avatar" -> api.getAvatarLink(avatarName, size)
+        "bust" -> api.getBustLink(avatarName, size)
+        else -> ""
     }
 
     internal fun getBackgroundDrawableId(resources: Resources, mySPR: SharedPreferences): Int {

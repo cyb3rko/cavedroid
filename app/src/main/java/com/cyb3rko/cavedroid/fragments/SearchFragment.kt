@@ -61,7 +61,11 @@ class SearchFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentItemSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -111,7 +115,8 @@ class SearchFragment : Fragment() {
             register(
                 layoutResource = R.layout.item_recycler_market,
                 viewHolder = ::MarketEntryViewHolder,
-                onBindViewHolder = { vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
+                onBindViewHolder = {
+                        vh: MarketEntryViewHolder, _, marketEntry: MarketViewState.MarketEntry ->
                     vh.amountView.text = getString(R.string.item_amount, marketEntry.amount, marketEntry.item)
                     vh.priceView.text = getString(R.string.item_price, marketEntry.price)
                     vh.playerView.text = marketEntry.player
@@ -143,14 +148,31 @@ class SearchFragment : Fragment() {
                                         )
                             ))
                             .setPositiveButton(R.string.item_search_dialog_button) { _, _ ->
-                                findNavController().navigate(R.id.go_to_home, bundleOf("name" to marketEntry.player))
+                                findNavController().navigate(
+                                    R.id.go_to_home,
+                                    bundleOf("name" to marketEntry.player)
+                                )
                             }
                             .show()
                     }
                     if (marketEntry.player != "The Bank") {
-                        Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, marketEntry.player, 100)
+                        Utils.loadAvatar(
+                            myContext,
+                            api,
+                            mySPR,
+                            vh.avatarView,
+                            marketEntry.player,
+                            100
+                        )
                     } else {
-                        Utils.loadAvatar(myContext, api, mySPR, vh.avatarView, "God", 100)
+                        Utils.loadAvatar(
+                            myContext,
+                            api,
+                            mySPR,
+                            vh.avatarView,
+                            "God",
+                            100
+                        )
                     }
                     Utils.loadItemIcon(myContext, vh.iconView, marketEntry.item, missingIcons)
                 }
@@ -174,7 +196,11 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
                 showAnimation(true, false)
             }
         }
@@ -233,7 +259,14 @@ class SearchFragment : Fragment() {
         val list = api.getMarketResults(webInterface.html!!)
         val finalList = MutableList(list.size) {
             val tempList = list[it]
-            MarketViewState.MarketEntry(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
+            MarketViewState.MarketEntry(
+                tempList[0],
+                tempList[1],
+                tempList[2],
+                tempList[3],
+                tempList[4],
+                tempList[5]
+            )
         }
         if (finalList.isNotEmpty()) {
             showAnimation(false)
@@ -255,7 +288,11 @@ class SearchFragment : Fragment() {
         binding.recycler.visibility = visibility
     }
 
-    private fun showAnimation(show: Boolean, connected: Boolean = true, emptyList: Boolean = false) {
+    private fun showAnimation(
+        show: Boolean,
+        connected: Boolean = true,
+        emptyList: Boolean = false
+    ) {
         val viewVisibility = if (show) View.VISIBLE else View.INVISIBLE
         val infoVisibility = if (show && !connected) View.VISIBLE else View.INVISIBLE
         val newSpeed = if (emptyList || !connected) 1.2f else 3f
@@ -280,7 +317,10 @@ class SearchFragment : Fragment() {
     private fun setEditTextColors() {
         if (Utils.isNightModeActive(resources)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                binding.textInputLayout.boxBackgroundColor = resources.getColor(R.color.dark, myContext.theme)
+                binding.textInputLayout.boxBackgroundColor = resources.getColor(
+                    R.color.dark,
+                    myContext.theme
+                )
             } else {
                 @SuppressLint("ResourceAsColor")
                 binding.textInputLayout.boxBackgroundColor = R.color.dark
@@ -292,7 +332,11 @@ class SearchFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.topbar_menu2, menu)
         menu.findItem(R.id.missing_icons_report).setOnMenuItemClickListener {
-            Utils.showMissingIconsDialog(myContext, missingIcons, requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE))
+            Utils.showMissingIconsDialog(
+                myContext,
+                missingIcons,
+                requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
+            )
             true
         }
     }

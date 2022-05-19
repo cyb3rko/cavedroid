@@ -21,7 +21,11 @@ class AppIntro4thFragment : Fragment() {
     private lateinit var checkBox1: CheckBox
     private lateinit var checkBox2: CheckBox
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAppintro4Binding.inflate(inflater, container, false)
         return binding.root
     }

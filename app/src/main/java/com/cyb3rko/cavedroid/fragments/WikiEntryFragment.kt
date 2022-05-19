@@ -38,11 +38,19 @@ class WikiEntryFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         myContext = requireContext()
         val name = args.name.toLowerCase().replace(" ", "_")
         try {
-            val arrayId = myContext.resources.getIdentifier(name, "array", myContext.packageName)
+            val arrayId = myContext.resources.getIdentifier(
+                name,
+                "array",
+                myContext.packageName
+            )
             val info = myContext.resources.getStringArray(arrayId)
             val binding = FragmentWikiEntryBinding.inflate(inflater, container, false)
             binding.text.movementMethod = LinkMovementMethod.getInstance()
@@ -60,12 +68,17 @@ class WikiEntryFragment : Fragment() {
             }
             return binding.root
         } catch (e: Exception) {
-            val linkStringId = myContext.resources.getIdentifier("wiki_$name", "string", myContext.packageName)
+            val linkStringId = myContext.resources.getIdentifier(
+                "wiki_$name",
+                "string",
+                myContext.packageName
+            )
             link = myContext.resources.getString(linkStringId)
 
             val binding = when (name) {
                 COLORFALL_MAP_MAKING -> {
-                    val tempBinding = FragmentWikiEntryColorfallMapMakingBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryColorfallMapMakingBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2,
@@ -91,7 +104,8 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 VERTIGO_MAP_MAKING -> {
-                    val tempBinding = FragmentWikiEntryVertigoMapMakingBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryVertigoMapMakingBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2,
@@ -113,7 +127,8 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 LANDMARKS -> {
-                    val tempBinding = FragmentWikiEntryLandmarksBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryLandmarksBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2,
@@ -135,7 +150,8 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 LINK_PORTALS -> {
-                    val tempBinding = FragmentWikiEntryLinkPortalsBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryLinkPortalsBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2,
@@ -155,7 +171,8 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 CHEST_SHOPS -> {
-                    val tempBinding = FragmentWikiEntryChestShopsBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryChestShopsBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2,
@@ -173,7 +190,8 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 COLORFALL -> {
-                    val tempBinding = FragmentWikiEntryColorfallBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryColorfallBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2
@@ -189,7 +207,8 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 RAID_HUB -> {
-                    val tempBinding = FragmentWikiEntryRaidHubBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiEntryRaidHubBinding
+                        .inflate(inflater, container, false)
                     val textViews = listOf(
                         tempBinding.text1,
                         tempBinding.text2,
@@ -218,9 +237,14 @@ class WikiEntryFragment : Fragment() {
                     tempBinding
                 }
                 else -> {
-                    val stringId = myContext.resources.getIdentifier("wiki_$name", "string", myContext.packageName)
+                    val stringId = myContext.resources.getIdentifier(
+                        "wiki_$name",
+                        "string",
+                        myContext.packageName
+                    )
                     val link = getString(stringId)
-                    val tempBinding = FragmentWikiWebviewBinding.inflate(inflater, container, false)
+                    val tempBinding = FragmentWikiWebviewBinding
+                        .inflate(inflater, container, false)
                     tempBinding.swipeRefreshLayout.apply {
                         setProgressBackgroundColorSchemeResource(R.color.refreshLayoutBackground)
                         setColorSchemeResources(R.color.refreshLayoutArrow)
@@ -251,7 +275,10 @@ class WikiEntryFragment : Fragment() {
                             tempBinding.animationView.setAnimation("no-connection.json")
                         }
                     }
-                    val mySPR = requireActivity().getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE)
+                    val mySPR = requireActivity().getSharedPreferences(
+                        SHARED_PREFERENCE,
+                        Context.MODE_PRIVATE
+                    )
                     val progressColor = when (mySPR.getString(THEME, "0")!!.toInt()) {
                         R.style.Theme_Cavedroid_Standard -> R.color.colorPrimaryInverse
                         R.style.Theme_Cavedroid_Green -> R.color.colorPrimaryInverseGreen
@@ -285,7 +312,11 @@ class WikiEntryFragment : Fragment() {
 
     private fun loadStringsIntoViews(textViews: List<TextView>, stringName: String) {
         textViews.forEachIndexed { index, textView ->
-            val stringId = myContext.resources.getIdentifier("$stringName${index + 1}", "string", myContext.packageName)
+            val stringId = myContext.resources.getIdentifier(
+                "$stringName${index + 1}",
+                "string",
+                myContext.packageName
+            )
             val string = getString(stringId)
             textView.text = Html.fromHtml(Processor.process(string))
         }
@@ -293,7 +324,11 @@ class WikiEntryFragment : Fragment() {
 
     private fun loadImagesIntoViews(imageViews: List<ImageView>, stringName: String) {
         imageViews.forEachIndexed { index, imageView ->
-            val stringId = myContext.resources.getIdentifier("$stringName${index + 1}", "string", myContext.packageName)
+            val stringId = myContext.resources.getIdentifier(
+                "$stringName${index + 1}",
+                "string",
+                myContext.packageName
+            )
             val string = getString(stringId)
             loadImage(string, imageView)
         }

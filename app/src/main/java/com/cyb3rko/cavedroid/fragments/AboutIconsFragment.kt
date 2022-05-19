@@ -10,7 +10,11 @@ import com.cyb3rko.cavedroid.R
 
 class AboutIconsFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val aboutIcons = AboutIcons(

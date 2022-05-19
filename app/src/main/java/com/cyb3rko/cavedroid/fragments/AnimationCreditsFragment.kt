@@ -18,7 +18,11 @@ import com.cyb3rko.cavedroid.R
 
 class AnimationCreditsFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val myContext = requireContext()
         val information = listOf(
             Triple("Fake 3d coin", "Saim Hayyat", "https://lottiefiles.com/36928-fake-3d-coin"),
@@ -40,7 +44,12 @@ class AnimationCreditsFragment : Fragment() {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.third)))
                 }
             }
-            spannableString.setSpan(clickableSpan, 0, it.first.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            spannableString.setSpan(
+                clickableSpan,
+                0,
+                it.first.length,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE
+            )
             textView.text = spannableString
             textView.movementMethod = LinkMovementMethod.getInstance()
             linearLayout.addView(textView)
