@@ -108,12 +108,13 @@ class MainActivity : AppCompatActivity() {
         if (sharedPreferences.getString(NAME, "")!!.isBlank()) return
 
         lifecycleScope.launch {
+            var messageObject: Message? = null
             try {
                 val token = getAPIToken()
                 if (token != "0") {
                     val kord = Kord(token)
                     val guild = kord.getGuild(Snowflake(195206438623248384))!!
-                    val messageObject = (guild.getChannel(
+                    messageObject = (guild.getChannel(
                         Snowflake(265060069194858496)
                     ) as MessageChannel).getLastMessage()!!
 
@@ -133,11 +134,9 @@ class MainActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 progressDialog?.cancel()
-                Toast.makeText(
-                    applicationContext,
-                    "Showing recent Announcement failed",
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (messageObject != null) {
+                    reportAnnouncementError(messageObject, e.toString())
+                }
                 Log.e(
                     "Cavedroid.MainActivity",
                     "Reading and showing announcement failed: $e, ${e.message}"
@@ -162,7 +161,7 @@ class MainActivity : AppCompatActivity() {
         while (message.contains("@!")) {
             if (iterations > 10) {
                 progressDialog?.cancel()
-                reportAnnouncementError(messageObject)
+                reportAnnouncementError(messageObject, "endless loop")
                 return
             }
             val substrings = message.split("@!", limit = 2)
@@ -178,7 +177,7 @@ class MainActivity : AppCompatActivity() {
         while (message.contains(" #")) {
             if (iterations > 10) {
                 progressDialog?.cancel()
-                reportAnnouncementError(messageObject)
+                reportAnnouncementError(messageObject, "endless loop")
                 return
             }
             try {
@@ -189,11 +188,7 @@ class MainActivity : AppCompatActivity() {
                 message = "${substrings[0]}&%$name${substrings[1].drop(18)}"
             } catch (e: Exception) {
                 message = message.replaceFirst("#", "&%")
-                Toast.makeText(
-                    applicationContext,
-                    "Showing recent Announcement failed",
-                    Toast.LENGTH_SHORT
-                ).show()
+                reportAnnouncementError(messageObject, e.toString())
                 Log.e(
                     "Cavedroid.MainActivity",
                     "Reading and showing announcement failed: $e, ${e.message}"
@@ -207,7 +202,7 @@ class MainActivity : AppCompatActivity() {
         while (message.contains("(t:")) {
             if (iterations > 10) {
                 progressDialog?.cancel()
-                reportAnnouncementError(messageObject)
+                reportAnnouncementError(messageObject, "endless loop")
                 return
             }
             val index = message.indexOf("(t:")
@@ -226,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         while (message.contains(" t:")) {
             if (iterations > 10) {
                 progressDialog?.cancel()
-                reportAnnouncementError(messageObject)
+                reportAnnouncementError(messageObject, "endless loop")
                 return
             }
             val index = message.indexOf(" t:")
@@ -277,7 +272,7 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.edit().putLong(LATEST_MESSAGE, messageObject.id.value.toLong()).apply()
     }
 
-    private suspend fun reportAnnouncementError(message: Message) {
+    private suspend fun reportAnnouncementError(message: Message, error: String) {
         try {
             Toast.makeText(
                 applicationContext,
@@ -288,7 +283,7 @@ class MainActivity : AppCompatActivity() {
             val channel = kord.getGuild(Snowflake(840366805649457172))
                 ?.getChannel(Snowflake(933683219075838012))
             val reportMessage =
-                "----------\nShowing Announcement dialog failed (endless loop):\nMessage Id: ${message.id}"
+                "----------\nShowing Announcement dialog failed ($error):\nMessage Id: ${message.id}"
             (channel as MessageChannel).createMessage(reportMessage)
         } catch (e: Exception) {
             Log.e("Cavedroid.MainActivity", "Sending announcement error message failed.")
