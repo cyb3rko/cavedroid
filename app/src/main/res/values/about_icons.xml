@@ -322,6 +322,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Spawn_Egg?file=Bee_spawn_egg.png</item>
     </string-array>
 
+    <string-array name="item_beehive">
+        <item>Sanjay Korrapati14</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Beehive?file=Bee+Hive.png</item>
+    </string-array>
+
     <string-array name="item_beetroot">
         <item>PancakeIdentity</item>
         <item>minecraft.fandom.com</item>
@@ -583,12 +589,6 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Block_of_Redstone?file=RedstoneBlockNew.png</item>
-    </string-array>
-
-    <string-array name="item_blooming_azalea_leaves">
-        <item>TheVeryInkyBendy</item>
-        <item>minecraft-archive.fandom.com</item>
-        <item>https://minecraft-archive.fandom.com/wiki/Leaves?file=BloomingAzaleaLeaves.png</item>
     </string-array>
 
     <string-array name="item_blue_banner">
@@ -1626,6 +1626,12 @@
         <item>https://minecraft-archive.fandom.com/wiki/Dried_Kelp_Block?file=DriedKelpBlock.png</item>
     </string-array>
 
+    <string-array name="item_dripstone_block">
+        <item>Pneuma01</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Dripstone_Block?file=Dripstone_Block.png</item>
+    </string-array>
+
     <string-array name="item_dropper">
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
@@ -1720,7 +1726,7 @@
         <item>https://minecraft-archive.fandom.com/wiki/End_Stone?file=EndStoneNew.png</item>
     </string-array>
 
-    <string-array name="item_end_stone_brick">
+    <string-array name="item_end_stone_bricks">
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/End_Stone_Brick?file=End+Stone+Bricks+new.png</item>
@@ -1771,6 +1777,12 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Feather?file=FeatherNew.png</item>
+    </string-array>
+
+    <string-array name="item_filled_map">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Map_(Item)?file=MapNew.png</item>
     </string-array>
 
     <string-array name="item_fire_coral">
@@ -1833,6 +1845,12 @@
         <item>TheVeryInkyBendy</item>
         <item>minecraft-archive.fandom.com</item>
         <item>https://minecraft-archive.fandom.com/wiki/Azalea?file=BabyBloomingAzaleaTree.png</item>
+    </string-array>
+
+    <string-array name="item_flowering_azalea_leaves">
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Leaves?file=BloomingAzaleaLeaves.png</item>
     </string-array>
 
     <string-array name="item_fox_spawn_egg">
@@ -3042,6 +3060,12 @@
         <item>Michael18751</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/Music_Disc?file=Music_Disc_Pigstep_JE1_BE1.png</item>
+    </string-array>
+
+    <string-array name="item_music_disc_stal">
+        <item>SpaceKake</item>
+        <item>minecraft-archive.fandom.com/</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Music_Discs?file=Stal.png</item>
     </string-array>
 
     <string-array name="item_music_disc_strad">
@@ -4304,10 +4328,9 @@
     </string-array>
 
     <string-array name="item_soul_torch">
-        <item>Pneuma01</item>
-        <item>minecraft.fandom.com</item>
-        <item>https://minecraft.fandom.com/wiki/File:Soul_Torch.gif</item>
-        <item>true</item>
+        <item>TheVeryInkyBendy</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Soul_Torch?file=SoulFireTorch.png</item>
     </string-array>
 
     <string-array name="item_spectral_arrow">
@@ -4625,6 +4648,12 @@
         <item>Deshman-gpuser</item>
         <item>minecraft.fandom.com</item>
         <item>https://minecraft.fandom.com/wiki/TNT?file=TNT_JE3_BE2.png</item>
+    </string-array>
+
+    <string-array name="item_torch">
+        <item>RealKnockout Bot</item>
+        <item>minecraft-archive.fandom.com</item>
+        <item>https://minecraft-archive.fandom.com/wiki/Torch?file=Torch.png</item>
     </string-array>
 
     <string-array name="item_totem_of_undying">
