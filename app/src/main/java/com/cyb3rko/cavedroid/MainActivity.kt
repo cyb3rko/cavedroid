@@ -223,19 +223,19 @@ class MainActivity : AppCompatActivity() {
 
         // Replace timestamp with formatted date and time
         iterations = 0
-        while (message.contains("t:")) {
+        while (message.contains(" t:")) {
             if (iterations > 10) {
                 progressDialog?.cancel()
                 reportAnnouncementError(messageObject)
                 return
             }
-            val index = message.indexOf("t:")
-            val endIndex = message.indexOf(":F", index + 12)
-            val time = message.substring(index + 2 until endIndex).toLong() * 1000
+            val index = message.indexOf(" t:")
+            val endIndex = message.indexOf(":F", index + 13)
+            val time = message.substring(index + 3 until endIndex).toLong() * 1000
             val date = Date(time)
             @SuppressLint("SimpleDateFormat")
             val formattedDate = SimpleDateFormat("MM/dd/yyyy - HH:mm 'UTC'").format(date)
-            message = message.substring(0 until index) +
+            message = message.substring(0 until index + 1) +
                     formattedDate +
                     message.substring(endIndex + 2)
             iterations++
