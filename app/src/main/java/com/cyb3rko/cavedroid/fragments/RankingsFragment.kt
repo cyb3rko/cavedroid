@@ -50,9 +50,9 @@ class RankingsFragment : Fragment() {
     }
 
     private fun setRankingButtons() {
-        val action1 = RankingsFragmentDirections.openRanking(1, getString(R.string.topbar_title_richlist))
-        val action2 = RankingsFragmentDirections.openRanking(2, getString(R.string.topbar_title_top_sellers))
-        val action3 = RankingsFragmentDirections.openRanking(3, getString(R.string.topbar_title_top_items))
+        val action1 = RankingsFragmentDirections.openRanking(getString(R.string.topbar_title_richlist), 1)
+        val action2 = RankingsFragmentDirections.openRanking(getString(R.string.topbar_title_top_sellers), 2)
+        val action3 = RankingsFragmentDirections.openRanking(getString(R.string.topbar_title_top_items), 3)
         binding.richlistCard.setOnClickListener { findNavController().navigate(action1) }
         binding.topSellersCard.setOnClickListener { findNavController().navigate(action2) }
         binding.topItemsCard.setOnClickListener { findNavController().navigate(action3) }

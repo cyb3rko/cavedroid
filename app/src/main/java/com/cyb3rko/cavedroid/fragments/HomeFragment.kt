@@ -121,30 +121,30 @@ class HomeFragment : Fragment() {
 
         binding.soldContainer.setOnClickListener {
             val action = HomeFragmentDirections.openProfileCategory(
-                1,
                 currentName,
-                amountItemsSold,
-                getString(R.string.topbar_title_items_sold)
+                getString(R.string.topbar_title_items_sold),
+                1,
+                amountItemsSold
             )
             findNavController().navigate(action)
         }
 
         binding.boughtContainer.setOnClickListener {
             val action = HomeFragmentDirections.openProfileCategory(
-                2,
                 currentName,
-                amountItemsBought,
-                getString(R.string.topbar_title_items_bought)
+                getString(R.string.topbar_title_items_bought),
+                2,
+                amountItemsBought
             )
             findNavController().navigate(action)
         }
 
         binding.offersContainer.setOnClickListener {
             val action = HomeFragmentDirections.openProfileCategory(
-                3,
                 currentName,
+                getString(R.string.topbar_title_offers),
+                3,
                 amountOffers,
-                getString(R.string.topbar_title_offers)
             )
             findNavController().navigate(action)
         }
