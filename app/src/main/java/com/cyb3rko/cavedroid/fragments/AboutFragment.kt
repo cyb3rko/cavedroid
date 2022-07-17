@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cyb3rko.cavedroid.BuildConfig
 import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.openURL
 import com.mikepenz.aboutlibraries.LibsBuilder
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
@@ -88,12 +89,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun openYouTubeProfile() = View.OnClickListener {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://youtube.com/channel/UCue_SZXdF8yZByavetBU1ZQ")
-            )
-        )
+        openURL("https://youtube.com/channel/UCue_SZXdF8yZByavetBU1ZQ")
     }
 
     private fun showChangelog() = View.OnClickListener {
@@ -136,30 +132,15 @@ class AboutFragment : Fragment() {
     }
 
     private fun openGithubFeedback() = View.OnClickListener {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://github.com/cyb3rko/cavedroid/")
-            )
-        )
+        openURL("https://github.com/cyb3rko/cavedroid")
     }
 
     private fun openGithubProfile() = View.OnClickListener {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://github.com/cyb3rko/")
-            )
-        )
+        openURL("https://github.com/cyb3rko")
     }
 
     private fun openInstaPage() = View.OnClickListener {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://instagram.com/_u/cyb3rko")
-            )
-        )
+        openURL("https://instagram.com/_u/cyb3rko")
     }
 
     private fun writeEmail() = View.OnClickListener {

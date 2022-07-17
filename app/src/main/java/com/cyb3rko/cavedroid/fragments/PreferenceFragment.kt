@@ -3,7 +3,6 @@ package com.cyb3rko.cavedroid.fragments
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -92,7 +91,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             DATA_DELETION -> {
                 FirebaseAnalytics.getInstance(requireActivity()).resetAnalyticsData()
                 FirebaseCrashlytics.getInstance().deleteUnsentReports()
-                Toast.makeText(requireContext(), getString(R.string.preferences_deletion_done), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.preferences_deletion_done))
                 true
             }
             else -> false

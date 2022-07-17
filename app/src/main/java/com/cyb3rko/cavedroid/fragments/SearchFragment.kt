@@ -22,10 +22,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import com.cyb3rko.cavedroid.R
+import com.cyb3rko.cavedroid.*
 import com.cyb3rko.cavedroid.SHARED_PREFERENCE
 import com.cyb3rko.cavedroid.THEME
-import com.cyb3rko.cavedroid.Utils
 import com.cyb3rko.cavedroid.databinding.FragmentItemSearchBinding
 import com.cyb3rko.cavedroid.rankings.MarketEntryViewHolder
 import com.cyb3rko.cavedroid.rankings.MarketViewState
@@ -78,7 +77,7 @@ class SearchFragment : Fragment() {
 
         val searchAnimation = when (mySPR.getString(THEME, "0")!!.toInt()) {
             R.style.Theme_Cavedroid_Standard -> {
-                if (Utils.isNightModeActive(resources)) {
+                if (isNightModeActive()) {
                     "search_blue_dark.json"
                 } else {
                     "search_blue_light.json"
@@ -91,7 +90,7 @@ class SearchFragment : Fragment() {
 
         val searchTextColor = when (mySPR.getString(THEME, "0")!!.toInt()) {
             R.style.Theme_Cavedroid_Standard -> {
-                if (Utils.isNightModeActive(resources)) {
+                if (isNightModeActive()) {
                     R.color.white
                 } else {
                     R.color.dark
@@ -216,7 +215,7 @@ class SearchFragment : Fragment() {
                 FirebaseAnalytics.getInstance(myContext).logEvent("shop_search") {
                     param("item", text)
                 }
-                Utils.hideKeyboard(requireActivity())
+                hideKeyboard()
                 webView.javascriptInterface.clearHTML()
                 adapter.submitList(emptyList())
                 showAnimation(true)
@@ -315,7 +314,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setEditTextColors() {
-        if (Utils.isNightModeActive(resources)) {
+        if (isNightModeActive()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 binding.textInputLayout.boxBackgroundColor = resources.getColor(
                     R.color.dark,

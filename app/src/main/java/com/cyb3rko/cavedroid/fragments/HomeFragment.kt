@@ -192,8 +192,8 @@ class HomeFragment : Fragment() {
                             MaterialAlertDialogBuilder(myContext, R.style.Dialog)
                                 .setTitle(R.string.name_history_title)
                                 .setItems(list.toTypedArray()) { _, id ->
-                                    Utils.storeToClipboard(myContext, list[id])
-                                    Utils.showClipboardToast(myContext, getString(R.string.clipboard_category_name))
+                                    storeToClipboard(list[id])
+                                    showClipboardToast(getString(R.string.clipboard_category_name))
                                 }
                                 .show()
                         } catch (e: Exception) {
@@ -354,7 +354,7 @@ class HomeFragment : Fragment() {
                     if (formattedQuery == "The Bank" ||
                         (Regex("[a-zA-Z0-9_]+").matches(query) && formattedQuery.length < 17)
                     ) {
-                        Utils.hideKeyboard(requireActivity())
+                        hideKeyboard()
                         binding.animationView.playAnimation()
                         binding.animationView.visibility = View.VISIBLE
                         showInformation(false)
@@ -392,7 +392,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                Utils.hideKeyboard(requireActivity())
+                hideKeyboard()
                 menu.forEach {
                     it.isVisible = true
                 }
@@ -428,12 +428,7 @@ class HomeFragment : Fragment() {
                 .setTitle(R.string.feedback_dialog_title)
                 .setMessage(R.string.feedback_dialog_message)
                 .setPositiveButton(R.string.feedback_dialog_button) { _, _ ->
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://github.com/cyb3rko/cavedroid/issues")
-                        )
-                    )
+                    openURL("https://github.com/cyb3rko/cavedroid/issues")
                 }
                 .show()
             true

@@ -1,15 +1,13 @@
 package com.cyb3rko.cavedroid
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.*
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -19,6 +17,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.bumptech.glide.Glide
@@ -56,29 +55,73 @@ internal const val SHARED_PREFERENCE = "Safe"
 internal const val SHOW_ANNOUNCEMENTS = "show_announcements"
 internal const val THEME = "theme"
 
+internal fun Context.showToast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, length).show()
+}
+
+internal fun Fragment.showToast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    requireContext().showToast(message, length)
+}
+
+internal fun Context.showClipboardToast(content: String) {
+    showToast("Copied $content to clipboard")
+}
+
+internal fun Fragment.showClipboardToast(content: String) {
+    requireContext().showClipboardToast(content)
+}
+
+internal fun Context.storeToClipboard(label: String, text: String = label) {
+    val clip = ClipData.newPlainText(label, text)
+    (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
+        .setPrimaryClip(clip)
+}
+
+internal fun Fragment.storeToClipboard(label: String, text: String = label) {
+    requireContext().storeToClipboard(label, text)
+}
+
+internal fun Context.openURL(url: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(intent)
+}
+
+internal fun Fragment.openURL(url: String) {
+    requireContext().openURL(url)
+}
+
+internal fun Fragment.hideKeyboard() {
+    val activity = requireActivity()
+    val imm = activity.getSystemService(
+        AppCompatActivity.INPUT_METHOD_SERVICE
+    ) as InputMethodManager
+    var view = activity.currentFocus
+    if (view == null) {
+        view = View(activity)
+    }
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+private fun isNightModeActive(resources: Resources): Boolean {
+    when (AppCompatDelegate.getDefaultNightMode()) {
+        AppCompatDelegate.MODE_NIGHT_YES -> return true
+        AppCompatDelegate.MODE_NIGHT_NO -> return false
+    }
+
+    return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+        Configuration.UI_MODE_NIGHT_YES -> true
+        Configuration.UI_MODE_NIGHT_NO -> false
+        else -> false
+    }
+}
+
+internal fun Context.isNightModeActive(): Boolean {
+    return isNightModeActive(resources)
+}
+
+internal fun Fragment.isNightModeActive() = requireContext().isNightModeActive()
+
 object Utils {
-    internal fun showToast(
-        context: Context,
-        message: String,
-        length: Int = Toast.LENGTH_SHORT
-    ) {
-        Toast.makeText(context, message, length).show()
-    }
-
-    internal fun showClipboardToast(context: Context, content: String) {
-        showToast(context, "Copied $content to clipboard")
-    }
-
-    internal fun storeToClipboard(
-        context: Context,
-        label: String,
-        text: String = label
-    ) {
-        val clip = ClipData.newPlainText(label, text)
-        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
-            .setPrimaryClip(clip)
-    }
-
     internal fun showLicenseDialog(context: Context?, type: String) {
         MaterialDialog(context!!, BottomSheet()).show {
             @Suppress("DEPRECATION")
@@ -252,17 +295,6 @@ object Utils {
         }
     }
 
-    internal fun hideKeyboard(activity: Activity) {
-        val imm = activity.getSystemService(
-            AppCompatActivity.INPUT_METHOD_SERVICE
-        ) as InputMethodManager
-        var view = activity.currentFocus
-        if (view == null) {
-            view = View(activity)
-        }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
     internal fun loadAvatar(
         context: Context,
         api: CavetaleAPI,
@@ -299,19 +331,6 @@ object Utils {
             }
             1 -> R.drawable.background_house
             else -> -1
-        }
-    }
-
-    internal fun isNightModeActive(resources: Resources): Boolean {
-        when (AppCompatDelegate.getDefaultNightMode()) {
-            AppCompatDelegate.MODE_NIGHT_YES -> return true
-            AppCompatDelegate.MODE_NIGHT_NO -> return false
-        }
-
-        return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> true
-            Configuration.UI_MODE_NIGHT_NO -> false
-            else -> false
         }
     }
 

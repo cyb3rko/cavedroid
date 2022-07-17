@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -274,11 +273,7 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun reportAnnouncementError(message: Message, error: String) {
         try {
-            Toast.makeText(
-                applicationContext,
-                "Showing recent Announcement failed",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast("Showing recent Announcement failed")
             val kord = Kord(Secrets().getAPIToken(packageName))
             val channel = kord.getGuild(Snowflake(840366805649457172))
                 ?.getChannel(Snowflake(933683219075838012))
